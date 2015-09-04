@@ -7,15 +7,18 @@ public class Controller : MonoBehaviour {
 	public bool canMove = true;
 	public bool dead = false;
 	public bool isGrounded;
+	public bool canGrabLedge;
 	public GameObject arrow;
 
 	GroundCollider groundCollider;
+	HandsCollider handsCollider;
 	float runSpeed = 5f;
 	float jumpForce = 30f;
 	Vector3 direction;
 	State state;
 
 	enum State{
+		Idle,
 		Run,
 		Shoot,
 		Jump,
@@ -24,16 +27,105 @@ public class Controller : MonoBehaviour {
 		GrabLedge,
 		Climb,
 		SlideDown,
+		Fall,
 		Die
 	}
 
+	void StateMachine(){
+		switch (state) {
+		case State.Idle:
+			break;
+		case State.Run:
+			break;
+		case State.Shoot:
+			break;
+		case State.Jump:
+			break;
+		case State.Crouch:
+			break;
+		case State.Dash:
+			break;
+		case State.GrabLedge:
+			break;
+		case State.Climb:
+			break;
+		case State.SlideDown:
+			break;
+		case State.Fall:
+			break;
+		case State.Die:
+			break;
+		}
+	}
+
+	void EnterState(State newState){
+		OnStateExit();
+		state = newState;
+
+		switch (state) {
+		case State.Idle:
+			break;
+		case State.Run:
+			break;
+		case State.Shoot:
+			break;
+		case State.Jump:
+			break;
+		case State.Crouch:
+			break;
+		case State.Dash:
+			break;
+		case State.GrabLedge:
+			break;
+		case State.Climb:
+			break;
+		case State.SlideDown:
+			break;
+		case State.Fall:
+			break;
+		case State.Die:
+			break;
+		}
+	}
+
+	void OnStateExit(){
+		switch (state) {
+		case State.Idle:
+			break;
+		case State.Run:
+			break;
+		case State.Shoot:
+			break;
+		case State.Jump:
+			break;
+		case State.Crouch:
+			break;
+		case State.Dash:
+			break;
+		case State.GrabLedge:
+			break;
+		case State.Climb:
+			break;
+		case State.SlideDown:
+			break;
+		case State.Fall:
+			break;
+		case State.Die:
+			break;
+		}
+	}
+	
 	void Start () {
 		groundCollider = GetComponentInChildren<GroundCollider> ();
+		handsCollider =  GetComponentInChildren<HandsCollider> ();
 	}
 
 	void FixedUpdate () {
+		StateMachine ();
 		isGrounded = groundCollider.isGrounded;
+		canGrabLedge = handsCollider.canGrabLedge;
 		Move ();
+		GrabLedge ();
 		Shoot ();
 	}
 
@@ -45,8 +137,8 @@ public class Controller : MonoBehaviour {
 				rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
 			}
 		}
-		Test ();
 		rigidbody.MovePosition (this.transform.position + direction * Time.deltaTime);
+	//	Test ();
 	}
 
 	void Shoot(){
@@ -59,9 +151,36 @@ public class Controller : MonoBehaviour {
 
 		Vector3 arrowPosition = transform.Find ("ArrowSpawner").position;
 		Quaternion arrowRotation = transform.Find ("ArrowSpawner").rotation;
-		Vector3 arrowSpawner = transform.Find ("ArrowSpawner").position;
 		GameObject newArrow = (GameObject)Instantiate (arrow, arrowPosition, arrowRotation);
 		newArrow.GetComponent<Arrow>().shot = true;
+	}
+
+	void GrabLedge(){
+		if (canGrabLedge) {
+			if (Input.GetAxisRaw("Vertical") > 0){
+				if (Input.GetButtonDown ("Jump")) {
+					Debug.Log("JUMP");
+					rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
+				}
+				else {
+					rigidbody.useGravity = false;
+					rigidbody.velocity = Vector3.zero;
+					Debug.Log("HANGING");
+				}
+			}
+			else{
+				ReleaseLedge();
+				Debug.Log("RELEASE");
+			}
+		}
+		else{
+			ReleaseLedge();
+			Debug.Log("RELEASE");
+		}
+	}
+
+	void ReleaseLedge(){
+		rigidbody.useGravity = true;
 	}
 	
 	void Test()

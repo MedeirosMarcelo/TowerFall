@@ -4,7 +4,7 @@ using System.Collections;
 public class Arrow : MonoBehaviour {
 
 	public bool shot;
-	float speed = 20f;
+	float speed = 30f;
 
 	void Start () {
 	//	Physics.gravity = new Vector3 (0, -300, 0);
