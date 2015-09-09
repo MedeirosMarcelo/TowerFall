@@ -12,6 +12,7 @@ public class Controller : MonoBehaviour {
 
 	GroundCollider groundCollider;
 	HandsCollider handsCollider;
+	GameObject arrowSpawner;
 	float runSpeed = 5f;
 	float jumpForce = 30f;
 	Vector3 direction;
@@ -127,6 +128,7 @@ public class Controller : MonoBehaviour {
 		Move ();
 		GrabLedge ();
 		Shoot ();
+//		arrowSpawner.transform.rotation = this.transform.rotation;
 	}
 
 	void Move() {
@@ -137,6 +139,7 @@ public class Controller : MonoBehaviour {
 				rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
 			}
 		}
+		direction = transform.TransformDirection(direction);
 		rigidbody.MovePosition (this.transform.position + direction * Time.deltaTime);
 	//	Test ();
 	}
