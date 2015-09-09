@@ -4,29 +4,41 @@ using System.Collections;
 public class Arrow : MonoBehaviour {
 
 	public bool shot;
-	float speed = 30f;
+	float speed = 35f;
+	float rotationSpeed = 10f;
+	float lifespan = 3f;
+	float arc = 0.2f;
+	float endTime;
 
 	void Start () {
+		endTime = lifespan + Time.time;
 	//	Physics.gravity = new Vector3 (0, -300, 0);
-	//	rigidbody.useGravity = false;
 		if (shot) {
 			Move ();
 		}
 	}
 
 	void FixedUpdate () {
-	//	rigidbody.useGravity = true;
-		transform.forward = Vector3.Slerp (transform.forward, rigidbody.velocity.normalized, 10 * Time.deltaTime);
+		transform.forward = Vector3.Slerp (transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
+	//	DestroyOnTime ();
 	}
 
 	void Move(){
-		rigidbody.AddForce (new Vector3 (0, 0.2f, 1f) * speed, ForceMode.Impulse);
+		Vector3 direction = transform.forward;
+		direction.y += arc; 
+		rigidbody.AddForce (direction * speed, ForceMode.Impulse);
 	}
 
 	void OnCollisionEnter(Collision col){
 		if (col.gameObject.name == "Floor" || 
 		    col.gameObject.name == "Wall") {
 			rigidbody.isKinematic = true;
+		}
+	}
+
+	void DestroyOnTime(){
+		if (Time.time > endTime) {
+			Destroy (this.gameObject);
 		}
 	}
 }

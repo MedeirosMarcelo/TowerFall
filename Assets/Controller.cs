@@ -127,6 +127,10 @@ public class Controller : MonoBehaviour {
 		canGrabLedge = handsCollider.canGrabLedge;
 		Move ();
 		GrabLedge ();
+
+	}
+
+	void Update(){
 		Shoot ();
 //		arrowSpawner.transform.rotation = this.transform.rotation;
 	}
@@ -173,12 +177,12 @@ public class Controller : MonoBehaviour {
 			}
 			else{
 				ReleaseLedge();
-				Debug.Log("RELEASE");
+		//		Debug.Log("RELEASE");
 			}
 		}
 		else{
 			ReleaseLedge();
-			Debug.Log("RELEASE");
+	//		Debug.Log("RELEASE");
 		}
 	}
 
