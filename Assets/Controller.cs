@@ -159,6 +159,7 @@ public class Controller : MonoBehaviour {
 		Vector3 arrowPosition = transform.Find ("ArrowSpawner").position;
 		Quaternion arrowRotation = transform.Find ("ArrowSpawner").rotation;
 		GameObject newArrow = (GameObject)Instantiate (arrow, arrowPosition, arrowRotation);
+		newArrow.transform.parent = this.transform.parent;
 		newArrow.GetComponent<Arrow>().shot = true;
 	}
 
