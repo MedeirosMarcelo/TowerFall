@@ -46,12 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Arrow.cs" />
-     <Compile Include="Assets\Controller.cs" />
-     <Compile Include="Assets\DetectGround.cs" />
-     <Compile Include="Assets\GroundCollider.cs" />
-     <Compile Include="Assets\HandsCollider.cs" />
-     <Compile Include="Assets\Portal.cs" />
+     <Compile Include="Assets\Scripts\Arrow.cs" />
+     <Compile Include="Assets\Scripts\Controller.cs" />
+     <Compile Include="Assets\Scripts\DetectGround.cs" />
+     <Compile Include="Assets\Scripts\GroundCollider.cs" />
+     <Compile Include="Assets\Scripts\HandsCollider.cs" />
+     <Compile Include="Assets\Scripts\ObjectMirror.cs" />
+     <Compile Include="Assets\Scripts\Portal.cs" />
+     <Compile Include="Assets\Scripts\WorldMirror.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />

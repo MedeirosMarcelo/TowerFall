@@ -15,6 +15,7 @@ public class Controller : MonoBehaviour {
     public float jumpForce = 25f;
     public float dashForce = 30f;
 
+	WorldMirror worldMirror;
     GroundCollider groundCollider;
     HandsCollider handsCollider;
     GameObject arrowSpawner;
@@ -121,6 +122,7 @@ public class Controller : MonoBehaviour {
     }
 
     void Start() {
+		worldMirror = transform.parent.GetComponent<WorldMirror> ();
         groundCollider = GetComponentInChildren<GroundCollider>();
         handsCollider = GetComponentInChildren<HandsCollider>();
     }
@@ -178,18 +180,17 @@ public class Controller : MonoBehaviour {
 
     void Shoot() {
         if (inputShoot) {
-            SendArrow();
+            BuildArrow();
         }
     }
 
-    void SendArrow() {
-        Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
-        Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
-        GameObject newArrow = (GameObject)Instantiate(arrow, arrowPosition, arrowRotation);
-        newArrow.transform.parent = this.transform.parent;
-        newArrow.GetComponent<Arrow>().shot = true;
+	void BuildArrow() {
+        Vector3 arrowPosition = transform.Find("Main Camera").Find("ArrowSpawner").position;
+		Quaternion arrowRotation = transform.Find("Main Camera").Find("ArrowSpawner").rotation;
+		GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
+		newArrow.GetComponent<Arrow>().shot = true;
     }
-
+	
     void GrabLedge() {
         if (canGrabLedge) {
             if (inputVertical > 0) {
