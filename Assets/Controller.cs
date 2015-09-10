@@ -3,213 +3,247 @@ using System.Collections;
 
 public class Controller : MonoBehaviour {
 
-	public bool canControl = true;
-	public bool canMove = true;
-	public bool dead = false;
-	public bool isGrounded;
-	public bool canGrabLedge;
-	public GameObject arrow;
+    public bool canControl = true;
+    public bool canMove = true;
+    public bool dead = false;
+    public bool isGrounded;
+    public bool canGrabLedge;
+    public GameObject arrow;
 
-	GroundCollider groundCollider;
-	HandsCollider handsCollider;
-	GameObject arrowSpawner;
-	float runSpeed = 5f;
-	float jumpForce = 30f;
-	Vector3 direction;
-	State state;
 
-	enum State{
-		Idle,
-		Run,
-		Shoot,
-		Jump,
-		Crouch,
-		Dash,
-		GrabLedge,
-		Climb,
-		SlideDown,
-		Fall,
-		Die
-	}
+    public float runSpeed = 5f;
+    public float jumpForce = 25f;
+    public float dashForce = 30f;
 
-	void StateMachine(){
-		switch (state) {
-		case State.Idle:
-			break;
-		case State.Run:
-			break;
-		case State.Shoot:
-			break;
-		case State.Jump:
-			break;
-		case State.Crouch:
-			break;
-		case State.Dash:
-			break;
-		case State.GrabLedge:
-			break;
-		case State.Climb:
-			break;
-		case State.SlideDown:
-			break;
-		case State.Fall:
-			break;
-		case State.Die:
-			break;
-		}
-	}
+    GroundCollider groundCollider;
+    HandsCollider handsCollider;
+    GameObject arrowSpawner;
+    Vector3 direction;
 
-	void EnterState(State newState){
-		OnStateExit();
-		state = newState;
+    State state;
 
-		switch (state) {
-		case State.Idle:
-			break;
-		case State.Run:
-			break;
-		case State.Shoot:
-			break;
-		case State.Jump:
-			break;
-		case State.Crouch:
-			break;
-		case State.Dash:
-			break;
-		case State.GrabLedge:
-			break;
-		case State.Climb:
-			break;
-		case State.SlideDown:
-			break;
-		case State.Fall:
-			break;
-		case State.Die:
-			break;
-		}
-	}
+    enum State {
+        Idle,
+        Run,
+        Shoot,
+        Jump,
+        Crouch,
+        Dash,
+        GrabLedge,
+        Climb,
+        SlideDown,
+        Fall,
+        Die
+    }
 
-	void OnStateExit(){
-		switch (state) {
-		case State.Idle:
-			break;
-		case State.Run:
-			break;
-		case State.Shoot:
-			break;
-		case State.Jump:
-			break;
-		case State.Crouch:
-			break;
-		case State.Dash:
-			break;
-		case State.GrabLedge:
-			break;
-		case State.Climb:
-			break;
-		case State.SlideDown:
-			break;
-		case State.Fall:
-			break;
-		case State.Die:
-			break;
-		}
-	}
-	
-	void Start () {
-		groundCollider = GetComponentInChildren<GroundCollider> ();
-		handsCollider =  GetComponentInChildren<HandsCollider> ();
-	}
+    void StateMachine() {
+        switch (state) {
+            case State.Idle:
+                break;
+            case State.Run:
+                break;
+            case State.Shoot:
+                break;
+            case State.Jump:
+                break;
+            case State.Crouch:
+                break;
+            case State.Dash:
+                break;
+            case State.GrabLedge:
+                break;
+            case State.Climb:
+                break;
+            case State.SlideDown:
+                break;
+            case State.Fall:
+                break;
+            case State.Die:
+                break;
+        }
+    }
 
-	void FixedUpdate () {
-		StateMachine ();
-		isGrounded = groundCollider.isGrounded;
-		canGrabLedge = handsCollider.canGrabLedge;
-		Move ();
-		GrabLedge ();
+    void EnterState(State newState) {
+        OnStateExit();
+        state = newState;
 
-	}
+        switch (state) {
+            case State.Idle:
+                break;
+            case State.Run:
+                break;
+            case State.Shoot:
+                break;
+            case State.Jump:
+                break;
+            case State.Crouch:
+                break;
+            case State.Dash:
+                break;
+            case State.GrabLedge:
+                break;
+            case State.Climb:
+                break;
+            case State.SlideDown:
+                break;
+            case State.Fall:
+                break;
+            case State.Die:
+                break;
+        }
+    }
 
-	void Update(){
-		Shoot ();
-//		arrowSpawner.transform.rotation = this.transform.rotation;
-	}
+    void OnStateExit() {
+        switch (state) {
+            case State.Idle:
+                break;
+            case State.Run:
+                break;
+            case State.Shoot:
+                break;
+            case State.Jump:
+                break;
+            case State.Crouch:
+                break;
+            case State.Dash:
+                break;
+            case State.GrabLedge:
+                break;
+            case State.Climb:
+                break;
+            case State.SlideDown:
+                break;
+            case State.Fall:
+                break;
+            case State.Die:
+                break;
+        }
+    }
 
-	void Move() {
-		direction = new Vector3(Input.GetAxis ("Horizontal") * runSpeed, 0, Input.GetAxis("Vertical") * runSpeed);
-		if (isGrounded){
-			if (Input.GetButtonDown ("Jump")) {
-				Debug.Log("JUMP");
-				rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
-			}
-		}
-		direction = transform.TransformDirection(direction);
-		rigidbody.MovePosition (this.transform.position + direction * Time.deltaTime);
-	//	Test ();
-	}
+    void Start() {
+        groundCollider = GetComponentInChildren<GroundCollider>();
+        handsCollider = GetComponentInChildren<HandsCollider>();
+    }
 
-	void Shoot(){
-		if (Input.GetButtonDown("Fire1")){
-			SendArrow();
-		}
-	}
+    // Inputs
+    float inputHorizontal = 0f;
+    float inputVertical = 0f;
+    bool inputShoot = false;
+    bool inputDash = false;
+    bool inputJump = false;
 
-	void SendArrow (){
+    // Must be called before each Update to accumulate inputs
+    void UpdateInput() {
+        inputHorizontal = Input.GetAxis("Horizontal");
+        inputVertical = Input.GetAxis("Vertical");
+        inputShoot |= Input.GetButtonDown("Fire1");
+        inputDash |= Input.GetButtonDown("Fire2");
+        inputJump |= Input.GetButtonDown("Jump");
+    }
 
-		Vector3 arrowPosition = transform.Find ("ArrowSpawner").position;
-		Quaternion arrowRotation = transform.Find ("ArrowSpawner").rotation;
-		GameObject newArrow = (GameObject)Instantiate (arrow, arrowPosition, arrowRotation);
-		newArrow.transform.parent = this.transform.parent;
-		newArrow.GetComponent<Arrow>().shot = true;
-	}
+    // Must be called after each Fixed Update to  clear accumulated inputs
+    void ClearInput() {
+        inputShoot = false;
+        inputDash = false;
+        inputJump = false;
+    }
 
-	void GrabLedge(){
-		if (canGrabLedge) {
-			if (Input.GetAxisRaw("Vertical") > 0){
-				if (Input.GetButtonDown ("Jump")) {
-					Debug.Log("JUMP");
-					rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
-				}
-				else {
-					rigidbody.useGravity = false;
-					rigidbody.velocity = Vector3.zero;
-					Debug.Log("HANGING");
-				}
-			}
-			else{
-				ReleaseLedge();
-		//		Debug.Log("RELEASE");
-			}
-		}
-		else{
-			ReleaseLedge();
-	//		Debug.Log("RELEASE");
-		}
-	}
+    void FixedUpdate() {
+        StateMachine();
+        isGrounded = groundCollider.isGrounded;
+        canGrabLedge = handsCollider.canGrabLedge;
+        Dash();
+        Move();
+        GrabLedge();
+        Shoot();
+        ClearInput();
+    }
 
-	void ReleaseLedge(){
-		rigidbody.useGravity = true;
-	}
-	
-	void Test()
-	{
-		// Get the velocity
-		Vector3 horizontalMove = rigidbody.velocity;
-		// Don't use the vertical velocity
-		horizontalMove.y = 0;
-		// Calculate the approximate distance that will be traversed
-		float distance =  horizontalMove.magnitude * Time.fixedDeltaTime;
-		// Normalize horizontalMove since it should be used to indicate direction
-		horizontalMove.Normalize();
-		RaycastHit hit;
-		
-		// Check if the body's current velocity will result in a collision
-		if(rigidbody.SweepTest(horizontalMove, out hit, distance))
-		{
-			// If so, stop the movement
-			rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
-		}
-	}
+    void Update() {
+        UpdateInput();
+    }
+
+    void Move() {
+        direction = new Vector3(inputHorizontal * runSpeed, 0, inputVertical * runSpeed);
+        if (isGrounded) {
+            if (inputJump) {
+                Debug.Log("JUMP");
+                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+        direction = transform.TransformDirection(direction);
+        rigidbody.MovePosition(this.transform.position + direction * Time.deltaTime);
+        //	Test ();
+    }
+
+    void Shoot() {
+        if (inputShoot) {
+            SendArrow();
+        }
+    }
+
+    void SendArrow() {
+        Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
+        Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
+        GameObject newArrow = (GameObject)Instantiate(arrow, arrowPosition, arrowRotation);
+        newArrow.transform.parent = this.transform.parent;
+        newArrow.GetComponent<Arrow>().shot = true;
+    }
+
+    void GrabLedge() {
+        if (canGrabLedge) {
+            if (inputVertical > 0) {
+                if (inputJump) {
+                    Debug.Log("JUMP");
+                    rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
+                else {
+                    rigidbody.useGravity = false;
+                    rigidbody.velocity = Vector3.zero;
+                    Debug.Log("HANGING");
+                }
+            }
+            else {
+                ReleaseLedge();
+                // Debug.Log("RELEASE");
+            }
+        }
+        else {
+            ReleaseLedge();
+            // Debug.Log("RELEASE");
+        }
+    }
+
+    void ReleaseLedge() {
+        rigidbody.useGravity = true;
+    }
+
+    void Dash() {
+        if (inputDash) {
+            Debug.Log("DASH");
+            float vertical = (inputVertical == 0f) ? 1f : inputVertical;
+            Vector3 dash = new Vector3(inputHorizontal, 0, vertical).normalized * dashForce;
+            rigidbody.AddForce(Camera.main.transform.TransformDirection(dash), ForceMode.Impulse);
+        }
+    }
+
+    void Test() {
+        // Get the velocity
+        Vector3 horizontalMove = rigidbody.velocity;
+        // Don't use the vertical velocity
+        horizontalMove.y = 0;
+        // Calculate the approximate distance that will be traversed
+        float distance = horizontalMove.magnitude * Time.fixedDeltaTime;
+        // Normalize horizontalMove since it should be used to indicate direction
+        horizontalMove.Normalize();
+        RaycastHit hit;
+
+        // Check if the body's current velocity will result in a collision
+        if (rigidbody.SweepTest(horizontalMove, out hit, distance)) {
+            // If so, stop the movement
+            rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
+        }
+    }
 }
 
 

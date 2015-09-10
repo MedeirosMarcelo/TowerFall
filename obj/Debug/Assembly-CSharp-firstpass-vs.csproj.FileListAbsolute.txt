@@ -1,0 +1,9 @@
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Tiago\JogosDigitais\Unity\TowerFall\obj\Debug\Assembly-CSharp-firstpass.pdb
