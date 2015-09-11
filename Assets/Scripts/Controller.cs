@@ -11,6 +11,7 @@ public class Controller : MonoBehaviour {
     public GameObject arrow;
 
 
+
     public float runSpeed = 5f;
     public float jumpForce = 25f;
     public float dashForce = 30f;
@@ -19,7 +20,10 @@ public class Controller : MonoBehaviour {
     GroundCollider groundCollider;
     HandsCollider handsCollider;
     GameObject arrowSpawner;
+
     Vector3 direction;
+
+
 
     State state;
 
@@ -158,6 +162,7 @@ public class Controller : MonoBehaviour {
         Move();
         GrabLedge();
         Shoot();
+        //Loop();
         ClearInput();
     }
 
@@ -176,6 +181,43 @@ public class Controller : MonoBehaviour {
         direction = transform.TransformDirection(direction);
         rigidbody.MovePosition(this.transform.position + direction * Time.deltaTime);
         //	Test ();
+    }
+
+    public GameObject loopArea;
+    bool printLoop = true;
+    void Loop () {
+        Bounds bounds = loopArea.renderer.bounds;
+        // get 
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+        //modify
+        min.y = float.NegativeInfinity;
+        max.y = float.PositiveInfinity;
+        //set
+        bounds.min = min;
+        bounds.max = max;
+
+        Vector3 position = rigidbody.position;
+        Vector3 nextPosition = position + (rigidbody.velocity * Time.fixedDeltaTime);
+        bool bounded = bounds.Contains(nextPosition);
+
+        if (bounded == false) {
+            Vector3 relativePosition = (bounds.center - position);
+            relativePosition.y = 0f;
+            rigidbody.position = position + 2 * relativePosition;
+            Debug.Log("Offset=" +relativePosition.ToString("N2"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            printLoop = !printLoop;
+        }
+        if (printLoop) {
+            Debug.Log("Bounds Min= " + min.ToString("N2") + " Max=" + max.ToString("N2"));
+            Debug.Log("Position=" + rigidbody.position.ToString("N2"));
+            Debug.Log("Next Position=" + rigidbody.position.ToString("N2"));
+            Debug.Log("Contains=" + bounded.ToString());
+        }
+
     }
 
     void Shoot() {
