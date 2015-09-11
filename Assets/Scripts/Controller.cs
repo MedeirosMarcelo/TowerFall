@@ -11,12 +11,15 @@ public class Controller : MonoBehaviour {
     public GameObject arrow;
 
 
-    public float runSpeed = 5f;
+    public float runSpeed = 12f;
     public float jumpForce = 25f;
     public float dashForce = 30f;
 
 	WorldMirror worldMirror;
+
     GroundCollider groundCollider;
+	MouseLook charMouseLook;
+	MouseLook cameraMouseLook;
     HandsCollider handsCollider;
     GameObject arrowSpawner;
     Vector3 direction;
@@ -122,9 +125,13 @@ public class Controller : MonoBehaviour {
     }
 
     void Start() {
+		charMouseLook = this.GetComponent<MouseLook>();
+		cameraMouseLook = Camera.main.GetComponent<MouseLook>();
 		worldMirror = transform.parent.GetComponent<WorldMirror> ();
         groundCollider = GetComponentInChildren<GroundCollider>();
         handsCollider = GetComponentInChildren<HandsCollider>();
+		Screen.showCursor = false;
+		Screen.lockCursor = true;
     }
 
     // Inputs
@@ -163,6 +170,7 @@ public class Controller : MonoBehaviour {
 
     void Update() {
         UpdateInput();
+		ShowHideMouseCursor ();
     }
 
     void Move() {
@@ -227,6 +235,23 @@ public class Controller : MonoBehaviour {
             rigidbody.AddForce(Camera.main.transform.TransformDirection(dash), ForceMode.Impulse);
         }
     }
+
+	void ShowHideMouseCursor(){
+		if (Input.GetKeyDown(KeyCode.Tab)) {
+			if (Screen.showCursor){
+				charMouseLook.enabled = true;
+				cameraMouseLook.enabled = true;
+				Screen.showCursor = false;
+				Screen.lockCursor = true;
+			}
+			else{
+				charMouseLook.enabled = false;
+				cameraMouseLook.enabled = false;
+				Screen.showCursor = true;
+				Screen.lockCursor = false;
+			}
+		}
+	}
 
     void Test() {
         // Get the velocity
