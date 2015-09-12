@@ -17,6 +17,7 @@ public class Controller : MonoBehaviour {
 
 	WorldMirror worldMirror;
 
+	Camera playerCamera;
     GroundCollider groundCollider;
 	MouseLook charMouseLook;
 	MouseLook cameraMouseLook;
@@ -125,8 +126,9 @@ public class Controller : MonoBehaviour {
     }
 
     void Start() {
+		playerCamera = transform.Find ("Main Camera").GetComponent<Camera>();
 		charMouseLook = this.GetComponent<MouseLook>();
-		cameraMouseLook = Camera.main.GetComponent<MouseLook>();
+		cameraMouseLook = playerCamera.GetComponent<MouseLook>();
 		worldMirror = transform.parent.GetComponent<WorldMirror> ();
         groundCollider = GetComponentInChildren<GroundCollider>();
         handsCollider = GetComponentInChildren<HandsCollider>();
@@ -193,8 +195,10 @@ public class Controller : MonoBehaviour {
     }
 
 	void BuildArrow() {
-        Vector3 arrowPosition = transform.Find("Main Camera").Find("ArrowSpawner").position;
-		Quaternion arrowRotation = transform.Find("Main Camera").Find("ArrowSpawner").rotation;
+		Vector3 arrowPosition = playerCamera.transform.Find("ArrowSpawner").position;
+		Quaternion arrowRotation = playerCamera.transform.Find("ArrowSpawner").rotation;
+		Ray ray = Camera.main.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+		arrowRotation = new Quaternion (ray.direction.x, ray.direction.y, ray.direction.z, 0);
 		GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
 		newArrow.GetComponent<Arrow>().shot = true;
     }
