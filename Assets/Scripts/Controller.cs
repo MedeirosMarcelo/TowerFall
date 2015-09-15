@@ -15,14 +15,13 @@ public class Controller : MonoBehaviour {
     public float jumpForce = 25f;
     public float dashForce = 30f;
 
-	WorldMirror worldMirror;
+    WorldMirror worldMirror;
 
     GroundCollider groundCollider;
-	MouseLook charMouseLook;
-	MouseLook cameraMouseLook;
+    MouseLook charMouseLook;
+    MouseLook cameraMouseLook;
     HandsCollider handsCollider;
     GameObject arrowSpawner;
-    Vector3 direction;
 
     State state;
 
@@ -125,13 +124,13 @@ public class Controller : MonoBehaviour {
     }
 
     void Start() {
-		charMouseLook = this.GetComponent<MouseLook>();
-		cameraMouseLook = Camera.main.GetComponent<MouseLook>();
-		worldMirror = transform.parent.GetComponent<WorldMirror> ();
+        charMouseLook = this.GetComponent<MouseLook>();
+        cameraMouseLook = Camera.main.GetComponent<MouseLook>();
+        worldMirror = transform.parent.GetComponent<WorldMirror>();
         groundCollider = GetComponentInChildren<GroundCollider>();
         handsCollider = GetComponentInChildren<HandsCollider>();
-		Screen.showCursor = false;
-		Screen.lockCursor = true;
+        Screen.showCursor = false;
+        Screen.lockCursor = true;
     }
 
     // Inputs
@@ -161,7 +160,6 @@ public class Controller : MonoBehaviour {
         StateMachine();
         isGrounded = groundCollider.isGrounded;
         canGrabLedge = handsCollider.canGrabLedge;
-        Dash();
         Move();
         GrabLedge();
         Shoot();
@@ -170,51 +168,86 @@ public class Controller : MonoBehaviour {
 
     void Update() {
         UpdateInput();
-		ShowHideMouseCursor ();
+        ShowHideMouseCursor();
     }
 
+    float velocity = 14f;
+    float maxAcceleration = 8f;
+    Vector3 CalculateVelocityChange(Vector3 inputVector) {
+        // Calculate how fast we should be moving
+        var relativeVelocity = transform.TransformDirection(inputVector) * velocity;
+        // Calcualte the delta velocity
+        var velocityChange = relativeVelocity - rigidbody.velocity;
+        velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
+        velocityChange.z = Mathf.Clamp(velocityChange.z, -maxAcceleration, maxAcceleration);
+        velocityChange.y = 0;
+        return velocityChange;
+    }
+
+    void Dash(Vector3 inputVector) {
+        Debug.Log("DASH");
+
+        if(inputVector == Vector3.zero) {
+            inputVector = Vector3.forward;
+        }
+
+        Vector3 dash = inputVector.normalized * dashForce;
+        rigidbody.AddForce(Camera.main.transform.TransformDirection(dash), ForceMode.Impulse);
+    }
+
+    float maxVelocity = 40f;
     void Move() {
-        direction = new Vector3(inputHorizontal * runSpeed, 0, inputVertical * runSpeed);
+        // Plane movemente (x,z)
+        Vector3 planeVelocity = rigidbody.velocity;
+        planeVelocity.y = 0f;
+        if (planeVelocity.magnitude < maxVelocity) {
+            var inputVector = new Vector3(inputHorizontal, 0, inputVertical);
+            if (inputDash) {
+                Dash(inputVector);
+            }
+            else {
+                if (inputVector.magnitude > 0f) {
+                    inputVector = new Vector3(inputHorizontal, 0, inputVertical);
+                    rigidbody.AddForce(CalculateVelocityChange(inputVector), ForceMode.VelocityChange);
+                }
+            }
+        } else {
+            Debug.Log("Too fast too furious!");
+        }
+        // Vertical movement (y)
         if (isGrounded) {
             if (inputJump) {
                 Debug.Log("JUMP");
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up* jumpForce, ForceMode.Impulse);
             }
         }
-        direction = transform.TransformDirection(direction);
-        rigidbody.MovePosition(this.transform.position + direction * Time.deltaTime);
         //	Test ();
     }
 
     void Shoot() {
-        if (inputShoot) {
-            BuildArrow();
-        }
+    if (inputShoot) {
+        //BuildArrow();
     }
+}
 
-	void BuildArrow() {
-        Vector3 arrowPosition = transform.Find("Main Camera").Find("ArrowSpawner").position;
-		Quaternion arrowRotation = transform.Find("Main Camera").Find("ArrowSpawner").rotation;
-		GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
-		newArrow.GetComponent<Arrow>().shot = true;
-    }
-	
-    void GrabLedge() {
-        if (canGrabLedge) {
-            if (inputVertical > 0) {
-                if (inputJump) {
-                    Debug.Log("JUMP");
-                    rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                }
-                else {
-                    rigidbody.useGravity = false;
-                    rigidbody.velocity = Vector3.zero;
-                    Debug.Log("HANGING");
-                }
+void BuildArrow() {
+    Vector3 arrowPosition = transform.Find("Main Camera").Find("ArrowSpawner").position;
+    Quaternion arrowRotation = transform.Find("Main Camera").Find("ArrowSpawner").rotation;
+    GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
+    newArrow.GetComponent<Arrow>().shot = true;
+}
+
+void GrabLedge() {
+    if (canGrabLedge) {
+        if (inputVertical > 0) {
+            if (inputJump) {
+                Debug.Log("JUMP");
+                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
             else {
-                ReleaseLedge();
-                // Debug.Log("RELEASE");
+                rigidbody.useGravity = false;
+                rigidbody.velocity = Vector3.zero;
+                Debug.Log("HANGING");
             }
         }
         else {
@@ -222,54 +255,50 @@ public class Controller : MonoBehaviour {
             // Debug.Log("RELEASE");
         }
     }
-
-    void ReleaseLedge() {
-        rigidbody.useGravity = true;
+    else {
+        ReleaseLedge();
+        // Debug.Log("RELEASE");
     }
+}
 
-    void Dash() {
-        if (inputDash) {
-            Debug.Log("DASH");
-            float vertical = (inputVertical == 0f) ? 1f : inputVertical;
-            Vector3 dash = new Vector3(inputHorizontal, 0, vertical).normalized * dashForce;
-            rigidbody.AddForce(Camera.main.transform.TransformDirection(dash), ForceMode.Impulse);
+void ReleaseLedge() {
+    rigidbody.useGravity = true;
+}
+
+void ShowHideMouseCursor() {
+    if (Input.GetKeyDown(KeyCode.Tab)) {
+        if (Screen.showCursor) {
+            charMouseLook.enabled = true;
+            cameraMouseLook.enabled = true;
+            Screen.showCursor = false;
+            Screen.lockCursor = true;
+        }
+        else {
+            charMouseLook.enabled = false;
+            cameraMouseLook.enabled = false;
+            Screen.showCursor = true;
+            Screen.lockCursor = false;
         }
     }
+}
 
-	void ShowHideMouseCursor(){
-		if (Input.GetKeyDown(KeyCode.Tab)) {
-			if (Screen.showCursor){
-				charMouseLook.enabled = true;
-				cameraMouseLook.enabled = true;
-				Screen.showCursor = false;
-				Screen.lockCursor = true;
-			}
-			else{
-				charMouseLook.enabled = false;
-				cameraMouseLook.enabled = false;
-				Screen.showCursor = true;
-				Screen.lockCursor = false;
-			}
-		}
-	}
+void Test() {
+    // Get the velocity
+    Vector3 horizontalMove = rigidbody.velocity;
+    // Don't use the vertical velocity
+    horizontalMove.y = 0;
+    // Calculate the approximate distance that will be traversed
+    float distance = horizontalMove.magnitude * Time.fixedDeltaTime;
+    // Normalize horizontalMove since it should be used to indicate direction
+    horizontalMove.Normalize();
+    RaycastHit hit;
 
-    void Test() {
-        // Get the velocity
-        Vector3 horizontalMove = rigidbody.velocity;
-        // Don't use the vertical velocity
-        horizontalMove.y = 0;
-        // Calculate the approximate distance that will be traversed
-        float distance = horizontalMove.magnitude * Time.fixedDeltaTime;
-        // Normalize horizontalMove since it should be used to indicate direction
-        horizontalMove.Normalize();
-        RaycastHit hit;
-
-        // Check if the body's current velocity will result in a collision
-        if (rigidbody.SweepTest(horizontalMove, out hit, distance)) {
-            // If so, stop the movement
-            rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
-        }
+    // Check if the body's current velocity will result in a collision
+    if (rigidbody.SweepTest(horizontalMove, out hit, distance)) {
+        // If so, stop the movement
+        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
     }
+}
 }
 
 
