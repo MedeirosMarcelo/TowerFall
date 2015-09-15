@@ -17,6 +17,7 @@ public class Controller : MonoBehaviour {
 
     WorldMirror worldMirror;
 
+    Camera playerCamera;
     GroundCollider groundCollider;
     MouseLook charMouseLook;
     MouseLook cameraMouseLook;
@@ -124,9 +125,11 @@ public class Controller : MonoBehaviour {
     }
 
     void Start() {
+        playerCamera = transform.Find("Main Camera").GetComponent<Camera>();
         charMouseLook = this.GetComponent<MouseLook>();
-        cameraMouseLook = Camera.main.GetComponent<MouseLook>();
+        cameraMouseLook = playerCamera.GetComponent<MouseLook>();
         worldMirror = transform.parent.GetComponent<WorldMirror>();
+
         groundCollider = GetComponentInChildren<GroundCollider>();
         handsCollider = GetComponentInChildren<HandsCollider>();
         Screen.showCursor = false;
@@ -187,7 +190,7 @@ public class Controller : MonoBehaviour {
     void Dash(Vector3 inputVector) {
         Debug.Log("DASH");
 
-        if(inputVector == Vector3.zero) {
+        if (inputVector == Vector3.zero) {
             inputVector = Vector3.forward;
         }
 
@@ -211,38 +214,47 @@ public class Controller : MonoBehaviour {
                     rigidbody.AddForce(CalculateVelocityChange(inputVector), ForceMode.VelocityChange);
                 }
             }
-        } else {
+        }
+        else {
             Debug.Log("Too fast too furious!");
         }
         // Vertical movement (y)
         if (isGrounded) {
             if (inputJump) {
                 Debug.Log("JUMP");
-                rigidbody.AddForce(Vector3.up* jumpForce, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
         //	Test ();
     }
 
     void Shoot() {
-    if (inputShoot) {
-        //BuildArrow();
+        if (inputShoot) {
+            //BuildArrow();
+        }
     }
-}
 
-void BuildArrow() {
-    Vector3 arrowPosition = transform.Find("Main Camera").Find("ArrowSpawner").position;
-    Quaternion arrowRotation = transform.Find("Main Camera").Find("ArrowSpawner").rotation;
-    GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
-    newArrow.GetComponent<Arrow>().shot = true;
-}
+    void BuildArrow() {
+        Vector3 arrowPosition = playerCamera.transform.Find("ArrowSpawner").position;
+        Quaternion arrowRotation = playerCamera.transform.Find("ArrowSpawner").rotation;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+        arrowRotation = new Quaternion(ray.direction.x, ray.direction.y, ray.direction.z, 0);
+        GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
+        newArrow.GetComponent<Arrow>().shot = true;
+    }
 
-void GrabLedge() {
-    if (canGrabLedge) {
-        if (inputVertical > 0) {
-            if (inputJump) {
-                Debug.Log("JUMP");
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    void GrabLedge() {
+        if (canGrabLedge) {
+            if (inputVertical > 0) {
+                if (inputJump) {
+                    Debug.Log("JUMP");
+                    rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
+                else {
+                    rigidbody.useGravity = false;
+                    rigidbody.velocity = Vector3.zero;
+                    Debug.Log("HANGING");
+                }
             }
             else {
                 rigidbody.useGravity = false;
@@ -255,50 +267,45 @@ void GrabLedge() {
             // Debug.Log("RELEASE");
         }
     }
-    else {
-        ReleaseLedge();
-        // Debug.Log("RELEASE");
+
+    void ReleaseLedge() {
+        rigidbody.useGravity = true;
     }
-}
 
-void ReleaseLedge() {
-    rigidbody.useGravity = true;
-}
-
-void ShowHideMouseCursor() {
-    if (Input.GetKeyDown(KeyCode.Tab)) {
-        if (Screen.showCursor) {
-            charMouseLook.enabled = true;
-            cameraMouseLook.enabled = true;
-            Screen.showCursor = false;
-            Screen.lockCursor = true;
-        }
-        else {
-            charMouseLook.enabled = false;
-            cameraMouseLook.enabled = false;
-            Screen.showCursor = true;
-            Screen.lockCursor = false;
+    void ShowHideMouseCursor() {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            if (Screen.showCursor) {
+                charMouseLook.enabled = true;
+                cameraMouseLook.enabled = true;
+                Screen.showCursor = false;
+                Screen.lockCursor = true;
+            }
+            else {
+                charMouseLook.enabled = false;
+                cameraMouseLook.enabled = false;
+                Screen.showCursor = true;
+                Screen.lockCursor = false;
+            }
         }
     }
-}
 
-void Test() {
-    // Get the velocity
-    Vector3 horizontalMove = rigidbody.velocity;
-    // Don't use the vertical velocity
-    horizontalMove.y = 0;
-    // Calculate the approximate distance that will be traversed
-    float distance = horizontalMove.magnitude * Time.fixedDeltaTime;
-    // Normalize horizontalMove since it should be used to indicate direction
-    horizontalMove.Normalize();
-    RaycastHit hit;
+    void Test() {
+        // Get the velocity
+        Vector3 horizontalMove = rigidbody.velocity;
+        // Don't use the vertical velocity
+        horizontalMove.y = 0;
+        // Calculate the approximate distance that will be traversed
+        float distance = horizontalMove.magnitude * Time.fixedDeltaTime;
+        // Normalize horizontalMove since it should be used to indicate direction
+        horizontalMove.Normalize();
+        RaycastHit hit;
 
-    // Check if the body's current velocity will result in a collision
-    if (rigidbody.SweepTest(horizontalMove, out hit, distance)) {
-        // If so, stop the movement
-        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
+        // Check if the body's current velocity will result in a collision
+        if (rigidbody.SweepTest(horizontalMove, out hit, distance)) {
+            // If so, stop the movement
+            rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
+        }
     }
-}
 }
 
 
