@@ -8,46 +8,40 @@ public class LoopController : MonoBehaviour {
 
     Transform transform;
     Rigidbody rigidbody;
-    Mover mover;
+    Vector3 boundMin;
+    Vector3 boundMax;
 
     void Start() {
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-        mover = GetComponent<Mover>();
+
+        Vector3 offset = loopArea.transform.localPosition;
+        Vector3 halfSize = loopArea.transform.localScale / 2.0f;
+        boundMin = offset - halfSize;
+        boundMax = offset + halfSize;
     }
-    void LoopAxis(float min, float max, ref float position, ref float velocity) {
-        float nextPosition = position + velocity * Time.fixedDeltaTime;
-        if (nextPosition > max) {
-            position = min;
-            velocity = (nextPosition - max) / Time.fixedDeltaTime;
-            Debug.Log("Loop Max");
+
+    void LoopAxis(float min, float max, ref float position) {
+        float size = max - min;
+        if (position > max) {
+            position -= size;
         }
-        else if (nextPosition < min) {
-            position = max;
-            velocity = (nextPosition - min) / Time.fixedDeltaTime;
-            Debug.Log("Loop Min");
+        else if (position < min) {
+            position += size;
         }
     }
 
     void Loop() {
-        Bounds bounds = loopArea.renderer.bounds;
-        Vector3 boundMin = bounds.min;
-        Vector3 boundMax = bounds.max;
-        Vector3 newPosition = transform.position;
-        Vector3 newVelocity = rigidbody.velocity;
+        Vector3 position = transform.localPosition;
 
-        LoopAxis(boundMin.x, boundMax.x, ref newPosition.x, ref newVelocity.x);
-        LoopAxis(boundMin.y, boundMax.y, ref newPosition.y, ref newVelocity.y);
-        LoopAxis(boundMin.z, boundMax.z, ref newPosition.z, ref newVelocity.z);
+        LoopAxis(boundMin.x, boundMax.x, ref position.x);
+        LoopAxis(boundMin.y, boundMax.y, ref position.y);
+        LoopAxis(boundMin.z, boundMax.z, ref position.z);
 
-        if (newPosition != transform.position) {
-            transform.position = newPosition;
-            rigidbody.velocity = newVelocity;
-
-            Debug.Log("Bound Min= " + boundMin.ToString("N2") + "\n"
-                + "bound Max=" + boundMax.ToString("N2") + "\n"
-                + "Position=" + newPosition.ToString("N2") + "\n"
-                + "Velocity=" + newVelocity.ToString("N2"));
+        if (position != transform.localPosition) {
+            transform.localPosition = position;
+            Debug.Log(name  + "\nBound Min= " + boundMin.ToString("N2") + " Max=" + boundMax.ToString("N2") + "\n"
+                + "Position=" + position.ToString("N2"));
         }
     }
 

@@ -32,6 +32,7 @@ public class Arrow : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (col.gameObject.name == "Floor" || 
 		    col.gameObject.name == "Wall") {
+            Debug.Log(col.gameObject.name);
 			rigidbody.isKinematic = true;
 		}
 	}

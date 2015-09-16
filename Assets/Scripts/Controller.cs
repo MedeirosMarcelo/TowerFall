@@ -230,7 +230,7 @@ public class Controller : MonoBehaviour {
 
     void Shoot() {
         if (inputShoot) {
-            //BuildArrow();
+            BuildArrow();
         }
     }
 
