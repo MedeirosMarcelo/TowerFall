@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour {
     public bool isGrounded;
     public bool canGrabLedge;
     public GameObject arrow;
+    public GameObject empty;
 
 
     public float runSpeed = 12f;
@@ -235,11 +236,19 @@ public class Controller : MonoBehaviour {
     }
 
     void BuildArrow() {
-        Vector3 arrowPosition = playerCamera.transform.Find("ArrowSpawner").position;
-        Quaternion arrowRotation = playerCamera.transform.Find("ArrowSpawner").rotation;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-        arrowRotation = new Quaternion(ray.direction.x, ray.direction.y, ray.direction.z, 0);
+        Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
+        Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
+        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+        RaycastHit hit;
         GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
+        GameObject temp = worldMirror.InstantiateAll(empty, ray.GetPoint(15), arrowRotation);
+        temp.transform.parent = this.transform.parent;
+        if (Physics.Raycast(ray, out hit)) {
+            newArrow.transform.LookAt(hit.point);
+        }
+        else {
+            newArrow.transform.LookAt(ray.GetPoint(15));
+        }
         newArrow.GetComponent<Arrow>().shot = true;
     }
 
