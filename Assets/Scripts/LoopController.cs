@@ -2,23 +2,16 @@
 using System.Collections;
 
 public class LoopController : MonoBehaviour {
-
-    public bool debug = false;
-    public GameObject loopArea;
-
     Transform transform;
     Rigidbody rigidbody;
-    Vector3 boundMin;
-    Vector3 boundMax;
+    WorldLoop worldloop;
+    Bounds bounds;
 
     void Start() {
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-
-        Vector3 offset = loopArea.transform.localPosition;
-        Vector3 halfSize = loopArea.transform.localScale / 2.0f;
-        boundMin = offset - halfSize;
-        boundMax = offset + halfSize;
+        worldloop = GetComponentInParent<WorldLoop>();
+        bounds = worldloop.bounds;
     }
 
     void LoopAxis(float min, float max, ref float position) {
@@ -34,18 +27,21 @@ public class LoopController : MonoBehaviour {
     void Loop() {
         Vector3 position = transform.localPosition;
 
-        LoopAxis(boundMin.x, boundMax.x, ref position.x);
-        LoopAxis(boundMin.y, boundMax.y, ref position.y);
-        LoopAxis(boundMin.z, boundMax.z, ref position.z);
+        LoopAxis(bounds.min.x, bounds.max.x, ref position.x);
+        LoopAxis(bounds.min.y, bounds.max.y, ref position.y);
+        LoopAxis(bounds.min.z, bounds.max.z, ref position.z);
 
         if (position != transform.localPosition) {
             transform.localPosition = position;
-            Debug.Log(name  + "\nBound Min= " + boundMin.ToString("N2") + " Max=" + boundMax.ToString("N2") + "\n"
+            Debug.Log(name + "\n"
+                + "Bound Min= " + bounds.min.ToString("N2") + " Max=" + bounds.max.ToString("N2") + "\n"
                 + "Position=" + position.ToString("N2"));
         }
     }
 
     void FixedUpdate() {
-        Loop();
+        if (rigidbody.isKinematic == false) {
+            Loop();
+        }
     }
 }
