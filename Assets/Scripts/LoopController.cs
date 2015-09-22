@@ -2,16 +2,20 @@
 using System.Collections;
 
 public class LoopController : MonoBehaviour {
+
+    public GameObject Reflection;
+
     Transform transform;
     Rigidbody rigidbody;
-    WorldLoop worldloop;
+    WorldMirror worldMirror;
     Bounds bounds;
 
     void Start() {
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-        worldloop = GetComponentInParent<WorldLoop>();
-        bounds = worldloop.bounds;
+        worldMirror = GetComponentInParent<WorldMirror>();
+        bounds = worldMirror.bounds;
+        Debug.Log(name + bounds);
     }
 
     void LoopAxis(float min, float max, ref float position) {
