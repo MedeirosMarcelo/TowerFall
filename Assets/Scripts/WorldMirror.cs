@@ -5,15 +5,13 @@ using System.Collections.Generic;
 public class WorldMirror : MonoBehaviour {
     public GameObject Player;
     public GameObject Reflection;
-    public bool MirrorOnObjects = true;
-    public int ClonesX = 5;
-    public int ClonesY = 0;
-    public int ClonesZ = 0;
-    public Vector3 Offset = new Vector3(0.0f, 4.5f, 0.0f);
-    public Vector3 Size = new Vector3(35.0f, 10.0f, 30.0f);
+    public GameObject Terrain;
+    public int ReflectionsX = 5;
+    public int ReflectionsY = 0;
+    public int ReflectionsZ = 0;
     public Bounds bounds {
         get {
-            return new Bounds(Offset, Size);
+            return (Terrain == null) ? new Bounds(transform.position, transform.localScale) : Terrain.GetComponent<TerrainBounds>().localBounds;
         }
     }
 
@@ -24,12 +22,10 @@ public class WorldMirror : MonoBehaviour {
                                           transform.position + offset,
                                           transform.rotation);
         obj.transform.parent = transform;
-
         /*
         var playerReflection = obj.GetComponent<WorldReflection>().PlayerReflection;
         playerReflection.GetComponent<ObjectMirror>().target = Player;
         */
-
 
         var character = transform.FindChild("Third Person Test").gameObject;
         obj.transform.FindChild("Character Mirror").GetComponent<ObjectMirror>().target = character;
@@ -46,31 +42,22 @@ public class WorldMirror : MonoBehaviour {
         }
     }
 
+    public void BuildWorldReflections() {
+        ClearWorldReflections();
+        BuildReflections(new Vector3(bounds.size.x, 0.0f, 0.0f), ReflectionsX);
+        BuildReflections(new Vector3(0.0f, bounds.size.y, 0.0f), ReflectionsY);
+        BuildReflections(new Vector3(0.0f, 0.0f, bounds.size.z), ReflectionsZ);
+    }
+    public void ClearWorldReflections() {
+        foreach (GameObject world in WorldReflectionList) {
+            DestroyImmediate(world);
+        }
+        WorldReflectionList.Clear();
 
-    void EvaluateObjectsBounds() {
-
-        Transform terrain = gameObject.transform.FindChild("Terrain");
-        Transform floor = terrain.FindChild("Floor");
-        Transform wall = terrain.FindChild("Wall");
-
-        Vector3 floorSize = floor.renderer.bounds.size;
-        Vector3 wallSize = wall.renderer.bounds.size;
-
-        float height = floorSize.y + wallSize.y;
-
-        Size = new Vector3(floorSize.x, height, floorSize.z);
-        Offset = new Vector3(0.0f, height / 2.0f, 0.0f);
-        Debug.Log(name + Size + Offset);
     }
 
     void Start() {
-        if (MirrorOnObjects) {
-            EvaluateObjectsBounds();
-        }
-        Debug.Log(name + Size + Offset);
-        BuildReflections(new Vector3(Size.x, 0.0f, 0.0f), ClonesX);
-        BuildReflections(new Vector3(0.0f, Size.y, 0.0f), ClonesY);
-        BuildReflections(new Vector3(0.0f, 0.0f, Size.z), ClonesZ);
+        BuildWorldReflections();
     }
 
     public GameObject ArrowReflection;
