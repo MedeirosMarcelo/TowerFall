@@ -22,15 +22,7 @@ public class WorldMirror : MonoBehaviour {
                                           transform.position + offset,
                                           transform.rotation);
         obj.transform.parent = transform;
-        /*
-        var playerReflection = obj.GetComponent<WorldReflection>().PlayerReflection;
-        playerReflection.GetComponent<ObjectMirror>().target = Player;
-        */
-
-        var character = transform.FindChild("Third Person Test").gameObject;
-        obj.transform.FindChild("Character Mirror").GetComponent<ObjectMirror>().target = character;
-
-
+        obj.GetComponent<WorldReflection>().PlayerReflection.GetComponent<ObjectMirror>().original = Player;
         WorldReflectionList.Add(obj);
     }
 
@@ -60,8 +52,6 @@ public class WorldMirror : MonoBehaviour {
         BuildWorldReflections();
     }
 
-    public GameObject ArrowReflection;
-
     public GameObject InstantiateAll(GameObject obj, Vector3 position, Quaternion rotation) {
         var newObject = (GameObject)Instantiate(obj, position, rotation);
         newObject.transform.parent = transform;
@@ -75,18 +65,9 @@ public class WorldMirror : MonoBehaviour {
                 newReflection.transform.parent = world.transform;
                 newReflection.transform.localPosition = world.transform.localPosition;
                 newReflection.transform.localRotation = world.transform.localRotation;
-                newReflection.GetComponent<ObjectMirror>().target = newObject;
-                Debug.Log(world.name);
+                newReflection.GetComponent<ObjectMirror>().original = newObject;
             }
         }
         return newObject;
-    }
-
-    GameObject GetMirrorObject(GameObject obj) {
-        switch (obj.name) {
-            default:
-            case "Arrow":
-                return ArrowReflection;
-        }
     }
 }

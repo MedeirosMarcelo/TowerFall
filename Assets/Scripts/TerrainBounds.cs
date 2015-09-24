@@ -3,27 +3,21 @@ using System.Collections;
 
 public class TerrainBounds : MonoBehaviour {
 
-    Bounds bounds = new Bounds();
-
     public bool DrawnBounds = true;
     public Bounds localBounds {
         get {
-            return bounds;
+            return GetLocalBounds();
         }
-    }
-
-    void Start() {
-        bounds = GetChildRendererBounds();
     }
 
     void OnDrawGizmos() {
         if (DrawnBounds) {
-            Bounds bounds = GetChildRendererBounds();
+            Bounds bounds = GetLocalBounds();
             Gizmos.DrawWireCube(bounds.center + transform.position, bounds.size);
         }
     }
 
-    Bounds GetChildRendererBounds() {
+    Bounds GetLocalBounds() {
         Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
         Bounds bounds = new Bounds(transform.position, Vector3.zero);
         foreach (var render in renderers) {
