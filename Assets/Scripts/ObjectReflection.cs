@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectMirror : MonoBehaviour {
+public class ObjectReflection : MonoBehaviour {
 
 	public GameObject original;
 

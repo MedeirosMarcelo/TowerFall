@@ -15,18 +15,20 @@ public class WorldMirror : MonoBehaviour {
         }
     }
 
-    List<GameObject> WorldReflectionList = new List<GameObject>();
+    public List<GameObject> WorldReflectionList = new List<GameObject>();
 
     void AddReflection(Vector3 offset) {
+        Debug.Log("");
         var obj = (GameObject)Instantiate(Reflection,
                                           transform.position + offset,
                                           transform.rotation);
         obj.transform.parent = transform;
-        obj.GetComponent<WorldReflection>().PlayerReflection.GetComponent<ObjectMirror>().original = Player;
+        obj.GetComponent<WorldReflection>().PlayerReflection.GetComponent<ObjectReflection>().original = Player;
         WorldReflectionList.Add(obj);
     }
 
     void BuildReflections(Vector3 offset, int clones) {
+        Debug.Log("");
         while (clones > 0) {
             AddReflection(offset * clones);
             AddReflection(offset * -clones);
@@ -35,6 +37,7 @@ public class WorldMirror : MonoBehaviour {
     }
 
     public void BuildWorldReflections() {
+        Debug.Log("");
         ClearWorldReflections();
         BuildReflections(new Vector3(bounds.size.x, 0.0f, 0.0f), ReflectionsX);
         BuildReflections(new Vector3(0.0f, bounds.size.y, 0.0f), ReflectionsY);
@@ -45,8 +48,7 @@ public class WorldMirror : MonoBehaviour {
             DestroyImmediate(world);
         }
         WorldReflectionList.Clear();
-
-    }
+   }
 
     void Start() {
         BuildWorldReflections();
@@ -65,7 +67,7 @@ public class WorldMirror : MonoBehaviour {
                 newReflection.transform.parent = world.transform;
                 newReflection.transform.localPosition = world.transform.localPosition;
                 newReflection.transform.localRotation = world.transform.localRotation;
-                newReflection.GetComponent<ObjectMirror>().original = newObject;
+                newReflection.GetComponent<ObjectReflection>().original = newObject;
             }
         }
         return newObject;
