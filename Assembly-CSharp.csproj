@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\HandsCollider.cs" />
      <Compile Include="Assets\Scripts\LoopController.cs" />
      <Compile Include="Assets\Scripts\ObjectReflection.cs" />
+     <Compile Include="Assets\Scripts\PlayerFsm.cs" />
      <Compile Include="Assets\Scripts\Portal.cs" />
      <Compile Include="Assets\Scripts\TerrainBounds.cs" />
      <Compile Include="Assets\Scripts\WorldMirror.cs" />
