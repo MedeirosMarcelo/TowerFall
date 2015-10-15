@@ -12,7 +12,7 @@ public class Controller : MonoBehaviour {
     public GameObject empty;
 
 
-    public float runSpeed = 12f;
+    public float runSpeed = 14f;
     public float jumpForce = 25f;
     public float dashForce = 30f;
 
@@ -175,11 +175,10 @@ public class Controller : MonoBehaviour {
         ShowHideMouseCursor();
     }
 
-    float velocity = 14f;
     float maxAcceleration = 8f;
     Vector3 CalculateVelocityChange(Vector3 inputVector) {
         // Calculate how fast we should be moving
-        var relativeVelocity = transform.TransformDirection(inputVector) * velocity;
+        var relativeVelocity = transform.TransformDirection(inputVector) * runSpeed;
         // Calcualte the delta velocity
         var velocityChange = relativeVelocity - rigidbody.velocity;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
@@ -201,7 +200,8 @@ public class Controller : MonoBehaviour {
 
     float maxVelocity = 40f;
     void Move() {
-        // Plane movemente (x,z)
+        
+        // Plane movement (x,z)
         Vector3 planeVelocity = rigidbody.velocity;
         planeVelocity.y = 0f;
         if (planeVelocity.magnitude < maxVelocity) {
@@ -212,12 +212,20 @@ public class Controller : MonoBehaviour {
             else {
                 if (inputVector.magnitude > 0f) {
                     inputVector = new Vector3(inputHorizontal, 0, inputVertical);
-                    rigidbody.AddForce(CalculateVelocityChange(inputVector), ForceMode.VelocityChange);
+                    Vector3 newVelocity = CalculateVelocityChange(inputVector);
+              /*      Vector3 directionHit;
+                    if (SweepDirection(newVelocity, out directionHit)) {
+                        directionHit = InvertVector3(directionHit);
+                        directionHit.Normalize();
+                        newVelocity.Scale(directionHit);
+                     //   newVelocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, 0);
+                    }*/
+                    rigidbody.AddForce(newVelocity, ForceMode.VelocityChange);
                 }
             }
         }
         else {
-            Debug.Log("Too fast too furious!");
+            Debug.Log("+fast +furious!");
         }
         // Vertical movement (y)
         if (isGrounded) {
@@ -226,7 +234,49 @@ public class Controller : MonoBehaviour {
                 rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
-        //	Test ();
+
+        /*
+        Vector3 velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        velocity *= runSpeed;
+        if (isGrounded) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                Debug.Log("JUMP");
+                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+
+        if (!HitWall()) {
+            rigidbody.MovePosition(transform.position + velocity * Time.deltaTime);
+        }*/
+    }
+
+    bool SweepDirection(Vector3 direction, out Vector3 directionHit) {
+        direction.Normalize();
+        float distance = collider.bounds.size.z * 0.5f;
+        RaycastHit hit;
+        if (rigidbody.SweepTest(direction, out hit, distance)) {
+            Debug.Log(hit.distance + "mts distance to obstacle");
+            directionHit = direction;
+            return true;
+        }
+        else {
+            directionHit = Vector3.one;
+            return false;
+        }
+    }
+
+    Vector3 InvertVector3(Vector3 v) {
+        float[] array = new float[3];
+        array[0] = v.x;
+        array[1] = v.y;
+        array[2] = v.z;
+
+        for (int i = 0; i < 3; i++) {
+            if (array[i] != 0) array[i] = 0;
+            else array[i] = 1;
+        }
+        Vector3 result = new Vector3(array[0], array[1], array[2]);
+        return result;
     }
 
     void Shoot() {
