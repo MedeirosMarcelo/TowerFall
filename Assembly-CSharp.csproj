@@ -54,10 +54,12 @@
      <Compile Include="Assets\Scripts\GroundCollider.cs" />
      <Compile Include="Assets\Scripts\HandsCollider.cs" />
      <Compile Include="Assets\Scripts\LoopController.cs" />
-     <Compile Include="Assets\Scripts\ObjectMirror.cs" />
+     <Compile Include="Assets\Scripts\ObjectReflection.cs" />
      <Compile Include="Assets\Scripts\Portal.cs" />
-     <Compile Include="Assets\Scripts\WorldLoop.cs" />
+     <Compile Include="Assets\Scripts\TerrainBounds.cs" />
      <Compile Include="Assets\Scripts\WorldMirror.cs" />
+     <Compile Include="Assets\Scripts\WorldMirrorEditor.cs" />
+     <Compile Include="Assets\Scripts\WorldReflection.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
