@@ -286,20 +286,25 @@ public class Controller : MonoBehaviour {
     }
 
     void BuildArrow() {
-        Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
-        Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-        RaycastHit hit;
-        GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
-        GameObject temp = worldMirror.InstantiateAll(empty, ray.GetPoint(15), arrowRotation);
-        temp.transform.parent = this.transform.parent;
-        if (Physics.Raycast(ray, out hit)) {
-            newArrow.transform.LookAt(hit.point);
+        Character character = GetComponent<Character>(); //GETCOMPONENT TEMPORÁRIO!
+        if (character.arrows.Count > 0) { 
+            Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
+            Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
+            Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+            RaycastHit hit;
+            character.GetArrow().SetActive(true);
+            GameObject newArrow = worldMirror.InstantiateAll(character.GetArrow(), arrowPosition, arrowRotation);
+            GameObject temp = worldMirror.InstantiateAll(empty, ray.GetPoint(15), arrowRotation);
+            temp.transform.parent = this.transform.parent;
+            character.RemoveArrow(character.GetArrow()); //TEMPORÁRIO TAMBÉM!
+            if (Physics.Raycast(ray, out hit)) {
+                newArrow.transform.LookAt(hit.point);
+            }
+            else {
+                newArrow.transform.LookAt(ray.GetPoint(15));
+            }
+            newArrow.GetComponent<Arrow>().shot = true;
         }
-        else {
-            newArrow.transform.LookAt(ray.GetPoint(15));
-        }
-        newArrow.GetComponent<Arrow>().shot = true;
     }
 
     void GrabLedge() {

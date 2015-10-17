@@ -72,4 +72,17 @@ public class WorldMirror : MonoBehaviour {
         }
         return newObject;
     }
+    /*
+    public void DestroyAll(GameObject obj) {
+
+            var reflection = newObject.GetComponent<LoopController>().Reflection;
+            foreach (GameObject world in WorldReflectionList) {
+                world.
+                var newReflection = (GameObject)Instantiate(reflection);
+                newReflection.transform.parent = world.transform;
+                newReflection.transform.localPosition = world.transform.localPosition;
+                newReflection.transform.localRotation = world.transform.localRotation;
+            }
+        }
+    }*/
 }

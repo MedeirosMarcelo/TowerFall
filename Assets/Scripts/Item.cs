@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour {
+public class Item : Reflectable {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public bool grabbable = true;
+
+    public void PickUp() {
+        Destroy();
+    }
+
+    void Destroy() {
+        
+        Destroy(this.gameObject);
+    }
+
+    void Use(Item item) {
+
+    }
 }

@@ -12,9 +12,10 @@ GameObject:
   - 54: {fileID: 5481754}
   - 65: {fileID: 6583154}
   - 114: {fileID: 11461636}
+  - 65: {fileID: 6597750}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +44,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.36999989, y: 1.91999996, z: -6.38000011}
+  m_LocalPosition: {x: -58.6506119, y: .5, z: 69.2635803}
   m_LocalScale: {x: .200000003, y: .400000006, z: .200000003}
   m_Children:
   - {fileID: 471694}
@@ -115,6 +116,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: .569999993, z: 1.33000004}
   m_Center: {x: 0, y: 0, z: 1.30999994}
+--- !u!65 &6597750
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101018}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: .241095722, z: 3.79905701}
+  m_Center: {x: 0, y: .034148097, z: -.110168457}
 --- !u!114 &11461636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b962b69a3bc58a42ad441340d55521c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseReflections: 1
+  grabbable: 1
+  type: 0
   shot: 0
 --- !u!1001 &100100000
 Prefab:
