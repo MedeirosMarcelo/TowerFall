@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Controller : MonoBehaviour {
+public class Controllerbkp : MonoBehaviour {
 
     public bool canControl = true;
     public bool canMove = true;
@@ -10,7 +10,6 @@ public class Controller : MonoBehaviour {
     public bool canGrabLedge;
     public GameObject arrow;
     public GameObject empty;
-
 
     public float runSpeed = 14f;
     public float jumpForce = 25f;
@@ -24,12 +23,13 @@ public class Controller : MonoBehaviour {
     MouseLook cameraMouseLook;
     HandsCollider handsCollider;
     GameObject arrowSpawner;
+    int layermask = 1 << 8;
 
-    State state;
+    public State state;
 
-    enum State {
+    public enum State {
         Idle,
-        Run,
+        Move,
         Shoot,
         Jump,
         Crouch,
@@ -45,7 +45,9 @@ public class Controller : MonoBehaviour {
         switch (state) {
             case State.Idle:
                 break;
-            case State.Run:
+            case State.Move:
+                Move();
+                GrabLedge();
                 break;
             case State.Shoot:
                 break;
@@ -75,7 +77,7 @@ public class Controller : MonoBehaviour {
         switch (state) {
             case State.Idle:
                 break;
-            case State.Run:
+            case State.Move:
                 break;
             case State.Shoot:
                 break;
@@ -102,7 +104,7 @@ public class Controller : MonoBehaviour {
         switch (state) {
             case State.Idle:
                 break;
-            case State.Run:
+            case State.Move:
                 break;
             case State.Shoot:
                 break;
@@ -135,6 +137,7 @@ public class Controller : MonoBehaviour {
         handsCollider = GetComponentInChildren<HandsCollider>();
         Screen.showCursor = false;
         Screen.lockCursor = true;
+        state = State.Move;
     }
 
     // Inputs
@@ -164,27 +167,14 @@ public class Controller : MonoBehaviour {
         StateMachine();
         isGrounded = groundCollider.isGrounded;
         canGrabLedge = handsCollider.canGrabLedge;
-        Move();
-        GrabLedge();
         Shoot();
+        Jump();
         ClearInput();
     }
 
     void Update() {
         UpdateInput();
         ShowHideMouseCursor();
-    }
-
-    float maxAcceleration = 8f;
-    Vector3 CalculateVelocityChange(Vector3 inputVector) {
-        // Calculate how fast we should be moving
-        var relativeVelocity = transform.TransformDirection(inputVector) * runSpeed;
-        // Calcualte the delta velocity
-        var velocityChange = relativeVelocity - rigidbody.velocity;
-        velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
-        velocityChange.z = Mathf.Clamp(velocityChange.z, -maxAcceleration, maxAcceleration);
-        velocityChange.y = 0;
-        return velocityChange;
     }
 
     void Dash(Vector3 inputVector) {
@@ -200,59 +190,50 @@ public class Controller : MonoBehaviour {
 
     float maxVelocity = 40f;
     void Move() {
-        
         // Plane movement (x,z)
         Vector3 planeVelocity = rigidbody.velocity;
         planeVelocity.y = 0f;
-        if (planeVelocity.magnitude < maxVelocity) {
-            var inputVector = new Vector3(inputHorizontal, 0, inputVertical);
-            if (inputDash) {
-                Dash(inputVector);
-            }
-            else {
-                if (inputVector.magnitude > 0f) {
-                    inputVector = new Vector3(inputHorizontal, 0, inputVertical);
-                    Vector3 newVelocity = CalculateVelocityChange(inputVector);
-              /*      Vector3 directionHit;
-                    if (SweepDirection(newVelocity, out directionHit)) {
-                        directionHit = InvertVector3(directionHit);
-                        directionHit.Normalize();
-                        newVelocity.Scale(directionHit);
-                     //   newVelocity = new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, 0);
-                    }*/
-                    rigidbody.AddForce(newVelocity, ForceMode.VelocityChange);
-                }
-            }
+
+        var inputVector = new Vector3(inputHorizontal, 0, inputVertical);
+        if (inputDash) {
+            Dash(inputVector);
         }
         else {
-            Debug.Log("+fast +furious!");
+            Vector3 direction = transform.TransformDirection(transform.forward);
+            inputVector = new Vector3(inputHorizontal * direction.x, 0, inputVertical * direction.y);
+            
+           // direction = new Vector3(direction.x * inputHorizontal, 0, direction.z * inputVertical);
+
+            /*Vector3 newVelocity = inputVector;
+            Vector3 directionHit;
+            if (SweepDirection(newVelocity, out directionHit)) {
+                Vector3 tempDirection = directionHit;
+                directionHit = InvertVector3(directionHit);
+                directionHit.Normalize();
+                //      newVelocity.Scale(directionHit);
+                Debug.Log("Old " + tempDirection + " New " + directionHit + " Result " + newVelocity);
+                Debug.Log("CLAMP");
+                newVelocity = new Vector3(0, rigidbody.velocity.y, 0);
+            }*/
+            /*
+            RaycastHit hit;
+            Ray ray = new Ray(this.transform.position, newVelocity.normalized);
+            Debug.DrawRay(this.transform.position, newVelocity.normalized * 5f, Color.red);
+            if (Physics.Raycast(ray, 5f, layermask)) {
+                Debug.Log("HIT");
+                newVelocity = Vector3.zero;
+            }
+            */
+            inputVector *= runSpeed;
+            rigidbody.MovePosition(transform.position + inputVector * Time.deltaTime);
         }
+
         // Vertical movement (y)
-        if (isGrounded) {
-            if (inputJump) {
-                Debug.Log("JUMP");
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            }
-        }
-
-        /*
-        Vector3 velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        velocity *= runSpeed;
-        if (isGrounded) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                Debug.Log("JUMP");
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            }
-        }
-
-        if (!HitWall()) {
-            rigidbody.MovePosition(transform.position + velocity * Time.deltaTime);
-        }*/
     }
 
     bool SweepDirection(Vector3 direction, out Vector3 directionHit) {
         direction.Normalize();
-        float distance = collider.bounds.size.z * 0.5f;
+        float distance = collider.bounds.size.z * 0.6f;
         RaycastHit hit;
         if (rigidbody.SweepTest(direction, out hit, distance)) {
             Debug.Log(hit.distance + "mts distance to obstacle");
@@ -279,32 +260,59 @@ public class Controller : MonoBehaviour {
         return result;
     }
 
+    void Jump() {
+        if ((state == State.Move && isGrounded) || 
+             state == State.GrabLedge) {
+            if (inputJump) {
+                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+        }
+    }
+
+    void GrabLedge() {
+        if (canGrabLedge) {
+            rigidbody.useGravity = false;
+            rigidbody.velocity = Vector3.zero;
+            EnterState(State.GrabLedge);
+            Debug.Log("HANGING");
+        }
+        else {
+            ReleaseLedge();
+            Debug.Log("RELEASE");
+        }
+    }
+
+    void ReleaseLedge() {
+        rigidbody.useGravity = true;
+        EnterState(State.Move);
+    }
+
+
     void Shoot() {
-        if (inputShoot) {
-            BuildArrow();
+        if ((state == State.Move ||
+            state == State.Jump) && isGrounded) {
+            if (inputShoot) {
+                BuildArrow();
+            }
         }
     }
 
     void BuildArrow() {
-        Character character = GetComponent<Character>(); //GETCOMPONENT TEMPORÁRIO!
-        if (character.arrows.Count > 0) { 
-            Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
-            Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
-            Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-            RaycastHit hit;
-            character.GetArrow().SetActive(true);
-            GameObject newArrow = worldMirror.InstantiateAll(character.GetArrow(), arrowPosition, arrowRotation);
-            character.RemoveArrow(character.GetArrow()); //TEMPORÁRIO TAMBÉM!
-            if (Physics.Raycast(ray, out hit)) {
-                newArrow.transform.LookAt(hit.point);
-            }
-            else {
-                newArrow.transform.LookAt(ray.GetPoint(15));
-            }
-            newArrow.GetComponent<Arrow>().shot = true;
+        Vector3 arrowPosition = transform.Find("ArrowSpawner").position;
+        Quaternion arrowRotation = transform.Find("ArrowSpawner").rotation;
+        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+        RaycastHit hit;
+        GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
+        if (Physics.Raycast(ray, out hit)) {
+            newArrow.transform.LookAt(hit.point);
         }
+        else {
+            newArrow.transform.LookAt(ray.GetPoint(15));
+        }
+        newArrow.GetComponent<Arrow>().shot = true;
     }
 
+    /*
     void GrabLedge() {
         if (canGrabLedge) {
             if (inputVertical > 0) {
@@ -328,11 +336,7 @@ public class Controller : MonoBehaviour {
             ReleaseLedge();
             // Debug.Log("RELEASE");
         }
-    }
-
-    void ReleaseLedge() {
-        rigidbody.useGravity = true;
-    }
+    }*/
 
     void ShowHideMouseCursor() {
         if (Input.GetKeyDown(KeyCode.Tab)) {

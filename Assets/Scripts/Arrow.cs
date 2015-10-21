@@ -1,45 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Arrow : MonoBehaviour {
+public enum ArrowType {
+    basic
+}
 
-	public bool shot;
-	float speed = 35f;
-	float rotationSpeed = 10f;
-	float lifespan = 3f;
-	float arc = 0.2f;
-	float endTime;
+public class Arrow : Item {
 
-	void Start () {
-		endTime = lifespan + Time.time;
-	//	Physics.gravity = new Vector3 (0, -300, 0);
-		if (shot) {
-			Move ();
-		}
-	}
+    public ArrowType type;
+    public bool shot;
+    float speed = 35f;
+    float rotationSpeed = 10f;
+    float lifespan = 3f;
+    float arc = 0.2f;
+    float endTime;
 
-	void FixedUpdate () {
-		transform.forward = Vector3.Slerp (transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
-	//	DestroyOnTime ();
-	}
+    void Start() {
+        endTime = lifespan + Time.time;
+        //	Physics.gravity = new Vector3 (0, -300, 0);
+        if (shot) {
+            Move();
+        }
+    }
 
-	void Move(){
-		Vector3 direction = transform.forward;
-		direction.y += arc; 
-		rigidbody.AddForce (direction * speed, ForceMode.Impulse);
-	}
+    void FixedUpdate() {
+        transform.forward = Vector3.Slerp(transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
+        //	DestroyOnTime ();
+    }
 
-	void OnCollisionEnter(Collision col){
-		if (col.gameObject.name == "Floor" || 
-		    col.gameObject.name == "Wall") {
+    void Move() {
+        Vector3 direction = transform.forward;
+        direction.y += arc;
+        rigidbody.AddForce(direction * speed, ForceMode.Impulse);
+    }
+
+    void OnCollisionEnter(Collision col) {
+        if (col.gameObject.name == "Floor" ||
+            col.gameObject.name == "Wall") {
             Debug.Log(col.gameObject.name);
-			rigidbody.isKinematic = true;
-		}
-	}
+            rigidbody.isKinematic = true;
+        }
+    }
 
-	void DestroyOnTime(){
-		if (Time.time > endTime) {
-			Destroy (this.gameObject);
-		}
-	}
+    void DestroyOnTime() {
+        if (Time.time > endTime) {
+            Destroy(this.gameObject);
+        }
+    }
 }
