@@ -5,9 +5,13 @@ using System.Collections.Generic;
 public class Reflectable : MonoBehaviour {
 
     public bool UseReflections = true;
-    IList<Item> reflectionList = new List<Item>();
+    IList<GameObject> reflectionList = new List<GameObject>();
 
-    public void SetReflections(IList<Item> reflections) {
+    public void SetReflections(IList<GameObject> reflections) {
         reflectionList = reflections;
+    }
+
+    public IList<GameObject> GetReflections() {
+        return reflectionList;
     }
 }

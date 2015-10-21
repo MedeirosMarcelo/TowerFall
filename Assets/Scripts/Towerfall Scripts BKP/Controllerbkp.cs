@@ -303,8 +303,6 @@ public class Controllerbkp : MonoBehaviour {
         Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
         RaycastHit hit;
         GameObject newArrow = worldMirror.InstantiateAll(arrow, arrowPosition, arrowRotation);
-        GameObject temp = worldMirror.InstantiateAll(empty, ray.GetPoint(15), arrowRotation);
-        temp.transform.parent = this.transform.parent;
         if (Physics.Raycast(ray, out hit)) {
             newArrow.transform.LookAt(hit.point);
         }

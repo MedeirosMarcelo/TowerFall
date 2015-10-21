@@ -294,8 +294,6 @@ public class Controller : MonoBehaviour {
             RaycastHit hit;
             character.GetArrow().SetActive(true);
             GameObject newArrow = worldMirror.InstantiateAll(character.GetArrow(), arrowPosition, arrowRotation);
-            GameObject temp = worldMirror.InstantiateAll(empty, ray.GetPoint(15), arrowRotation);
-            temp.transform.parent = this.transform.parent;
             character.RemoveArrow(character.GetArrow()); //TEMPORÁRIO TAMBÉM!
             if (Physics.Raycast(ray, out hit)) {
                 newArrow.transform.LookAt(hit.point);

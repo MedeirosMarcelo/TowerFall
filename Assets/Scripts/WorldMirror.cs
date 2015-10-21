@@ -18,7 +18,7 @@ public class WorldMirror : MonoBehaviour {
     public List<GameObject> WorldReflectionList = new List<GameObject>();
 
     void AddReflection(Vector3 offset) {
-        Debug.Log("");
+
         var obj = (GameObject)Instantiate(Reflection,
                                           transform.position + offset,
                                           transform.rotation);
@@ -28,7 +28,7 @@ public class WorldMirror : MonoBehaviour {
     }
 
     void BuildReflections(Vector3 offset, int clones) {
-        Debug.Log("");
+
         while (clones > 0) {
             AddReflection(offset * clones);
             AddReflection(offset * -clones);
@@ -37,7 +37,7 @@ public class WorldMirror : MonoBehaviour {
     }
 
     public void BuildWorldReflections() {
-        Debug.Log("");
+
         ClearWorldReflections();
         BuildReflections(new Vector3(bounds.size.x, 0.0f, 0.0f), ReflectionsX);
         BuildReflections(new Vector3(0.0f, bounds.size.y, 0.0f), ReflectionsY);
@@ -48,41 +48,38 @@ public class WorldMirror : MonoBehaviour {
             DestroyImmediate(world);
         }
         WorldReflectionList.Clear();
-   }
+    }
 
     void Start() {
         BuildWorldReflections();
     }
 
     public GameObject InstantiateAll(GameObject obj, Vector3 position, Quaternion rotation) {
-        var newObject = (GameObject)Instantiate(obj, position, rotation);
-        newObject.transform.parent = transform;
-
-
-        var loopController = newObject.GetComponent<LoopController>();
+        var originalObject = (GameObject)Instantiate(obj, position, rotation);
+        originalObject.transform.parent = transform;
+        var loopController = originalObject.GetComponent<LoopController>();
         if (loopController != null) {
-            var reflection = newObject.GetComponent<LoopController>().Reflection;
+            var reflection = originalObject.GetComponent<LoopController>().Reflection;
+            IList<GameObject> reflectionList = new List<GameObject>();
             foreach (GameObject world in WorldReflectionList) {
                 var newReflection = (GameObject)Instantiate(reflection);
                 newReflection.transform.parent = world.transform;
                 newReflection.transform.localPosition = world.transform.localPosition;
                 newReflection.transform.localRotation = world.transform.localRotation;
-                newReflection.GetComponent<ObjectReflection>().original = newObject;
+                newReflection.GetComponent<ObjectReflection>().original = originalObject;
+                reflectionList.Add(newReflection);
             }
+            originalObject.GetComponent<Reflectable>().SetReflections(reflectionList);
         }
-        return newObject;
+        return originalObject;
     }
-    /*
+
     public void DestroyAll(GameObject obj) {
 
-            var reflection = newObject.GetComponent<LoopController>().Reflection;
-            foreach (GameObject world in WorldReflectionList) {
-                world.
-                var newReflection = (GameObject)Instantiate(reflection);
-                newReflection.transform.parent = world.transform;
-                newReflection.transform.localPosition = world.transform.localPosition;
-                newReflection.transform.localRotation = world.transform.localRotation;
-            }
+        IList<GameObject> reflectionList = obj.GetComponent<Reflectable>().GetReflections();
+        foreach (GameObject reflection in reflectionList) {
+            Destroy(reflection.gameObject);
         }
-    }*/
+        Destroy(obj.gameObject);
+    }
 }
