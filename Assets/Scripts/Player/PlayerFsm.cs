@@ -5,6 +5,14 @@ public class PlayerFsm : MonoBehaviour {
 
     State state;
 
+    enum Action {
+        Dash,
+        Shoot,
+        GrabLedge,
+        SlideDown,
+    }
+
+
     enum State {
         Idle,
         Run,
