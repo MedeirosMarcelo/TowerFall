@@ -1545,7 +1545,6 @@ GameObject:
   - 20: {fileID: 178347015}
   - 92: {fileID: 178347014}
   - 124: {fileID: 178347013}
-  - 114: {fileID: 178347012}
   - 81: {fileID: 178347011}
   m_Layer: 0
   m_Name: Main Camera
@@ -1574,25 +1573,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 178347009}
   m_Enabled: 1
---- !u!114 &178347012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11437120, guid: 5ecc98b7a2ebffa489af9cc407a8231d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 178347009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ec2fe99d1108b9d0006a298d76c639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 2
-  sensitivityX: 10
-  sensitivityY: 10
-  minimumX: 0
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
 --- !u!124 &178347013
 Behaviour:
   m_ObjectHideFlags: 0
@@ -11471,7 +11451,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1162138603}
-  - 114: {fileID: 1162138607}
   - 65: {fileID: 1162138606}
   - 54: {fileID: 1162138605}
   - 114: {fileID: 1162138608}
@@ -11542,25 +11521,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.97305501, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1162138607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11437116, guid: 5ecc98b7a2ebffa489af9cc407a8231d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162138602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ec2fe99d1108b9d0006a298d76c639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 1
-  sensitivityX: 15
-  sensitivityY: 0
-  minimumX: -360
-  maximumX: 360
-  minimumY: 0
-  maximumY: 0
 --- !u!114 &1162138608
 MonoBehaviour:
   m_ObjectHideFlags: 0

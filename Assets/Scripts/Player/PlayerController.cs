@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        input.PreUpdate();
+        input.InputUpdate();
     }
 
     void FixedUpdate() {
