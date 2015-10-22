@@ -5,10 +5,10 @@ public enum ArrowType {
     basic
 }
 
-public class Arrow : Item {
+public class Arrow : DamageDealer {
 
     public ArrowType type;
-    public bool shot;
+    bool shot;
     float speed = 35f;
     float rotationSpeed = 10f;
     float lifespan = 3f;
@@ -28,6 +28,11 @@ public class Arrow : Item {
         //	DestroyOnTime ();
     }
 
+    public void Shoot() {
+        shot = true;
+        alive = true;
+    }
+
     void Move() {
         Vector3 direction = transform.forward;
         direction.y += arc;
@@ -39,6 +44,9 @@ public class Arrow : Item {
             col.gameObject.name == "Wall") {
             Debug.Log(col.gameObject.name);
             rigidbody.isKinematic = true;
+        }
+        else if (col.gameObject.tag == "Player"){
+            HitPlayer(col.gameObject);
         }
     }
 

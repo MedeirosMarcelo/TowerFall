@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &17111993
 GameObject:
@@ -5351,8 +5350,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11478,9 +11477,10 @@ GameObject:
   - 114: {fileID: 1162138610}
   - 114: {fileID: 1162138609}
   - 114: {fileID: 1162138604}
+  - 114: {fileID: 1162138611}
   m_Layer: 0
   m_Name: Third Person Test
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11600,6 +11600,31 @@ MonoBehaviour:
   dashForce: 30
   maxAcceleration: 8
   jumpForce: 25
+--- !u!114 &1162138611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162138602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fccc284ce0be504ca444cdd471df353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseReflections: 1
+  health: 1
+  arrowListDetail:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!1 &1179747866
 GameObject:
   m_ObjectHideFlags: 0
@@ -17043,6 +17068,7 @@ GameObject:
   - 4: {fileID: 1771636029}
   - 114: {fileID: 1771636030}
   - 114: {fileID: 1771636031}
+  - 114: {fileID: 1771636032}
   m_Layer: 0
   m_Name: World Main
   m_TagString: Untagged
@@ -17095,6 +17121,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b805f990b55428c4791b2a61ed2e844f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1771636032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1771636028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74780151c1c01044ab682b698331fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!1 &1777188759
 GameObject:
   m_ObjectHideFlags: 0

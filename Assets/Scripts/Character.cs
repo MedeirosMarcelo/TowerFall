@@ -4,9 +4,15 @@ using System.Collections.Generic;
 
 public class Character : Reflectable {
 
+    public int health = 1;
     public IList<GameObject> arrows = new List<GameObject>();
     public string[] arrowListDetail = new string[10];
     public GameObject basicArrow;
+    Controller controller;
+
+    void Start() {
+        controller = GetComponent<Controller>();
+    }
 
     void Update() {
         int i = 0;
@@ -29,6 +35,27 @@ public class Character : Reflectable {
         
     }
 
+    public void TakeHit(DamageDealer damager) {
+        if (controller.state == PlayerState.Dash) {
+            PickUpItem(damager);
+        }
+        else {
+            int dmg = damager.GetComponent<DamageDealer>().damage;
+            TakeDamage(dmg);
+        }
+    }
+
+    void TakeDamage(int damage) {
+        health -= damage;
+        MonitorHealth();
+    }
+
+    void MonitorHealth() {
+        if (health <= 0) {
+            Destroy(this.gameObject);
+        }
+    }
+
     public GameObject GetArrow() {
         return arrows[0];
     }
@@ -49,7 +76,6 @@ public class Character : Reflectable {
 
     void OnTriggerEnter(Collider col) {
         if (col.tag == "Item" || col.tag == "Arrow") {
-            Debug.Log("ARROW");
             Item item = col.gameObject.GetComponent<Item>();
             if (item.grabbable) {
                 PickUpItem(item);
