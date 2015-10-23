@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     float jumpForce = 25f;
 
-    void UpdateVelocity() {
+    void Start() {
+        input = GetComponent<PlayerInput>();
+    }
+
+    public void Move() {
         // Calculate how fast we should be moving
         var relativeVelocity = transform.TransformDirection(input.vector) * runSpeed;
         // Calcualte the delta velocity
@@ -25,7 +29,7 @@ public class PlayerController : MonoBehaviour {
         rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
-    void UpdateDash() {
+    public void Dash() {
         if (input.dash) {
             Debug.Log("dash");
             Vector3 dash = input.vector.normalized * dashForce;
@@ -33,7 +37,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void UpdateJump() {
+    public void Jump() {
         if (input.jump) {
             Debug.Log("jump");
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -55,18 +59,5 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Start() {
-        input = GetComponent<PlayerInput>();
-    }
 
-    void Update() {
-        input.PreUpdate();
-    }
-
-    void FixedUpdate() {
-        UpdateVelocity();
-        UpdateDash();
-        UpdateJump();
-        input.PostFixedUpdate();
-    }
 }
