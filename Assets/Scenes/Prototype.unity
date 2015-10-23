@@ -11454,9 +11454,11 @@ GameObject:
   - 65: {fileID: 1162138606}
   - 54: {fileID: 1162138605}
   - 114: {fileID: 1162138608}
+  - 114: {fileID: 1162138607}
   - 114: {fileID: 1162138610}
   - 114: {fileID: 1162138609}
   - 114: {fileID: 1162138604}
+  - 114: {fileID: 1162138611}
   m_Layer: 0
   m_Name: Third Person Test
   m_TagString: Untagged
@@ -11521,6 +11523,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.97305501, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1162138607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162138602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fccc284ce0be504ca444cdd471df353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseReflections: 1
 --- !u!114 &1162138608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11560,6 +11574,29 @@ MonoBehaviour:
   dashForce: 30
   maxAcceleration: 8
   jumpForce: 25
+--- !u!114 &1162138611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162138602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc59700d5cb52384190e490621de9b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowListDetail:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!1 &1179747866
 GameObject:
   m_ObjectHideFlags: 0
@@ -17003,6 +17040,7 @@ GameObject:
   - 4: {fileID: 1771636029}
   - 114: {fileID: 1771636030}
   - 114: {fileID: 1771636031}
+  - 114: {fileID: 1771636032}
   m_Layer: 0
   m_Name: World Main
   m_TagString: Untagged
@@ -17055,6 +17093,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b805f990b55428c4791b2a61ed2e844f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1771636032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1771636028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74780151c1c01044ab682b698331fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!1 &1777188759
 GameObject:
   m_ObjectHideFlags: 0

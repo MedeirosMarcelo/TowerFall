@@ -166,7 +166,7 @@ public class Controller : MonoBehaviour {
         canGrabLedge = handsCollider.canGrabLedge;
         Move();
         GrabLedge();
-        Shoot();
+        //Shoot();
         ClearInput();
     }
 
@@ -279,11 +279,13 @@ public class Controller : MonoBehaviour {
         return result;
     }
 
+    /*
     void Shoot() {
         if (inputShoot) {
             BuildArrow();
         }
     }
+
 
     void BuildArrow() {
         Character character = GetComponent<Character>(); //GETCOMPONENT TEMPORÁRIO!
@@ -304,6 +306,7 @@ public class Controller : MonoBehaviour {
             newArrow.GetComponent<Arrow>().shot = true;
         }
     }
+    */
 
     void GrabLedge() {
         if (canGrabLedge) {
