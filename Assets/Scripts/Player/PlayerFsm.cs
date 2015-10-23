@@ -3,17 +3,9 @@ using System.Collections;
 
 public class PlayerFsm : MonoBehaviour {
 
-    State state;
-
-    enum Action {
-        Dash,
-        Shoot,
-        GrabLedge,
-        SlideDown,
-    }
 
 
-    enum State {
+    public enum State {
         Idle,
         Run,
         Shoot,
@@ -26,6 +18,8 @@ public class PlayerFsm : MonoBehaviour {
         Fall,
         Die
     }
+
+    public State state;
 
     void Update() {
         switch (state) {

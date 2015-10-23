@@ -7,6 +7,8 @@ Unity3D Towerfall 3D prototype
 - Pegar flechas
 - Pegar flechas durante o dash
 - Flechas especiais
+- Morrer
+- Colisão da câmera
 - Power Up
  - Asas
  - Invisibilidade

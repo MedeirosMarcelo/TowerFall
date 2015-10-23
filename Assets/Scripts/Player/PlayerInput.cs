@@ -69,9 +69,6 @@ public class PlayerInput : MonoBehaviour {
         vertical = Input.GetAxis("Vertical");
         lookHorizontal = Input.GetAxis("Look Horizontal");
         lookVertical = Input.GetAxis("Look Vertical");
-        Debug.Log("lookVertical =" + lookVertical);
-
-
 
         // AccumulateButtons
         shoot |= Input.GetButtonDown("Fire1");

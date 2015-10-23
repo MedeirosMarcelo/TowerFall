@@ -1,6 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum PlayerState {
+    Idle,
+    Run,
+    Shoot,
+    Jump,
+    Crouch,
+    Dash,
+    GrabLedge,
+    Climb,
+    SlideDown,
+    Fall,
+    Die
+}
+
 public class Controller : MonoBehaviour {
 
     public bool canControl = true;
@@ -11,13 +25,13 @@ public class Controller : MonoBehaviour {
     public GameObject arrow;
     public GameObject empty;
 
-
     public float runSpeed = 14f;
     public float jumpForce = 25f;
     public float dashForce = 30f;
 
-    WorldMirror worldMirror;
+    public PlayerState state;
 
+    WorldMirror worldMirror;
     Camera playerCamera;
     GroundCollider groundCollider;
     MouseLook charMouseLook;
@@ -25,102 +39,86 @@ public class Controller : MonoBehaviour {
     HandsCollider handsCollider;
     GameObject arrowSpawner;
 
-    State state;
-
-    enum State {
-        Idle,
-        Run,
-        Shoot,
-        Jump,
-        Crouch,
-        Dash,
-        GrabLedge,
-        Climb,
-        SlideDown,
-        Fall,
-        Die
-    }
-
     void StateMachine() {
         switch (state) {
-            case State.Idle:
+            case PlayerState.Idle:
                 break;
-            case State.Run:
+            case PlayerState.Run:
                 break;
-            case State.Shoot:
+            case PlayerState.Shoot:
                 break;
-            case State.Jump:
+            case PlayerState.Jump:
                 break;
-            case State.Crouch:
+            case PlayerState.Crouch:
                 break;
-            case State.Dash:
+            case PlayerState.Dash:
                 break;
-            case State.GrabLedge:
+            case PlayerState.GrabLedge:
                 break;
-            case State.Climb:
+            case PlayerState.Climb:
                 break;
-            case State.SlideDown:
+            case PlayerState.SlideDown:
                 break;
-            case State.Fall:
+            case PlayerState.Fall:
                 break;
-            case State.Die:
+            case PlayerState.Die:
                 break;
         }
     }
 
-    void EnterState(State newState) {
+    void EnterState(PlayerState newState) {
         OnStateExit();
         state = newState;
 
         switch (state) {
-            case State.Idle:
+            case PlayerState.Idle:
                 break;
-            case State.Run:
+            case PlayerState.Run:
                 break;
-            case State.Shoot:
+            case PlayerState.Shoot:
                 break;
-            case State.Jump:
+            case PlayerState.Jump:
                 break;
-            case State.Crouch:
+            case PlayerState.Crouch:
                 break;
-            case State.Dash:
+            case PlayerState.Dash:
                 break;
-            case State.GrabLedge:
+            case PlayerState.GrabLedge:
                 break;
-            case State.Climb:
+            case PlayerState.Climb:
                 break;
-            case State.SlideDown:
+            case PlayerState.SlideDown:
                 break;
-            case State.Fall:
+            case PlayerState.Fall:
                 break;
-            case State.Die:
+            case PlayerState.Die:
                 break;
         }
     }
 
     void OnStateExit() {
         switch (state) {
-            case State.Idle:
+            case PlayerState.Idle:
                 break;
-            case State.Run:
+            case PlayerState.Run:
                 break;
-            case State.Shoot:
+            case PlayerState.Shoot:
                 break;
-            case State.Jump:
+            case PlayerState.Jump:
                 break;
-            case State.Crouch:
+            case PlayerState.Crouch:
                 break;
-            case State.Dash:
+            case PlayerState.Dash:
                 break;
-            case State.GrabLedge:
+            case PlayerState.GrabLedge:
                 break;
-            case State.Climb:
+            case PlayerState.Climb:
                 break;
-            case State.SlideDown:
+            case PlayerState.SlideDown:
                 break;
-            case State.Fall:
+            case PlayerState.Fall:
                 break;
-            case State.Die:
+            case PlayerState.Die:
                 break;
         }
     }
@@ -303,7 +301,7 @@ public class Controller : MonoBehaviour {
             else {
                 newArrow.transform.LookAt(ray.GetPoint(15));
             }
-            newArrow.GetComponent<Arrow>().shot = true;
+            newArrow.GetComponent<Arrow>().Shoot();
         }
     }
     */

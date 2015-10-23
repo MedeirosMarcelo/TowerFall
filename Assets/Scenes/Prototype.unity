@@ -11461,7 +11461,7 @@ GameObject:
   - 114: {fileID: 1162138611}
   m_Layer: 0
   m_Name: Third Person Test
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11535,6 +11535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseReflections: 1
+  health: 1
 --- !u!114 &1162138608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11559,6 +11560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d65ce9b7d3d294585407b2f86d8109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
 --- !u!114 &1162138610
 MonoBehaviour:
   m_ObjectHideFlags: 0
