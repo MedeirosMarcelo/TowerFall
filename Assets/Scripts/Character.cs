@@ -4,31 +4,38 @@ using System.Collections.Generic;
 
 public class Character : Reflectable {
 
-    PlayerInput input { get; set; }
-    PlayerArrows arrows { get; set; }
-    PlayerController controller { get; set; }
-    PlayerFsm fsm { get; set; }
+    // exposing getters for internals 
+    public CharacterController controller { get; private set; }
+    public CharacterInput input { get; private set; }
+    public CharacterArrows arrows { get; private set; }
+    public CharacterFsm fsm { get; private set; }
+
+    public Camera charCamera { get; private set; }
+    public WorldMirror worldMirror { get; private set; }
 
     public int health = 1;
+    public GameObject basicArrow;
 
     void Start() {
-        input = GetComponent<PlayerInput>();
-        arrows = GetComponent<PlayerArrows>();
-        controller = GetComponent<PlayerController>();
-        fsm = GetComponent<PlayerFsm>();
+        charCamera = GetComponentInChildren<Camera>();
+        worldMirror = GetComponentInParent<WorldMirror>();
+
+        controller = new CharacterController(this);
+        arrows = new CharacterArrows(this);
+        input = new CharacterInput(this);
+        fsm = new CharacterFsm(this);
     }
 
     void Update() {
-        input.InputUpdate();
-
+        // Input must be first here
+        input.Update();
     }
 
     void FixedUpdate() {
-        controller.Move();
-        controller.Dash();
-        controller.Jump();
-        arrows.Shoot();
-        input.PostFixedUpdate();
+        controller.FixedUpdate();
+        arrows.FixedUpdate();
+        // Input must be last here
+        input.FixedUpdate();
     }
 
 
@@ -37,7 +44,7 @@ public class Character : Reflectable {
     }
 
     public void TakeHit(DamageDealer damager) {
-        if (fsm.state == PlayerFsm.State.Dash) {
+        if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
         else {
@@ -60,7 +67,7 @@ public class Character : Reflectable {
 
     public void PickUpItem(Item item) {
         if (item.tag == "Arrow") {
-            arrows.Store((Arrow)item);
+            arrows.StoreArrow((Arrow)item);
             item.PickUp();
         }
         else if (item.tag == "Item") {

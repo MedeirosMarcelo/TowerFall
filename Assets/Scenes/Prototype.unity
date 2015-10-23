@@ -11455,10 +11455,6 @@ GameObject:
   - 54: {fileID: 1162138605}
   - 114: {fileID: 1162138608}
   - 114: {fileID: 1162138607}
-  - 114: {fileID: 1162138610}
-  - 114: {fileID: 1162138609}
-  - 114: {fileID: 1162138604}
-  - 114: {fileID: 1162138611}
   m_Layer: 0
   m_Name: Third Person Test
   m_TagString: Player
@@ -11483,17 +11479,6 @@ Transform:
   - {fileID: 1934547238}
   m_Father: {fileID: 1771636029}
   m_RootOrder: 0
---- !u!114 &1162138604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162138602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80747669fc006f54b875378cfe92125a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1162138605
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11536,6 +11521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseReflections: 1
   health: 1
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!114 &1162138608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11549,56 +11535,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reflection: {fileID: 167356, guid: d698216420b502549a41c5f3fb7d4da9, type: 2}
---- !u!114 &1162138609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162138602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d65ce9b7d3d294585407b2f86d8109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
---- !u!114 &1162138610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162138602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624a2ec0e1e9b0948a5742f80d49e0fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runSpeed: 14
-  dashForce: 30
-  maxAcceleration: 8
-  jumpForce: 25
---- !u!114 &1162138611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162138602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc59700d5cb52384190e490621de9b42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowListDetail:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
 --- !u!1 &1179747866
 GameObject:
   m_ObjectHideFlags: 0

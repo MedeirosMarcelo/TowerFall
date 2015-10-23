@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
-public class PlayerInput : MonoBehaviour {
+[Serializable]
+public class CharacterInput {
 
-    Transform cameraTransform { get; set; }
+    Character character;
 
     public float horizontal { get; private set; }
     public float vertical { get; private set; }
@@ -27,22 +29,39 @@ public class PlayerInput : MonoBehaviour {
         get { return new Vector3(horizontal, 0, vertical); }
     }
 
-    void Start() {
-        cameraTransform = GetComponentInChildren<Camera>().transform;
+    public CharacterInput(Character character) {
+        this.character = character;
         horizontal = 0f;
         vertical = 0f;
         shoot = false;
         dash = false;
         jump = false;
         HideCursor();
-        // Look around
+
         // Make the rigid body not change rotation
-        var rigidBody = GetComponent<Rigidbody>();
-        if (rigidbody) {
-            rigidbody.freezeRotation = true;
-        }
+        character.rigidbody.freezeRotation = true;
     }
 
+    public void Update() {
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+        lookHorizontal = Input.GetAxis("Look Horizontal");
+        lookVertical = Input.GetAxis("Look Vertical");
+
+        // AccumulateButtons
+        shoot |= Input.GetButtonDown("Fire1");
+        dash |= Input.GetButtonDown("Fire2");
+        jump |= Input.GetButtonDown("Jump");
+
+        UpdateCursor();
+        Look();
+    }
+
+    public void FixedUpdate() {
+        shoot = false;
+        dash = false;
+        jump = false;
+    }
 
     void ShowCursor() {
         mouseLook = false;
@@ -64,40 +83,19 @@ public class PlayerInput : MonoBehaviour {
         }
     }
 
-    public void InputUpdate() {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
-        lookHorizontal = Input.GetAxis("Look Horizontal");
-        lookVertical = Input.GetAxis("Look Vertical");
-
-        // AccumulateButtons
-        shoot |= Input.GetButtonDown("Fire1");
-        dash |= Input.GetButtonDown("Fire2");
-        jump |= Input.GetButtonDown("Jump");
-
-        UpdateCursor();
-        Look();
-    }
-
-    public void PostFixedUpdate() {
-        shoot = false;
-        dash = false;
-        jump = false;
-    }
-
     void Look() {
         if (mouseLook) {
             rotationY += lookVertical * sensitivityY;
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
             //Camera
-            cameraTransform.localEulerAngles = new Vector3(-rotationY, cameraTransform.localEulerAngles.y, 0);
+            var camTransform = character.charCamera.transform;
+            camTransform.localEulerAngles = new Vector3(-rotationY, camTransform.localEulerAngles.y, 0);
 
             //player
-            float rotationX = transform.localEulerAngles.y + lookHorizontal * sensitivityX;
-            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
-
-            //Debug.Log("Look X=" + rotationX + " Y=" + rotationY);
+            var charTransform = character.transform;
+            float rotationX = charTransform.localEulerAngles.y + lookHorizontal * sensitivityX;
+            charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
         }
     }
 }
