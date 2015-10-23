@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
-public class PlayerFsm : MonoBehaviour {
-
-
+[Serializable]
+public class CharacterFsm {
 
     public enum State {
         Idle,
@@ -19,7 +19,14 @@ public class PlayerFsm : MonoBehaviour {
         Die
     }
 
+    Character character;
     public State state;
+
+    public CharacterFsm(Character character) {
+        this.character = character;
+        state = State.Idle;
+    }
+
 
     void Update() {
         switch (state) {
