@@ -46,6 +46,7 @@ public class Arrow : DamageDealer {
             rigidbody.isKinematic = true;
         }
         else if (col.gameObject.tag == "Player"){
+            Debug.Log("BATEU CARALHO");
             HitPlayer(col.gameObject);
         }
     }
