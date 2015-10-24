@@ -2000,6 +2000,7 @@ MonoBehaviour:
   runSpeed: 12
   jumpForce: 25
   dashForce: 30
+  state: 0
 --- !u!114 &11437120
 MonoBehaviour:
   m_ObjectHideFlags: 1

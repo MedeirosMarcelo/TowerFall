@@ -38,7 +38,6 @@ public class Character : Reflectable {
         input.FixedUpdate();
     }
 
-
     void UseItem(Item item) {
 
     }
@@ -54,6 +53,7 @@ public class Character : Reflectable {
     }
 
     void TakeDamage(int damage) {
+        Debug.Log(health + " " + damage);
         health -= damage;
         MonitorHealth();
     }
@@ -68,7 +68,9 @@ public class Character : Reflectable {
         if (item.tag == "Arrow") {
             DamageDealer arrow = (DamageDealer)item;
             if (!arrow.alive) {
-                arrows.StoreArrow((Arrow)item);
+                if (arrows.arrowList.Count < 7) {
+                    arrows.StoreArrow((Arrow)item);
+                }
                 item.PickUp();
             }
         }
