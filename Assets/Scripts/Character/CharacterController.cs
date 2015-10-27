@@ -7,6 +7,9 @@ using System.Collections;
 public class CharacterController {
 
     Character character;
+    GroundCollider groundCollider;
+    HandsCollider handsCollider;
+
 
     float runSpeed = 14f;
     float dashForce = 30f;
@@ -15,6 +18,19 @@ public class CharacterController {
 
     public CharacterController(Character character) {
         this.character = character;
+        groundCollider = character.GetComponentInChildren<GroundCollider>();
+        handsCollider = character.GetComponentInChildren<HandsCollider>();
+    }
+
+    public bool isGrounded { get { return groundCollider.isGrounded; } }
+
+    public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
+
+    public void AirMove() {
+        Move();
+    }
+    public void LedgeMove() {
+        Move();
     }
 
     public void Move() {

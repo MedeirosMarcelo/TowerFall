@@ -17,10 +17,10 @@ public class CharacterFsm {
 
 
     public enum State {
-        Idle,
-        Jumping,
+        OnGround,  //  State, Update will check for  
+        OnAir,
         Dodging,
-        Hanging,
+        OnLedge,
     }
 
     public CharacterFsm(Character character) {
@@ -28,7 +28,7 @@ public class CharacterFsm {
         rigidBody = character.rigidbody;
         input = character.input;
         controller = character.controller;
-        state = State.Idle;
+        state = State.OnGround;
     }
 
 
@@ -46,7 +46,16 @@ public class CharacterFsm {
     IEnumerator DodgeTimeout() {
         dodgeSick = true;
         yield return new WaitForSeconds(dodgeTime);
-        EnterState(State.Idle);
+
+        if (controller.isGrounded) {
+            EnterState(State.OnGround);
+            yield break;
+        }
+        if (controller.canGrabLedge) {
+            EnterState(State.OnLedge);
+            yield break;
+        }
+        EnterState(State.OnAir);
     }
     IEnumerator DodgeSick() {
         yield return new WaitForSeconds(dodgeSickTime);
@@ -57,20 +66,20 @@ public class CharacterFsm {
     public void Update(float delta) {
         switch (state) {
             default:
-            case State.Idle:
+            case State.OnGround:
                 {
                     if (dodge) {
                         EnterState(State.Dodging);
                         break;
                     }
                     if (jump) {
-                        EnterState(State.Jumping);
+                        EnterState(State.OnAir);
                         break;
                     }
                     controller.Move();
                     break;
                 }
-            case State.Jumping:
+            case State.OnAir:
                 {
                     if (dodge) {
                         EnterState(State.Dodging);
@@ -78,9 +87,19 @@ public class CharacterFsm {
                     }
                     if (jump) {
                         controller.Jump();
+                        jumpCount++;
                         break;
                     }
-                    controller.Move();
+                    controller.AirMove();
+
+                    if (controller.isGrounded) {
+                        EnterState(State.OnGround);
+                        break;
+                    }
+                    if (controller.canGrabLedge) {
+                        EnterState(State.OnLedge);
+                        break;
+                    }
                     break;
                 }
 
@@ -88,14 +107,14 @@ public class CharacterFsm {
                 {
                     break;
                 }
-            case State.Hanging:
+            case State.OnLedge:
                 {
                     if (dodge) {
                         EnterState(State.Dodging);
                         break;
                     }
                     if (jump) {
-                        EnterState(State.Jumping);
+                        EnterState(State.OnAir);
                         break;
                     }
                     break;
@@ -113,12 +132,12 @@ public class CharacterFsm {
 
         switch (state) {
             default:
-            case State.Idle:
+            case State.OnGround:
                 {
                     jumpCount = 0;
                     break;
                 }
-            case State.Jumping:
+            case State.OnAir:
                 {
                     controller.Jump();
                     jumpCount += 1;
@@ -131,7 +150,7 @@ public class CharacterFsm {
                     character.StartCoroutine(DodgeTimeout());
                     break;
                 }
-            case State.Hanging:
+            case State.OnLedge:
                 {
                     break;
                 }
@@ -141,11 +160,11 @@ public class CharacterFsm {
     void ExitState() {
         switch (state) {
             default:
-            case State.Idle:
+            case State.OnGround:
                 {
                     break;
                 }
-            case State.Jumping:
+            case State.OnAir:
                 {
                     break;
                 }
@@ -156,7 +175,7 @@ public class CharacterFsm {
                     character.StartCoroutine(DodgeSick());
                     break;
                 }
-            case State.Hanging:
+            case State.OnLedge:
                 {
                     break;
                 }
