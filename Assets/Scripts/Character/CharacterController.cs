@@ -17,14 +17,7 @@ public class CharacterController {
         this.character = character;
     }
 
-    public void FixedUpdate() {
-        Move();
-        Dash();
-        Jump();
-    }
- 
-
-    void Move() {
+    public void Move() {
         // Calculate how fast we should be moving
         var relativeVelocity = character.transform.TransformDirection(character.input.vector) * runSpeed;
         // Calcualte the delta velocity
@@ -35,15 +28,14 @@ public class CharacterController {
         character.rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
-    void Dash() {
-        if (character.input.dash) {
-            Debug.Log("dash");
-            Vector3 dash = character.input.vector.normalized * dashForce;
-            character.rigidbody.AddForce(Camera.main.transform.TransformDirection(dash), ForceMode.Impulse);
-        }
+    public void Dodge() {
+        Debug.Log("Dodge");
+        Vector3 dash = character.input.vector.normalized;
+        if (dash == Vector3.zero) { dash = Vector3.forward; }
+        character.rigidbody.AddForce(Camera.main.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
     }
 
-    void Jump() {
+    public void Jump() {
         if (character.input.jump) {
             Debug.Log("jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

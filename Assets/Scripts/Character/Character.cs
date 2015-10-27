@@ -32,7 +32,7 @@ public class Character : Reflectable {
     }
 
     void FixedUpdate() {
-        controller.FixedUpdate();
+        fsm.Update(Time.deltaTime);
         arrows.FixedUpdate();
         // Input must be last here
         input.FixedUpdate();
@@ -43,10 +43,11 @@ public class Character : Reflectable {
     }
 
     public void TakeHit(DamageDealer damager) {
+        /*
         if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
-        else {
+        else */ {
             int dmg = damager.GetComponent<DamageDealer>().damage;
             TakeDamage(dmg);
         }

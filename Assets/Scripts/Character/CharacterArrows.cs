@@ -17,13 +17,16 @@ public class CharacterArrows  {
 
     public void FixedUpdate() {
         Shoot();
+    }
 
+    /*
         int i = 0;
         foreach (GameObject arrow in arrowList){
             arrowListDetail[i] = arrow.name;
             i++;
         }
     }
+    */
 
     void Shoot() {
         if (character.input.shoot) {
