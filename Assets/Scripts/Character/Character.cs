@@ -13,6 +13,7 @@ public class Character : Reflectable {
     public Camera charCamera { get; private set; }
     public WorldMirror worldMirror { get; private set; }
 
+    public int playerNumber;
     public int health = 1;
     public GameObject basicArrow;
 
@@ -36,6 +37,11 @@ public class Character : Reflectable {
         arrows.FixedUpdate();
         // Input must be last here
         input.FixedUpdate();
+    }
+
+    //Constructor
+    public void Create(int playerNumber) {
+        this.playerNumber = playerNumber;
     }
 
     void UseItem(Item item) {

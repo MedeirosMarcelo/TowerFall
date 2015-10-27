@@ -38,11 +38,15 @@ public class CharacterArrows  {
         if (arrowList.Count > 0) { 
             Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
             Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
-            Ray ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-            RaycastHit hit;
+           
+            Vector3 rayPos = GameManager.ConvertToPlayerCamera(character.playerNumber, new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+            Ray ray = character.charCamera.ScreenPointToRay(rayPos);
+            
             GetNextArrow().SetActive(true);
             GameObject newArrow = character.worldMirror.InstantiateAll(GetNextArrow(), arrowPosition, arrowRotation);
             RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
+            
+            RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
                 newArrow.transform.LookAt(hit.point);
             }

@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject basicArrow;
+    public IList<GameObject> playerList = new List<GameObject>();
+    public GameObject basicArrowPrefab;
+    public GameObject characterPrefab;
     int maxArrows = 7;
     WorldMirror worldMirror;
 
@@ -11,19 +14,34 @@ public class GameManager : MonoBehaviour {
         worldMirror = GetComponent<WorldMirror>();
     }
 
-    void Update() {
-        SpawnOnButton();
-    }
+    public void SpawnItem(GameObject obj, Vector3 position, Quaternion rotation) {
 
-    void SpawnOnButton() {
-        if (Input.GetKeyDown(KeyCode.F1)) {
-            SpawnItem(basicArrow, new Vector3(-58.45f, 1f, 69.44f), transform.rotation);
-        }
-    }
-
-    void SpawnItem(GameObject obj, Vector3 position, Quaternion rotation) {
-
-        GameObject newArrow = worldMirror.InstantiateAll(basicArrow, position, rotation);
+        GameObject newArrow = worldMirror.InstantiateAll(basicArrowPrefab, position, rotation);
         newArrow.transform.parent = this.transform;
+    }
+
+    public void SpawnPlayer(GameObject obj, Vector3 position, Quaternion rotation) {
+
+        GameObject newPlayer = worldMirror.InstantiateAll(characterPrefab, position, rotation);
+        playerList.Add(newPlayer);
+
+        int playerNumber = playerList.IndexOf(newPlayer) + 1;
+        newPlayer.GetComponent<Character>().Create(playerNumber);
+
+        newPlayer.transform.parent = this.transform;
+    }
+
+    //TODO: Put this in extensions.
+    public static Vector3 ConvertToPlayerCamera(int playerNumber, Vector3 position) {
+        if (playerNumber == 1) {
+            return new Vector3(position.x, position.y + (Screen.height * 0.25f));
+        }
+        else if (playerNumber == 2) {
+            return new Vector3(position.x, position.y - (Screen.height * 0.25f));
+        }
+        else {
+            Debug.LogError("GetCameraPosition - Wrong player number");
+            return Vector3.zero;
+        }
     }
 }
