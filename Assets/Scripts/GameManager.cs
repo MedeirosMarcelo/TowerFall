@@ -4,6 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     public GameObject basicArrow;
+    int maxArrows = 7;
     WorldMirror worldMirror;
 
     void Start() {

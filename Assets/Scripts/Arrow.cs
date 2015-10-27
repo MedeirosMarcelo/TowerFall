@@ -2,7 +2,7 @@
 using System.Collections;
 
 public enum ArrowType {
-    basic
+    Basic
 }
 
 public class Arrow : DamageDealer {
@@ -31,6 +31,7 @@ public class Arrow : DamageDealer {
     public void Shoot() {
         shot = true;
         alive = true;
+        Debug.Log(shot + " " + alive);
     }
 
     void Move() {
@@ -42,10 +43,9 @@ public class Arrow : DamageDealer {
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.name == "Floor" ||
             col.gameObject.name == "Wall") {
-            Debug.Log(col.gameObject.name);
-            rigidbody.isKinematic = true;
+            HitScene();
         }
-        else if (col.gameObject.tag == "Player"){
+        else if (col.gameObject.tag == "Player") {
             HitPlayer(col.gameObject);
         }
     }
@@ -54,5 +54,17 @@ public class Arrow : DamageDealer {
         if (Time.time > endTime) {
             Destroy(this.gameObject);
         }
+    }
+
+    void HitScene() {
+        rigidbody.isKinematic = true;
+        alive = false;
+    }
+
+    void HitPlayer(GameObject player) {
+        Hit(player);
+        rigidbody.isKinematic = true;
+        transform.parent = player.transform;
+        alive = false;
     }
 }

@@ -3548,6 +3548,7 @@ MonoBehaviour:
   runSpeed: 14
   jumpForce: 25
   dashForce: 30
+  state: 0
 --- !u!114 &11498020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3569,6 +3570,7 @@ MonoBehaviour:
   runSpeed: 14
   jumpForce: 25
   dashForce: 30
+  state: 0
 --- !u!114 &11498022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3708,6 +3710,7 @@ MonoBehaviour:
   runSpeed: 14
   jumpForce: 25
   dashForce: 30
+  state: 0
 --- !u!124 &12498034
 Behaviour:
   m_ObjectHideFlags: 1

@@ -38,9 +38,8 @@ public class Character : Reflectable {
         input.FixedUpdate();
     }
 
-
     void UseItem(Item item) {
-        
+
     }
 
     public void TakeHit(DamageDealer damager) {
@@ -55,6 +54,7 @@ public class Character : Reflectable {
     }
 
     void TakeDamage(int damage) {
+        Debug.Log(health + " " + damage);
         health -= damage;
         MonitorHealth();
     }
@@ -65,17 +65,21 @@ public class Character : Reflectable {
         }
     }
 
-
     public void PickUpItem(Item item) {
         if (item.tag == "Arrow") {
-            arrows.StoreArrow((Arrow)item);
-            item.PickUp();
+            DamageDealer arrow = (DamageDealer)item;
+            if (!arrow.alive) {
+                if (arrows.arrowList.Count < 7) {
+                    arrows.StoreArrow((Arrow)item);
+                }
+                item.PickUp();
+            }
         }
         else if (item.tag == "Item") {
             UseItem(item);
             item.PickUp();
         }
-        else{
+        else {
             Debug.LogError("PickUpItem - Item has invalid tag.");
         }
     }
@@ -88,6 +92,4 @@ public class Character : Reflectable {
             }
         }
     }
-
-
 }

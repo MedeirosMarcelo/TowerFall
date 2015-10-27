@@ -8,9 +8,8 @@ public class CharacterArrows  {
 
     Character character;
 
-    public IList<GameObject> arrows = new List<GameObject>();
+    public IList<GameObject> arrowList = new List<GameObject>();
     public string[] arrowListDetail = new string[10];
-
 
     public CharacterArrows(Character character) {
         this.character = character;
@@ -22,7 +21,7 @@ public class CharacterArrows  {
 
     /*
         int i = 0;
-        foreach (GameObject arrow in arrows){
+        foreach (GameObject arrow in arrowList){
             arrowListDetail[i] = arrow.name;
             i++;
         }
@@ -36,41 +35,41 @@ public class CharacterArrows  {
     }
 
     void BuildArrow() {
-        if (arrows.Count > 0) { 
+        if (arrowList.Count > 0) { 
             Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
             Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
             Ray ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
             RaycastHit hit;
-            GetArrow().SetActive(true);
-            GameObject newArrow = character.worldMirror.InstantiateAll(GetArrow(), arrowPosition, arrowRotation);
-            RemoveArrow(GetArrow()); //TEMPORÁRIO TAMBÉM!
+            GetNextArrow().SetActive(true);
+            GameObject newArrow = character.worldMirror.InstantiateAll(GetNextArrow(), arrowPosition, arrowRotation);
+            RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
             if (Physics.Raycast(ray, out hit)) {
                 newArrow.transform.LookAt(hit.point);
             }
             else {
                 newArrow.transform.LookAt(ray.GetPoint(15));
             }
-            newArrow.GetComponent<Arrow>().shot = true;
+            newArrow.GetComponent<Arrow>().Shoot();
         }
     }
 
     public void StoreArrow(Arrow arrow) {
         GameObject newArrow = GetArrowByType(arrow.type);
-        arrows.Add(newArrow);
+        arrowList.Add(newArrow);
     }
 
     public void RemoveArrow(GameObject arrow) {
-        arrows.Remove(arrow);
+        arrowList.Remove(arrow);
     }
 
-    public GameObject GetArrow() {
-        return arrows[0];
+    public GameObject GetNextArrow() {
+        return arrowList[arrowList.Count - 1];
     }
 
     GameObject GetArrowByType(ArrowType type) {
         switch (type) {
             default:
-            case ArrowType.basic:
+            case ArrowType.Basic:
                 return character.basicArrow;
         }
     }
