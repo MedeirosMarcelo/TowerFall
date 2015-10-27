@@ -28,8 +28,8 @@ public class CharacterController {
         character.rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
-    public void Dash() {
-            Debug.Log("dash");
+    public void Dodge() {
+        Debug.Log("Dodge");
         Vector3 dash = character.input.vector.normalized;
         if (dash == Vector3.zero) { dash = Vector3.forward; }
         character.rigidbody.AddForce(Camera.main.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);

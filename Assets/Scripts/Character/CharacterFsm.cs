@@ -6,43 +6,61 @@ using System.Collections;
 public class CharacterFsm {
 
     Character character;
+    Rigidbody rigidBody;
+
     CharacterInput input;
     CharacterController controller;
 
+
     State state;
 
-    bool dashSick = false;
-    int jumpCount = 0;
+
 
     public enum State {
         Idle,
         Jumping,
-        Dashing,
+        Dodging,
         Hanging,
     }
 
     public CharacterFsm(Character character) {
         this.character = character;
+        rigidBody = character.rigidbody;
         input = character.input;
         controller = character.controller;
         state = State.Idle;
     }
 
-    bool dash { get { return (!dashSick && input.dash); } }
+
+    // jump
+    int jumpCount = 0;
     bool jump { get { return (jumpCount < 2 && input.jump); } }
-    IEnumerator Dashing(float delayTime) {
-        yield return new WaitForSeconds(delayTime);
-        dashSick = false;
+
+    // dodge
+    private float dodgeTime = 0.416f;
+    private float dodgeSickTime = 0.75f - 0.416f;
+    private bool dodgeSick = false;
+
+    private bool dodge { get { return (!dodgeSick && input.dash); } }
+
+    IEnumerator DodgeTimeout() {
+        dodgeSick = true;
+        yield return new WaitForSeconds(dodgeTime);
         EnterState(State.Idle);
     }
+    IEnumerator DodgeSick() {
+        yield return new WaitForSeconds(dodgeSickTime);
+        dodgeSick = false;
+    }
 
-    public void Update() {
+    // fsm
+    public void Update(float delta) {
         switch (state) {
             default:
             case State.Idle:
                 {
-                    if (dash) {
-                        EnterState(State.Dashing);
+                    if (dodge) {
+                        EnterState(State.Dodging);
                         break;
                     }
                     if (jump) {
@@ -54,8 +72,8 @@ public class CharacterFsm {
                 }
             case State.Jumping:
                 {
-                    if (dash) {
-                        EnterState(State.Dashing);
+                    if (dodge) {
+                        EnterState(State.Dodging);
                         break;
                     }
                     if (jump) {
@@ -66,14 +84,14 @@ public class CharacterFsm {
                     break;
                 }
 
-            case State.Dashing:
+            case State.Dodging:
                 {
                     break;
                 }
             case State.Hanging:
                 {
-                    if (dash) {
-                        EnterState(State.Dashing);
+                    if (dodge) {
+                        EnterState(State.Dodging);
                         break;
                     }
                     if (jump) {
@@ -86,13 +104,6 @@ public class CharacterFsm {
     }
 
 
-    public class Timer {
-
-        float elapsed = 0f;
-        public Timer(float time) {
-        }
-
-    }
 
     void EnterState(State newState) {
         Debug.Log("Enter=" + newState + " Exit=" + state);
@@ -113,12 +124,11 @@ public class CharacterFsm {
                     jumpCount += 1;
                     break;
                 }
-
-            case State.Dashing:
+            case State.Dodging:
                 {
-                    controller.Dash();
-                    character.StartCoroutine(Dashing(1f));
-                    dashSick = true;
+                    rigidBody.useGravity = false;
+                    controller.Dodge();
+                    character.StartCoroutine(DodgeTimeout());
                     break;
                 }
             case State.Hanging:
@@ -140,8 +150,10 @@ public class CharacterFsm {
                     break;
                 }
 
-            case State.Dashing:
+            case State.Dodging:
                 {
+                    rigidBody.useGravity = true;
+                    character.StartCoroutine(DodgeSick());
                     break;
                 }
             case State.Hanging:

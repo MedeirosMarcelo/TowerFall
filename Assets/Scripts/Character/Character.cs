@@ -32,7 +32,7 @@ public class Character : Reflectable {
     }
 
     void FixedUpdate() {
-        fsm.Update();
+        fsm.Update(Time.deltaTime);
         arrows.FixedUpdate();
         // Input must be last here
         input.FixedUpdate();
