@@ -12,20 +12,33 @@ public class Character : Reflectable {
 
     public Camera charCamera { get; private set; }
     public WorldMirror worldMirror { get; private set; }
+    public GroundCollider groundCollider { get; private set; }
+    public HandsCollider handsCollider { get; private set; }
 
     public int playerNumber;
     public int health = 1;
     public GameObject basicArrow;
 
+    public CharacterInput.Type inputType;
+
+    void OnValidate() {
+        if (input != null) {
+            input.type = inputType;
+        }
+    }
+
     void Start() {
         charCamera = GetComponentInChildren<Camera>();
         worldMirror = GetComponentInParent<WorldMirror>();
-
+        handsCollider = GetComponentInChildren<HandsCollider>();
+        groundCollider = GetComponentInChildren<GroundCollider>();
+ 
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
         input = new CharacterInput(this);
+        input.type = inputType;
         fsm = new CharacterFsm(this);
-    }
+   }
 
     void Update() {
         // Input must be first here
@@ -53,7 +66,8 @@ public class Character : Reflectable {
         if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
-        else */ {
+        else */
+        {
             int dmg = damager.GetComponent<DamageDealer>().damage;
             TakeDamage(dmg);
         }

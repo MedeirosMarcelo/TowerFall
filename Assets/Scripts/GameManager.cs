@@ -30,18 +30,4 @@ public class GameManager : MonoBehaviour {
 
         newPlayer.transform.parent = this.transform;
     }
-
-    //TODO: Put this in extensions.
-    public static Vector3 ConvertToPlayerCamera(int playerNumber, Vector3 position) {
-        if (playerNumber == 1) {
-            return new Vector3(position.x, position.y + (Screen.height * 0.25f));
-        }
-        else if (playerNumber == 2) {
-            return new Vector3(position.x, position.y - (Screen.height * 0.25f));
-        }
-        else {
-            Debug.LogError("GetCameraPosition - Wrong player number");
-            return Vector3.zero;
-        }
-    }
 }

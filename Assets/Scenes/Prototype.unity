@@ -12642,6 +12642,7 @@ MonoBehaviour:
   playerNumber: 1
   health: 1
   basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
+  inputType: 0
 --- !u!114 &1162138608
 MonoBehaviour:
   m_ObjectHideFlags: 0

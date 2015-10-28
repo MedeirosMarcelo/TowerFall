@@ -41,7 +41,7 @@ public class CharacterFsm {
     private float dodgeSickTime = 0.75f - 0.416f;
     private bool dodgeSick = false;
 
-    private bool dodge { get { return (!dodgeSick && input.dash); } }
+    private bool dodge { get { return (!dodgeSick && input.dodge); } }
 
     IEnumerator DodgeTimeout() {
         dodgeSick = true;
