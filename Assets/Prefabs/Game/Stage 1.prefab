@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &158986
 GameObject:
   m_ObjectHideFlags: 1
@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 458986}
   - 33: {fileID: 3358986}
   - 65: {fileID: 6558986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - 23: {fileID: 2358986}
   - 65: {fileID: 6558988}
   m_Layer: 0
-  m_Name: Inner Mid 1
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ GameObject:
   - 23: {fileID: 2358988}
   - 65: {fileID: 6558990}
   m_Layer: 0
-  m_Name: Inner Corner
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ GameObject:
   - 4: {fileID: 458992}
   - 33: {fileID: 3358992}
   - 65: {fileID: 6558992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - 23: {fileID: 2358990}
   - 65: {fileID: 6558994}
   m_Layer: 0
-  m_Name: Inner Mid 2
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ GameObject:
   - 4: {fileID: 458996}
   - 33: {fileID: 3358996}
   - 65: {fileID: 6558996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - 4: {fileID: 458998}
   - 33: {fileID: 3358998}
   - 65: {fileID: 6558998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - 23: {fileID: 2358992}
   - 65: {fileID: 6559000}
   m_Layer: 0
-  m_Name: Inner Mid 2
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ GameObject:
   - 4: {fileID: 459002}
   - 33: {fileID: 3359002}
   - 65: {fileID: 6559002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - 23: {fileID: 2358994}
   - 65: {fileID: 6559004}
   m_Layer: 0
-  m_Name: Inner Corner
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ GameObject:
   - 23: {fileID: 2358996}
   - 65: {fileID: 6559006}
   m_Layer: 0
-  m_Name: Inner Mid 1
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ GameObject:
   - 4: {fileID: 459008}
   - 33: {fileID: 3359008}
   - 65: {fileID: 6559008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - 23: {fileID: 2358998}
   - 65: {fileID: 6559010}
   m_Layer: 0
-  m_Name: Central wall
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,7 @@ GameObject:
   - 4: {fileID: 459012}
   - 33: {fileID: 3359012}
   - 65: {fileID: 6559012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - 23: {fileID: 2359000}
   - 65: {fileID: 6559014}
   m_Layer: 0
-  m_Name: Inner Side
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,7 @@ GameObject:
   - 4: {fileID: 459016}
   - 33: {fileID: 3359016}
   - 65: {fileID: 6559016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   - 4: {fileID: 459018}
   - 33: {fileID: 3359018}
   - 65: {fileID: 6559018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - 23: {fileID: 2359002}
   - 65: {fileID: 6559020}
   m_Layer: 0
-  m_Name: Central Platform
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ GameObject:
   - 4: {fileID: 459022}
   - 33: {fileID: 3359022}
   - 65: {fileID: 6559022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - 23: {fileID: 2359004}
   - 65: {fileID: 6559024}
   m_Layer: 0
-  m_Name: Inner Side
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,7 +380,7 @@ GameObject:
   - 23: {fileID: 2359006}
   - 65: {fileID: 6559026}
   m_Layer: 0
-  m_Name: Central Base
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,7 +396,7 @@ GameObject:
   - 4: {fileID: 459028}
   - 33: {fileID: 3359028}
   - 65: {fileID: 6559028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - 4: {fileID: 459030}
   - 33: {fileID: 3359030}
   - 65: {fileID: 6559030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   - 23: {fileID: 2359008}
   - 65: {fileID: 6559032}
   m_Layer: 0
-  m_Name: OuterSide2
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,7 +448,7 @@ GameObject:
   - 4: {fileID: 459034}
   - 33: {fileID: 3359034}
   - 65: {fileID: 6559034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   - 23: {fileID: 2359010}
   - 65: {fileID: 6559036}
   m_Layer: 0
-  m_Name: OuterSide
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,7 +485,7 @@ GameObject:
   - 23: {fileID: 2359012}
   - 65: {fileID: 6559038}
   m_Layer: 0
-  m_Name: OuterSide
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,7 @@ GameObject:
   - 4: {fileID: 459040}
   - 33: {fileID: 3359040}
   - 65: {fileID: 6559040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   - 23: {fileID: 2359014}
   - 65: {fileID: 6559042}
   m_Layer: 0
-  m_Name: OuterSide
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,7 +536,7 @@ GameObject:
   - 4: {fileID: 459044}
   - 33: {fileID: 3359044}
   - 65: {fileID: 6559044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - 23: {fileID: 2359016}
   - 65: {fileID: 6559046}
   m_Layer: 0
-  m_Name: OuterSide2
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +571,7 @@ GameObject:
   - 4: {fileID: 459048}
   - 33: {fileID: 3359048}
   - 65: {fileID: 6559048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   - 4: {fileID: 459050}
   - 33: {fileID: 3359050}
   - 65: {fileID: 6559050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Surface
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   - 23: {fileID: 2359018}
   - 65: {fileID: 6559052}
   m_Layer: 0
-  m_Name: OuterSide
+  m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -646,7 +646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &458984
 Transform:
   m_ObjectHideFlags: 1
@@ -654,7 +654,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 158984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 16, z: 0}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 459056}
@@ -816,8 +816,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.319999993, y: 3, z: 0}
-  m_LocalScale: {x: .0399999991, y: 2, z: .399999976}
+  m_LocalPosition: {x: -.319999993, y: 2, z: 0}
+  m_LocalScale: {x: .0399999991, y: 3, z: .399999976}
   m_Children:
   - {fileID: 459012}
   m_Father: {fileID: 459056}
@@ -953,8 +953,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: -.479999989}
-  m_LocalScale: {x: .919999957, y: 15, z: .0399999991}
+  m_LocalPosition: {x: 0, y: 25, z: -.479999989}
+  m_LocalScale: {x: .919999957, y: 49, z: .0399999991}
   m_Children:
   - {fileID: 459030}
   m_Father: {fileID: 459056}
@@ -978,8 +978,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.479999959, y: 8, z: -.300000012}
-  m_LocalScale: {x: .0400000028, y: 15, z: .400000006}
+  m_LocalPosition: {x: -.479999959, y: 25, z: -.300000012}
+  m_LocalScale: {x: .0400000028, y: 49, z: .400000006}
   m_Children:
   - {fileID: 459034}
   m_Father: {fileID: 459056}
@@ -991,8 +991,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .479999959, y: 8, z: -.300000012}
-  m_LocalScale: {x: .0400000028, y: 15, z: .400000006}
+  m_LocalPosition: {x: .479999959, y: 25, z: -.300000012}
+  m_LocalScale: {x: .0400000028, y: 49, z: .400000006}
   m_Children:
   - {fileID: 459040}
   m_Father: {fileID: 459056}
@@ -1016,8 +1016,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.479999989, y: 8, z: .299999952}
-  m_LocalScale: {x: .0400000028, y: 15, z: .400000006}
+  m_LocalPosition: {x: -.479999989, y: 25, z: .299999952}
+  m_LocalScale: {x: .0400000028, y: 49, z: .400000006}
   m_Children:
   - {fileID: 459044}
   m_Father: {fileID: 459056}
@@ -1041,8 +1041,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: .479999989}
-  m_LocalScale: {x: .920000017, y: 15, z: .0399999991}
+  m_LocalPosition: {x: 0, y: 25, z: .479999989}
+  m_LocalScale: {x: .920000017, y: 49, z: .0399999991}
   m_Children:
   - {fileID: 459048}
   m_Father: {fileID: 459056}
@@ -1078,8 +1078,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .479999989, y: 8, z: .300000012}
-  m_LocalScale: {x: .0399999991, y: 15, z: .400000006}
+  m_LocalPosition: {x: .479999989, y: 25, z: .300000012}
+  m_LocalScale: {x: .0399999991, y: 49, z: .400000006}
   m_Children:
   - {fileID: 459050}
   m_Father: {fileID: 459056}

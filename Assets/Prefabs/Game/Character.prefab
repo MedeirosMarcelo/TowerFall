@@ -385,7 +385,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193260}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!92 &9293260
 Behaviour:
   m_ObjectHideFlags: 1
@@ -419,6 +419,7 @@ MonoBehaviour:
   playerNumber: 1
   health: 1
   basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
+  inputType: 0
 --- !u!114 &11444950
 MonoBehaviour:
   m_ObjectHideFlags: 1
