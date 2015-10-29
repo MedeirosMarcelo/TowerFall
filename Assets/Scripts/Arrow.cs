@@ -8,7 +8,7 @@ public enum ArrowType {
 public class Arrow : DamageDealer {
 
     public ArrowType type;
-    public GameObject owner;
+    public Character owner;
     public bool shot;
     public float ownerHitDelay = 5f;
     public bool canHitOwner;
@@ -19,8 +19,10 @@ public class Arrow : DamageDealer {
     float endTime;
     float delayTime;
     State state;
+    GameManager gameManager;
 
     void Start() {
+        gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
         endTime = lifespan + Time.time;
         delayTime = ownerHitDelay + Time.time;
         //	Physics.gravity = new Vector3 (0, -300, 0);
@@ -51,7 +53,7 @@ public class Arrow : DamageDealer {
         }
     }
 
-    public void Shoot(GameObject owner) {
+    public void Shoot(Character owner) {
         this.owner = owner;
         shot = true;
         alive = true;
@@ -105,6 +107,7 @@ public class Arrow : DamageDealer {
             alive = false;
             canHitOwner = true;
             state = State.Hit;
+            gameManager.Scored(owner.playerNumber);
         }
     }
 

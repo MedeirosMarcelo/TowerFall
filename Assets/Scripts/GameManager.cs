@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour {
     public GameObject characterPrefab;
     int maxArrows = 7;
     WorldMirror worldMirror;
+    Score score;
+    float spawnTime = 3f;
 
     void Start() {
         worldMirror = GetComponent<WorldMirror>();
+        score = GameObject.FindWithTag("Canvas").transform.Find("Score").GetComponent<Score>();
     }
 
     public void SpawnItem(GameObject obj, Vector3 position, Quaternion rotation) {
@@ -30,6 +33,15 @@ public class GameManager : MonoBehaviour {
         newPlayer.transform.parent = this.transform;
     }
 
+    public void RespawnPlayer(GameObject obj, int playerNumber, Vector3 position, Quaternion rotation) {
+
+        GameObject newPlayer = worldMirror.InstantiateAll(characterPrefab, position, rotation);
+        playerList.Add(newPlayer);
+
+        newPlayer.GetComponent<Character>().Create(playerNumber);
+        newPlayer.transform.parent = this.transform;
+    }
+
     //TODO: Put this in extensions.
     public static Vector3 ConvertToPlayerCamera(int playerNumber, Vector3 position) {
         if (playerNumber == 1) {
@@ -44,5 +56,19 @@ public class GameManager : MonoBehaviour {
             Debug.LogError("GetCameraPosition - Wrong player number");
             return Vector3.zero;
         }
+    }
+
+    public void Scored(int playerNumber) {
+        score.Scored(playerNumber);
+    }
+
+    public void Respawn(int playerNumber) {
+        Debug.Log("!!!!");
+        StartCoroutine("SetRespawn", playerNumber);
+    }
+
+    IEnumerator SetRespawn(int playerNumber) {
+        yield return new WaitForSeconds(spawnTime);
+        RespawnPlayer(characterPrefab, playerNumber, new Vector3(-60f, 1.46f, 68f), transform.rotation);
     }
 }

@@ -10,10 +10,9 @@ public class Score : MonoBehaviour {
     Text p1;
     Text p2;
 
-    // Use this for initialization
     void Start() {
         p1 = transform.Find("P1").GetComponent<Text>();
-        p1 = transform.Find("P2").GetComponent<Text>();
+        p2 = transform.Find("P2").GetComponent<Text>();
     }
 
     public void Scored(int playerNumber) {
@@ -23,7 +22,7 @@ public class Score : MonoBehaviour {
         }
         else {
             p2Score++;
-            p2.text = p1Score.ToString();
+            p2.text = p2Score.ToString();
         }
     }
 }

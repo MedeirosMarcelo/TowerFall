@@ -21,30 +21,13 @@ public class Character : Reflectable {
 
     public CharacterInput.Type inputType;
 
+    GameManager gameManager;
+
     void OnValidate() {
         if (input != null) {
             input.type = inputType;
         }
     }
-
-    void Start() {
-        charCamera = GetComponentInChildren<Camera>();
-        worldMirror = GetComponentInParent<WorldMirror>();
-        handsCollider = GetComponentInChildren<HandsCollider>();
-        groundCollider = GetComponentInChildren<GroundCollider>();
- 
-        controller = new CharacterController(this);
-        arrows = new CharacterArrows(this);
-        input = new CharacterInput(this);
-        fsm = new CharacterFsm(this);
-
-        if (playerNumber == 2) {
-            inputType = CharacterInput.Type.Controller1;
-            charCamera.rect = new Rect(0f, -0.5f, 1f, 1f);
-        }         
-
-        input.type = inputType;
-   }
 
     void Update() {
         // Input must be first here
@@ -60,7 +43,24 @@ public class Character : Reflectable {
 
     //Constructor
     public void Create(int playerNumber) {
-       this.playerNumber = playerNumber;
+        charCamera = GetComponentInChildren<Camera>();
+        worldMirror = GetComponentInParent<WorldMirror>();
+        handsCollider = GetComponentInChildren<HandsCollider>();
+        groundCollider = GetComponentInChildren<GroundCollider>();
+
+        controller = new CharacterController(this);
+        arrows = new CharacterArrows(this);
+        input = new CharacterInput(this);
+        fsm = new CharacterFsm(this);
+
+        gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
+        this.playerNumber = playerNumber;
+        if (playerNumber == 2) {
+            inputType = CharacterInput.Type.Controller1;
+            charCamera.rect = new Rect(0f, -0.5f, 1f, 1f);
+        }
+        input.type = inputType;
+       
     }
 
     void UseItem(Item item) {
@@ -87,6 +87,7 @@ public class Character : Reflectable {
 
     void MonitorHealth() {
         if (health <= 0) {
+            gameManager.Respawn(playerNumber);
             Destroy(this.gameObject);
         }
     }
