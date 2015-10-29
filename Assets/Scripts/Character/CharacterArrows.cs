@@ -54,6 +54,7 @@ public class CharacterArrows  {
                 newArrow.transform.LookAt(ray.GetPoint(15));
             }
             newArrow.GetComponent<Arrow>().Shoot(character);
+
         }
     }
 
