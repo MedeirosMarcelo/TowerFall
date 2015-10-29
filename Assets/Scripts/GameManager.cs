@@ -31,6 +31,14 @@ public class GameManager : MonoBehaviour {
         int playerNumber = playerList.IndexOf(newPlayer) + 1;
         newPlayer.GetComponent<Character>().Create(playerNumber);
         newPlayer.transform.parent = this.transform;
+
+
+        GameObject newArrow = worldMirror.InstantiateAll(basicArrowPrefab, Vector3.zero, transform.rotation);
+        newPlayer.GetComponent<Character>().PickUpItem(newArrow.GetComponent<Item>());
+        newArrow = worldMirror.InstantiateAll(basicArrowPrefab, Vector3.zero, transform.rotation);
+        newPlayer.GetComponent<Character>().PickUpItem(newArrow.GetComponent<Item>());
+        newArrow = worldMirror.InstantiateAll(basicArrowPrefab, Vector3.zero, transform.rotation);
+        newPlayer.GetComponent<Character>().PickUpItem(newArrow.GetComponent<Item>());
     }
 
     public void RespawnPlayer(GameObject obj, int playerNumber, Vector3 position, Quaternion rotation) {
