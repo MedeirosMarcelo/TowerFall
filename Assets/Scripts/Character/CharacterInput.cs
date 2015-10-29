@@ -72,16 +72,19 @@ public class CharacterInput {
     }
 
     void ShowCursor() {
-        mouseLook = false;
-        Screen.showCursor = true;
-        Screen.lockCursor = false;
+        if (type == Type.Keyboard) {
+            mouseLook = false;
+            Screen.showCursor = true;
+            Screen.lockCursor = false;
+        }
     }
 
     void HideCursor() {
-        mouseLook = true;
-        Screen.showCursor = false;
-        Screen.lockCursor = true;
-
+        if (type == Type.Keyboard) {
+            mouseLook = true;
+            Screen.showCursor = false;
+            Screen.lockCursor = true;
+        }
     }
 
     void UpdateCursor() {
@@ -138,32 +141,32 @@ public class CharacterInput {
 
         public static Config keyboard = new Config() {
             moveHorizontal = "kHorizontal",
-            moveVertical   = "kVertical",
+            moveVertical = "kVertical",
             lookHorizontal = "kLookHorizontal",
-            lookVertical   = "kLookVertical",
-            shoot          = "kShoot",
-            dodge          = "kDodge",
-            jump           = "kJump"
+            lookVertical = "kLookVertical",
+            shoot = "kShoot",
+            dodge = "kDodge",
+            jump = "kJump"
         };
 
         public static Config controller1 = new Config() {
             moveHorizontal = "c1Horizontal",
-            moveVertical   = "c1Vertical",
+            moveVertical = "c1Vertical",
             lookHorizontal = "c1LookHorizontal",
-            lookVertical   = "c1LookVertical",
-            shoot          = "c1Shoot",
-            dodge          = "c1Dodge",
-            jump           = "c1Jump"
+            lookVertical = "c1LookVertical",
+            shoot = "c1Shoot",
+            dodge = "c1Dodge",
+            jump = "c1Jump"
         };
 
         public static Config controller2 = new Config() {
             moveHorizontal = "c2Horizontal",
-            moveVertical   = "c2Vertical",
+            moveVertical = "c2Vertical",
             lookHorizontal = "c2LookHorizontal",
-            lookVertical   = "c2LookVertical",
-            shoot          = "c2Shoot",
-            dodge          = "c2Dodge",
-            jump           = "c2Jump"
+            lookVertical = "c2LookVertical",
+            shoot = "c2Shoot",
+            dodge = "c2Dodge",
+            jump = "c2Jump"
         };
     };
 

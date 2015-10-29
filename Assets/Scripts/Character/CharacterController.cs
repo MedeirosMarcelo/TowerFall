@@ -46,7 +46,7 @@ public class CharacterController {
         Debug.Log("Dodge");
         Vector3 dash = character.input.vector.normalized;
         if (dash == Vector3.zero) { dash = Vector3.forward; }
-        character.rigidbody.AddForce(Camera.main.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
+        character.rigidbody.AddForce(character.charCamera.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
     }
 
     public void Jump() {

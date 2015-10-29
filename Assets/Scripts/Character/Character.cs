@@ -36,8 +36,14 @@ public class Character : Reflectable {
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
         input = new CharacterInput(this);
-        input.type = inputType;
         fsm = new CharacterFsm(this);
+
+        if (playerNumber == 2) {
+            inputType = CharacterInput.Type.Controller1;
+            charCamera.rect = new Rect(0f, -0.5f, 1f, 1f);
+        }         
+
+        input.type = inputType;
    }
 
     void Update() {
@@ -54,7 +60,7 @@ public class Character : Reflectable {
 
     //Constructor
     public void Create(int playerNumber) {
-        this.playerNumber = playerNumber;
+       this.playerNumber = playerNumber;
     }
 
     void UseItem(Item item) {

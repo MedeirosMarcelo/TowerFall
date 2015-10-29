@@ -16,6 +16,7 @@ public class Scene : MonoBehaviour {
 
     void Init() {
         gameManager.SpawnPlayer(gameManager.characterPrefab, new Vector3(-60f, 1.46f, 68f), transform.rotation);
+        gameManager.SpawnPlayer(gameManager.characterPrefab, new Vector3(-60f, 1.46f, 68f), transform.rotation);
     }
 
     void SpawnArrowOnButton() {
