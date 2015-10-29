@@ -27,16 +27,17 @@ public class GameManager : MonoBehaviour {
 
         int playerNumber = playerList.IndexOf(newPlayer) + 1;
         newPlayer.GetComponent<Character>().Create(playerNumber);
-
         newPlayer.transform.parent = this.transform;
     }
 
     //TODO: Put this in extensions.
     public static Vector3 ConvertToPlayerCamera(int playerNumber, Vector3 position) {
         if (playerNumber == 1) {
+            Debug.Log("GetCameraPosition " + playerNumber);
             return new Vector3(position.x, position.y + (Screen.height * 0.25f));
         }
         else if (playerNumber == 2) {
+            Debug.Log("GetCameraPosition " + playerNumber);
             return new Vector3(position.x, position.y - (Screen.height * 0.25f));
         }
         else {

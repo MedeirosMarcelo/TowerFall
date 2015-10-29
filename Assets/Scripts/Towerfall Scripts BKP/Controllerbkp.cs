@@ -309,7 +309,7 @@ public class Controllerbkp : MonoBehaviour {
         else {
             newArrow.transform.LookAt(ray.GetPoint(15));
         }
-        newArrow.GetComponent<Arrow>().Shoot();
+        newArrow.GetComponent<Arrow>().Shoot(this.gameObject);
     }
 
     /*
