@@ -38,8 +38,8 @@ public class CharacterArrows  {
         if (arrowList.Count > 0) { 
             Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
             Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
-           
-            Vector3 rayPos = GameManager.ConvertToPlayerCamera(character.playerNumber, new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+
+            Vector3 rayPos =  new Vector3(Screen.width * 0.5f, Screen.height * 0.5f).ToPlayerCamera(character.playerNumber);
             Ray ray = character.charCamera.ScreenPointToRay(rayPos);
             
             GetNextArrow().SetActive(true);

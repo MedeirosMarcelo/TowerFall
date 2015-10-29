@@ -2,7 +2,7 @@
 using System.Collections;
 
 public static class Extensions {
-    static Vector3 Invert(this Vector3 v) {
+    public static Vector3 Invert(this Vector3 v) {
         float[] array = new float[3];
         array[0] = v.x;
         array[1] = v.y;
@@ -14,5 +14,18 @@ public static class Extensions {
         }
         Vector3 result = new Vector3(array[0], array[1], array[2]);
         return result;
+    }
+
+    public static Vector3 ToPlayerCamera(this Vector3 position, int playerNumber) {
+        if (playerNumber == 1) {
+            return new Vector3(position.x, position.y + (Screen.height * 0.25f));
+        }
+        else if (playerNumber == 2) {
+            return new Vector3(position.x, position.y - (Screen.height * 0.25f));
+        }
+        else {
+            Debug.LogError("GetCameraPosition - Wrong player number");
+            return Vector3.zero;
+        }
     }
 }

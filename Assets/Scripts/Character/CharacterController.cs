@@ -2,11 +2,12 @@
 using System;
 using System.Collections;
 
-
 [Serializable]
 public class CharacterController {
 
     Character character;
+    GroundCollider groundCollider;
+    HandsCollider handsCollider;
 
     float runSpeed = 14f;
     float dashForce = 30f;
@@ -15,6 +16,19 @@ public class CharacterController {
 
     public CharacterController(Character character) {
         this.character = character;
+        groundCollider = character.groundCollider;
+        handsCollider = character.handsCollider;
+    }
+
+    public bool isGrounded { get { return groundCollider.isGrounded; } }
+
+    public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
+
+    public void AirMove() {
+        Move();
+    }
+    public void LedgeMove() {
+        Move();
     }
 
     public void Move() {
@@ -32,7 +46,7 @@ public class CharacterController {
         Debug.Log("Dodge");
         Vector3 dash = character.input.vector.normalized;
         if (dash == Vector3.zero) { dash = Vector3.forward; }
-        character.rigidbody.AddForce(Camera.main.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
+        character.rigidbody.AddForce(character.charCamera.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
     }
 
     public void Jump() {

@@ -10,10 +10,19 @@ public class LoopController : MonoBehaviour {
     WorldMirror worldMirror;
     Bounds bounds;
 
+    bool loopX = true;
+    bool loopY = true;
+    bool loopZ = true;
+
     void Start() {
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
         worldMirror = GetComponentInParent<WorldMirror>();
+
+        loopX = (worldMirror.ReflectionsX > 0);
+        loopY = (worldMirror.ReflectionsY > 0);
+        loopZ = (worldMirror.ReflectionsZ > 0);
+
         bounds = worldMirror.bounds;
         Debug.Log(name + bounds);
     }
@@ -31,9 +40,9 @@ public class LoopController : MonoBehaviour {
     void Loop() {
         Vector3 position = transform.localPosition;
 
-        LoopAxis(bounds.min.x, bounds.max.x, ref position.x);
-        LoopAxis(bounds.min.y, bounds.max.y, ref position.y);
-        LoopAxis(bounds.min.z, bounds.max.z, ref position.z);
+        if (loopX) { LoopAxis(bounds.min.x, bounds.max.x, ref position.x); }
+        if (loopY) { LoopAxis(bounds.min.y, bounds.max.y, ref position.y); }
+        if (loopZ) { LoopAxis(bounds.min.z, bounds.max.z, ref position.z); }
 
         if (position != transform.localPosition) {
             transform.localPosition = position;
