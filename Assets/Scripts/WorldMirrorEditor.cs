@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+/*
 using UnityEditor;
 
 [CustomEditor(typeof(WorldMirror))]
@@ -16,3 +17,4 @@ public class WorldMirrorEditor : Editor {
         }
     }
 }
+*/
