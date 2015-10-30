@@ -9,6 +9,9 @@ TagManager:
   - Player
   - World Main
   - Canvas
+  - Server Start
+  - Server Port
+  - Server Status
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
