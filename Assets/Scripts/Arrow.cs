@@ -20,12 +20,14 @@ public class Arrow : DamageDealer {
     float delayTime;
     State state;
     GameManager gameManager;
+    AudioSource audioSource;
 
     void Start() {
         gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
         endTime = lifespan + Time.time;
         delayTime = ownerHitDelay + Time.time;
         //	Physics.gravity = new Vector3 (0, -300, 0);
+
     }
 
     void FixedUpdate() {
@@ -60,6 +62,9 @@ public class Arrow : DamageDealer {
         Move();
         Debug.Log(shot + " " + alive);
         state = State.Shot;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
     }
 
     void Move() {
