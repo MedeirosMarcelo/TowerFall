@@ -12,6 +12,13 @@ TagManager:
   - Server Start
   - Server Port
   - Server Status
+  - Client Start
+  - Client Name
+  - Client IP
+  - Client Port
+  - 
+  - Command
+  - Scrool
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
