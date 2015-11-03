@@ -1,3 +1,7 @@
+#Builds
+[Ss]erver/
+[Cc]linet/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -9,11 +13,12 @@ Desktop.ini
 # =============== #
 [Tt]emp/
 [Oo]bj/
-[Bb]uild
+[Bb]uild/
 [Ll]ibrary/
 sysinfo.txt
 *.stackdump
- 
+
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -28,6 +33,7 @@ sysinfo.txt
 *.userprefs
 *.pidb
 *.booproj
+*swp
 *~
  
 # ============ #
