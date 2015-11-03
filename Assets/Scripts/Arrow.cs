@@ -117,11 +117,11 @@ public class Arrow : DamageDealer {
     }
 
     bool CanHit(GameObject player) {
-        if (player == owner && !canHitOwner) {
-            return false;
+        if (alive && (player != owner || canHitOwner)) {
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 }
