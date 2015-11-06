@@ -60,7 +60,6 @@ public class Arrow : DamageDealer {
         shot = true;
         alive = true;
         Move();
-        Debug.Log(shot + " " + alive);
         state = State.Shot;
 
         audioSource = GetComponent<AudioSource>();

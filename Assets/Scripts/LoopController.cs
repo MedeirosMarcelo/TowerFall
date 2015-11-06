@@ -24,7 +24,6 @@ public class LoopController : MonoBehaviour {
         loopZ = (worldMirror.ReflectionsZ > 0);
 
         bounds = worldMirror.bounds;
-        Debug.Log(name + bounds);
     }
 
     void LoopAxis(float min, float max, ref float position) {
