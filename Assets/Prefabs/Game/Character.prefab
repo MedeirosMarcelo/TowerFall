@@ -405,7 +405,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 193262}
-  speed: 25
   maxDistance: -7.46999979
   rayDistance: 5
 --- !u!114 &11431360
