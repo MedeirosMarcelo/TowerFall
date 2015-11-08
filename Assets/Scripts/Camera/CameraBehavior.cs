@@ -5,9 +5,10 @@ public class CameraBehavior : MonoBehaviour {
 
     public GameObject owner;
     float speed = 7f;
+    public float cameraDistance = 5f;
     public float maxDistance = -5.5f;
     public float rayDistance = 5f;
-    Vector3 cameraPosition = new Vector3(1.71f, 1.62f, -5.51f);
+    public Vector3 cameraPosition;
 
     void LateUpdate() {
         AdjustPosition(cameraPosition);
@@ -15,44 +16,34 @@ public class CameraBehavior : MonoBehaviour {
 
     void AdjustPosition(Vector3 defaultPosition) {
 
-        Vector3 hitPoint;
-        Vector3 targetPosition;
+        float distance;
+        SightBlocked(out distance);
 
-        if (SightBlocked(out hitPoint)) {
-            Debug.Log("SightBlocked" + " " + hitPoint);
-            targetPosition = hitPoint;
-        }
-        else {
-            targetPosition = defaultPosition;
-            Debug.Log("NotBlocked" + " " + defaultPosition);
+        if (distance > cameraDistance) {
+            distance = cameraDistance;
         }
 
-        if (Vector3.Distance(transform.position, targetPosition) > 2f) {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, speed * Time.deltaTime);
-        }
+        cameraPosition = new Vector3(1.71f, 1.62f, -distance);
+        //Debug.Log("Distance " + distance + " " + cameraPosition);
+        transform.localPosition = cameraPosition;
     }
 
-    bool SightBlocked(out Vector3 hitPoint) {
+    void SightBlocked(out float hitPoint) {
         Vector3 origin = owner.transform.position;
         Vector3 direction = transform.position - origin;
         RaycastHit hit;
         Ray ray = new Ray(origin, direction);
         Debug.DrawRay(origin, direction, Color.blue);
         if (Physics.Raycast(ray, out hit, rayDistance)) {
-            Debug.Log("RaycastHit: " + hit.collider.name);
             if (hit.collider.tag == "Walkable") {
-                hitPoint = transform.InverseTransformPoint(hit.point);
-                hitPoint = new Vector3(hitPoint.x, hitPoint.y, hitPoint.z -1);
-                return true;
+                hitPoint = Vector3.Distance(hit.point, origin);
+            }
+            else {
+                hitPoint = cameraDistance;
             }
         }
-        hitPoint = Vector3.zero;
-        return false;
-    }
-
-    void OnTriggerEnter(Collider col) {
-        if (true){
-            
+        else {
+            hitPoint = cameraDistance;
         }
     }
 }

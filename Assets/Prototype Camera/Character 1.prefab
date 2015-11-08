@@ -133,7 +133,7 @@ GameObject:
   - 114: {fileID: 11444952}
   - 114: {fileID: 11431360}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Character 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   UseReflections: 1
   playerNumber: 1
   health: 1
-  basicArrow: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
+  basicArrow: {fileID: 101018, guid: 34822ea271dcfe842b6924b3c1368e38, type: 2}
   inputType: 0
 --- !u!114 &11444950
 MonoBehaviour:

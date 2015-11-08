@@ -99,8 +99,9 @@ public class Arrow : DamageDealer {
     void HitScene() {
         rigidbody.isKinematic = true;
         alive = false;
-        canHitOwner = true;
+        canHitOwner = false;
         state = State.Hit;
+        Debug.Log("HitScene");
     }
 
     void HitPlayer(GameObject player) {
@@ -109,14 +110,15 @@ public class Arrow : DamageDealer {
             rigidbody.isKinematic = true;
             transform.parent = player.transform;
             alive = false;
-            canHitOwner = true;
+            canHitOwner = false;
             state = State.Hit;
             gameManager.Scored(owner.playerNumber);
+            Debug.Log("HitPlayer");
         }
     }
 
     bool CanHit(GameObject player) {
-        if (alive && (player != owner || canHitOwner)) {
+        if (alive && (player.GetComponent<Character>().playerNumber != owner.playerNumber || canHitOwner)) {
             return true;
         }
         else {
