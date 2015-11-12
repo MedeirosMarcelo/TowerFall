@@ -88,7 +88,6 @@ public class CharacterController {
     bool mouseLook;
 
     public void Update() {
-        Debug.Log("Coontroller Update");
         if (input.escape) {
             mouseLook = !mouseLook;
             Screen.showCursor = !Screen.showCursor;
