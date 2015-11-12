@@ -6,15 +6,11 @@ using System.Collections;
 public class CharacterFsm {
 
     Character character;
-    Rigidbody rigidBody;
-
     CharacterInput input;
     CharacterController controller;
-
+    Rigidbody rigidBody;
 
     State state;
-
-
 
     public enum State {
         OnGround,  //  State, Update will check for  
@@ -23,11 +19,12 @@ public class CharacterFsm {
         OnLedge,
     }
 
-    public CharacterFsm(Character character) {
+    public CharacterFsm(Character character, CharacterInput input, CharacterController controller) {
         this.character = character;
+        this.input = input;
+        this.controller = controller;
+
         rigidBody = character.rigidbody;
-        input = character.input;
-        controller = character.controller;
         state = State.OnGround;
     }
 
@@ -63,7 +60,7 @@ public class CharacterFsm {
     }
 
     // fsm
-    public void Update(float delta) {
+    public void FixedUpdate(float delta) {
         switch (state) {
             default:
             case State.OnGround:

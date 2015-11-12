@@ -2,6 +2,11 @@
 using System.Collections;
 
 public static class Extensions {
+
+    public static T PickRandom<T>(this T[] source) {
+        return source[Random.Range(0, source.Length)];
+    }
+
     public static Vector3 Invert(this Vector3 v) {
         float[] array = new float[3];
         array[0] = v.x;

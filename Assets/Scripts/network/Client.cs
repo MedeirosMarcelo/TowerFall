@@ -13,6 +13,19 @@ public class Client : MonoBehaviour {
 
     NetworkView net;
 
+    public delegate void OnConnect();
+    public OnConnect onConnect { get; set; }
+
+    public delegate void OnConnected();
+    public OnConnected onConnected { get; set; }
+
+    public delegate void OnDisconnect();
+    public OnDisconnect onDisconnect { get; set; }
+
+    public delegate void OnDisconnected();
+    public OnDisconnected onDisconnected { get; set; }
+
+
     void Start() {
         net = GetComponent<NetworkView>();
         startButton = GameObject.FindGameObjectWithTag("Client Start").GetComponent<Button>();
@@ -42,27 +55,34 @@ public class Client : MonoBehaviour {
                 port = 25001;
             }
             string ip = (ipInput.text == string.Empty) ? "127.0.0.1" : ipInput.text;
-            Network.Connect(ip, port);
+
             Debug.Log("Connect");
+            if (onConnect != null) { onConnect(); }
+            Network.Connect(ip, port);
         }
     }
 
     public void Disconnect() {
-        Network.Disconnect(250);
         Debug.Log("Disconnect");
+        if (onDisconnect != null) { onDisconnect(); }
+        Network.Disconnect(250);
     }
 
     void OnConnectedToServer() {
-        Debug.Log("Connected to server");
+        Debug.Log("Connected");
         //net.RPC("Login", RPCMode.Server, playerName);
         startButton.GetComponentInChildren<Text>().text = "Logout";
         nameInput.interactable = false;
+
+        if (onConnected != null) { onConnected(); }
     }
 
     void OnDisconnectedFromServer() {
         Debug.Log("Disconnected");
         startButton.GetComponentInChildren<Text>().text = "Login";
         nameInput.interactable = true;
+
+        if (onDisconnected != null) { onDisconnected(); }
     }
 
     [RPC]

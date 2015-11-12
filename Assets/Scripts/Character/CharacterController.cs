@@ -6,6 +6,7 @@ using System.Collections;
 public class CharacterController {
 
     Character character;
+    CharacterInput input;
     GroundCollider groundCollider;
     HandsCollider handsCollider;
 
@@ -14,26 +15,32 @@ public class CharacterController {
     float maxAcceleration = 8f;
     float jumpForce = 25f;
 
-    public CharacterController(Character character) {
-        this.character = character;
-        groundCollider = character.groundCollider;
-        handsCollider = character.handsCollider;
-    }
-
     public bool isGrounded { get { return groundCollider.isGrounded; } }
-
     public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
 
-    public void AirMove() {
-        Move();
+    public CharacterController(Character character, CharacterInput input) {
+        this.character = character;
+        this.input = input;
+        groundCollider = character.groundCollider;
+        handsCollider = character.handsCollider;
+
+        // Make the rigid body not change rotation
+        character.rigidbody.freezeRotation = true;
+
+        if (character.isMine) {
+            mouseLook = true;
+            Screen.showCursor = false;
+            Screen.lockCursor = true;
+        }
     }
-    public void LedgeMove() {
+
+    public void AirMove() {
         Move();
     }
 
     public void Move() {
         // Calculate how fast we should be moving
-        var relativeVelocity = character.transform.TransformDirection(character.input.vector) * runSpeed;
+        var relativeVelocity = character.transform.TransformDirection(input.vector) * runSpeed;
         // Calcualte the delta velocity
         var velocityChange = relativeVelocity - character.rigidbody.velocity;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
@@ -44,13 +51,13 @@ public class CharacterController {
 
     public void Dodge() {
         Debug.Log("Dodge");
-        Vector3 dash = character.input.vector.normalized;
+        Vector3 dash = input.vector.normalized;
         if (dash == Vector3.zero) { dash = Vector3.forward; }
         character.rigidbody.AddForce(character.charCamera.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
     }
 
     public void Jump() {
-        if (character.input.jump) {
+        if (input.jump) {
             Debug.Log("jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -70,4 +77,41 @@ public class CharacterController {
             return false;
         }
     }
+
+    float sensitivityX = 15F;
+    float sensitivityY = 15F;
+    float minimumX = -360F;
+    float maximumX = 360F;
+    float minimumY = -60F;
+    float maximumY = 60F;
+    float rotationY = 0F;
+    bool mouseLook;
+
+    public void Update() {
+        Debug.Log("Coontroller Update");
+        if (input.escape) {
+            mouseLook = !mouseLook;
+            Screen.showCursor = !Screen.showCursor;
+            Screen.lockCursor = !Screen.lockCursor;
+            Debug.Log("Mouse Look:" + mouseLook);
+        }
+    }
+
+    public void Look() {
+        if (mouseLook) {
+            rotationY += input.lookVertical * sensitivityY;
+            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+
+            //Camera
+            var camTransform = character.charCamera.transform;
+            camTransform.localEulerAngles = new Vector3(-rotationY, camTransform.localEulerAngles.y, 0);
+
+            //player
+            var charTransform = character.transform;
+            float rotationX = charTransform.localEulerAngles.y + input.lookHorizontal * sensitivityX;
+            charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+        }
+    }
+
+
 }

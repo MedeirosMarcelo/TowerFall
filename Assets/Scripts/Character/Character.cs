@@ -4,63 +4,81 @@ using System.Collections.Generic;
 
 public class Character : Reflectable {
 
+    // Internals
     // exposing getters for internals 
     public CharacterController controller { get; private set; }
     public CharacterInput input { get; private set; }
     public CharacterArrows arrows { get; private set; }
     public CharacterFsm fsm { get; private set; }
 
+    // Children
     public Camera charCamera { get; private set; }
-    public WorldMirror worldMirror { get; private set; }
     public GroundCollider groundCollider { get; private set; }
     public HandsCollider handsCollider { get; private set; }
+
+    // World
+    //public WorldMirror worldMirror { get; private set; }
+    //GameManager gameManager;
+
+    //Network
+    public NetworkView net { get; private set; }
+    public bool isMine { get { return net.isMine; } }
+    public bool isNotMine { get { return !net.isMine; } }
 
     public int playerNumber;
     public int health = 1;
     public GameObject basicArrow;
-
     public CharacterInput.Type inputType;
 
-    GameManager gameManager;
-
     void OnValidate() {
-        if (input != null) {
-            input.type = inputType;
-        }
+        if (input != null) { input.type = inputType; }
     }
 
     void Update() {
-        // Input must be first here
+        if (isNotMine) {
+            return;
+        }
         input.Update();
+        controller.Update();
     }
 
+
     void FixedUpdate() {
-        fsm.Update(Time.deltaTime);
+        if (isNotMine) {
+            return;
+        }
+
+        controller.Look();
+        fsm.FixedUpdate(Time.deltaTime);
         arrows.FixedUpdate();
+
         // Input must be last here
         input.FixedUpdate();
     }
 
-    //Constructor
     public void Create(int playerNumber) {
+        Start();
+        this.playerNumber = playerNumber;
+    }
+
+    void Start() {
+        Debug.Log("Start");
+
+        this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
-        worldMirror = GetComponentInParent<WorldMirror>();
+        net = GetComponent<NetworkView>();
+
+        if (!net.isMine) {
+            charCamera.gameObject.SetActive(false);
+        }
+        //worldMirror = GetComponentInParent<WorldMirror>();
         handsCollider = GetComponentInChildren<HandsCollider>();
         groundCollider = GetComponentInChildren<GroundCollider>();
 
-        controller = new CharacterController(this);
-        arrows = new CharacterArrows(this);
         input = new CharacterInput(this);
-        fsm = new CharacterFsm(this);
-
-        gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
-        this.playerNumber = playerNumber;
-        if (playerNumber == 2) {
-            inputType = CharacterInput.Type.Controller1;
-            charCamera.rect = new Rect(0f, -0.5f, 1f, 1f);
-        }
-        input.type = inputType;
-       
+        controller = new CharacterController(this, input);
+        arrows = new CharacterArrows(this, input);
+        fsm = new CharacterFsm(this, input, controller);
     }
 
     void UseItem(Item item) {
@@ -87,7 +105,7 @@ public class Character : Reflectable {
 
     void MonitorHealth() {
         if (health <= 0) {
-            gameManager.Respawn(playerNumber);
+            //gameManager.Respawn(playerNumber);
             Destroy(this.gameObject);
         }
     }

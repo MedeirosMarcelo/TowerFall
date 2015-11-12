@@ -3,19 +3,21 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - 
   - Walkable
   - Arrow
-  - Player
   - World Main
   - Canvas
+  - Server
   - Server Start
   - Server Port
   - Server Status
+  - Client
   - Client Start
   - Client Name
   - Client IP
   - Client Port
+  - Stage
+  - Spawn
   - 
   - Command
   - Scrool

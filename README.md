@@ -1,24 +1,37 @@
 # TowerFall 3D
 Unity3D Towerfall 3D prototype
 
-- Splitscreen
+- Splitscreen: ok
 - Controller
-- Flechas limitadas
-- Pegar flechas
+- Flechas limitadas: ok
+- Pegar flechas: ok
 - Pegar flechas durante o dash
 - Flechas especiais
-- Morrer
-- Colisão da câmera
+- Morrer: ok
+- Colisao da camera
 - Power Up
  - Asas
  - Invisibilidade
  - Escudo
 - Pular na cabeca do adversario
 - UI
- - flechas
- - Placar
+ - flechas: parcial
+ - Placar: parcial
 - Scenes
  - Menus
+ - lobby
+- networking 0.1
+ - server dedicado
+ - client
+ - cenario fixo sem reflexao
+ - clientes aparecem no server e outros clientes
+ - sem flechas
+- networking 0.2
+ - clientes atiram flexas pelo server
+- networking 0.?
+ - chat
+
+
 
 
 ## Dodge Stalling

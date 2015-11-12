@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterState {
+public class ServerManager : MonoBehaviour {
 
-
-
+    public GameObject playerPrefab;
 
 	// Use this for initialization
 	void Start () {

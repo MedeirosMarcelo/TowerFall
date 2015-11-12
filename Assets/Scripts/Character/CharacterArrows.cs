@@ -7,34 +7,28 @@ using System.Collections.Generic;
 public class CharacterArrows  {
 
     Character character;
+    CharacterInput input;
 
     public IList<GameObject> arrowList = new List<GameObject>();
     public string[] arrowListDetail = new string[10];
 
-    public CharacterArrows(Character character) {
+    public CharacterArrows(Character character, CharacterInput input) {
         this.character = character;
+        this.input = input;
     }
 
     public void FixedUpdate() {
         Shoot();
     }
 
-    /*
-        int i = 0;
-        foreach (GameObject arrow in arrowList){
-            arrowListDetail[i] = arrow.name;
-            i++;
-        }
-    }
-    */
-
     void Shoot() {
-        if (character.input.shoot) {
+        if (input.shoot) {
             BuildArrow();
         }
     }
 
     void BuildArrow() {
+        /*
         if (arrowList.Count > 0) { 
             Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
             Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
@@ -54,8 +48,8 @@ public class CharacterArrows  {
                 newArrow.transform.LookAt(ray.GetPoint(15));
             }
             newArrow.GetComponent<Arrow>().Shoot(character);
-
         }
+        */
     }
 
     public void StoreArrow(Arrow arrow) {
