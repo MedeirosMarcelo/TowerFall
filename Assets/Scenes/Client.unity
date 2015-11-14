@@ -151,7 +151,7 @@ GameObject:
   - 33: {fileID: 70856948}
   - 23: {fileID: 70856947}
   - 65: {fileID: 70856946}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - 33: {fileID: 86091120}
   - 23: {fileID: 86091119}
   - 65: {fileID: 86091118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   - 33: {fileID: 208170085}
   - 23: {fileID: 208170084}
   - 65: {fileID: 208170083}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   - 33: {fileID: 381264179}
   - 23: {fileID: 381264178}
   - 65: {fileID: 381264177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1215,7 +1215,7 @@ GameObject:
   - 33: {fileID: 490052244}
   - 23: {fileID: 490052243}
   - 65: {fileID: 490052242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1839,7 +1839,7 @@ GameObject:
   - 33: {fileID: 651460334}
   - 23: {fileID: 651460333}
   - 65: {fileID: 651460332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1989,7 +1989,7 @@ GameObject:
   - 33: {fileID: 810186633}
   - 23: {fileID: 810186632}
   - 65: {fileID: 810186631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2240,7 +2240,7 @@ GameObject:
   - 33: {fileID: 948240105}
   - 23: {fileID: 948240104}
   - 65: {fileID: 948240103}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2382,7 +2382,7 @@ GameObject:
   - 33: {fileID: 965642613}
   - 23: {fileID: 965642612}
   - 65: {fileID: 965642611}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2455,7 +2455,7 @@ GameObject:
   - 33: {fileID: 1047111115}
   - 23: {fileID: 1047111114}
   - 65: {fileID: 1047111113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2575,6 +2575,74 @@ Prefab:
     - target: {fileID: 149584, guid: 62c3963405373054badc43c54838a1b5, type: 2}
       propertyPath: m_TagString
       value: Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 149620, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149608, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149604, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149590, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149598, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149612, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149618, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149602, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149596, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149610, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149588, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149616, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149606, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149614, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149594, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149600, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 149592, guid: 62c3963405373054badc43c54838a1b5, type: 2}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 62c3963405373054badc43c54838a1b5, type: 2}
@@ -2957,7 +3025,7 @@ GameObject:
   - 33: {fileID: 1252055699}
   - 23: {fileID: 1252055698}
   - 65: {fileID: 1252055697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -3030,7 +3098,7 @@ GameObject:
   - 33: {fileID: 1265497671}
   - 23: {fileID: 1265497670}
   - 65: {fileID: 1265497669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -3438,7 +3506,7 @@ GameObject:
   - 33: {fileID: 1538358829}
   - 23: {fileID: 1538358828}
   - 65: {fileID: 1538358827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -3511,7 +3579,7 @@ GameObject:
   - 33: {fileID: 1581960258}
   - 23: {fileID: 1581960257}
   - 65: {fileID: 1581960256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -3789,7 +3857,7 @@ GameObject:
   - 33: {fileID: 1802706231}
   - 23: {fileID: 1802706230}
   - 65: {fileID: 1802706229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -4096,7 +4164,7 @@ GameObject:
   - 33: {fileID: 1907219731}
   - 23: {fileID: 1907219730}
   - 65: {fileID: 1907219729}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -4309,7 +4377,7 @@ GameObject:
   - 33: {fileID: 2070947925}
   - 23: {fileID: 2070947924}
   - 65: {fileID: 2070947923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}

@@ -7,62 +7,40 @@ public enum ArrowType {
 
 public class Arrow : DamageDealer {
 
-    public ArrowType type;
-    public Character owner;
-    public bool shot;
-    public float ownerHitDelay = 5f;
-    public bool canHitOwner;
+    public ArrowType type = ArrowType.Basic;
+    Character owner;
+
+    bool shot = false;
+    bool canHitOwner = false;
+    float ownerHitDelay = 1f;
+    float lifespan = 5f;
     float speed = 35f;
     float rotationSpeed = 10f;
-    float lifespan = 3f;
     float arc = 0.2f;
-    float endTime;
-    float delayTime;
-    State state;
-    GameManager gameManager;
+
+    NetworkView netView;
     AudioSource audioSource;
 
     void Start() {
-        gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
-        endTime = lifespan + Time.time;
-        delayTime = ownerHitDelay + Time.time;
-        //	Physics.gravity = new Vector3 (0, -300, 0);
-
+        netView = GetComponent<NetworkView>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate() {
         transform.forward = Vector3.Slerp(transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
-        StateMachine();
-        //	DestroyOnTime ();
-    }
-
-    public enum State {
-        Shot,
-        Flying,
-        Hit
-    }
-
-    void StateMachine() {
-        switch (state) {
-            case State.Shot:
-                state = State.Flying;
-                break;
-            case State.Flying:
-                AllowOwnerCollision();
-                break;
-            case State.Hit:
-                break;
-        }
     }
 
     public void Shoot(Character owner) {
         this.owner = owner;
         shot = true;
         alive = true;
+        Play();
         Move();
-        state = State.Shot;
+        Invoke("AllowHitOwner", ownerHitDelay);
+        Destroy(this, lifespan);
+    }
 
-        audioSource = GetComponent<AudioSource>();
+    void Play() {
         audioSource.Play();
     }
 
@@ -73,56 +51,36 @@ public class Arrow : DamageDealer {
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.name == "Floor" ||
-            col.gameObject.name == "Wall") {
-            HitScene();
+        if (col.gameObject.name == "Floor" || col.gameObject.name == "Wall") {
+            HitScenary();
         }
         else if (col.gameObject.tag == "Player") {
             HitPlayer(col.gameObject);
         }
     }
 
-    void DestroyOnTime() {
-        if (Time.time > endTime) {
-            Destroy(this.gameObject);
-        }
+    void AllowHitOwner() {
+        canHitOwner = true;
     }
 
-    void AllowOwnerCollision() {
-        if (!canHitOwner) {
-            if (Time.time > delayTime) {
-                canHitOwner = true;
-            }
-        }
-    }
-
-    void HitScene() {
+    void HitScenary() {
         rigidbody.isKinematic = true;
-        alive = false;
         canHitOwner = false;
-        state = State.Hit;
+        alive = false;
         Debug.Log("HitScene");
     }
 
     void HitPlayer(GameObject player) {
         if (CanHit(player)) {
-            Hit(player);
             rigidbody.isKinematic = true;
-            transform.parent = player.transform;
-            alive = false;
             canHitOwner = false;
-            state = State.Hit;
-            gameManager.Scored(owner.playerNumber);
+            alive = false;
+            Hit(player);
             Debug.Log("HitPlayer");
         }
     }
 
     bool CanHit(GameObject player) {
-        if (alive && (player.GetComponent<Character>().playerNumber != owner.playerNumber || canHitOwner)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (alive && (canHitOwner || player != owner.gameObject));
     }
 }

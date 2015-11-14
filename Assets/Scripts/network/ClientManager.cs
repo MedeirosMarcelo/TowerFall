@@ -39,7 +39,7 @@ public class ClientManager : MonoBehaviour {
         Debug.Log("Spawn");
         var spawn = spawnPoints.PickRandom().transform;
         player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, 0);
-        player.transform.SetParent(stage.transform);
+        player.transform.SetParent(transform);
     }
 
     /* OLD Local Code
