@@ -3,48 +3,59 @@ using System.Collections;
 
 public class CameraBehavior : MonoBehaviour {
 
-    public GameObject owner;
-    float speed = 7f;
+    public GameObject target;
+    private float lerpFraction = 0.5f;
     private float maxDistance = 5.5f;
-    int layerMask = 1 << 8;
+    private int layerMask;
+
+
+    private Vector3 position {
+        get { return transform.position; }
+        set { transform.position = value; }
+    }
+    private Vector3 targetPosition {
+        get { return target.transform.position; }
+        set { target.transform.position = value; }
+    }
+
+    void Start() {
+        layerMask = LayerMask.GetMask("Wall");
+        if (target == null) {
+            target = transform.parent.gameObject;
+        }
+    }
 
     void LateUpdate() {
-        Vector3 hit = Vector3.zero;
-        if (SightBlocked(ref hit)) {
-            transform.position = hit;
+        Vector3 hit;
+
+        // this is the current camera direction relative to target we are following
+        Vector3 direction = (position - targetPosition).normalized;
+        NextPosition(targetPosition, direction, out hit);
+
+        // hit now contains the global position we should put the camera, yet we must compensate camera near 
+        hit -= (direction * camera.nearClipPlane);
+
+        // if hit position is closer to target just jump to it otherwise lerp to it
+        if ((hit - targetPosition).magnitude < (position - targetPosition).magnitude) {
+            position = hit;
         }
-        else if(transform.localPosition.magnitude < maxDistance) {
-            transform.localPosition *= 1.1f;
-            if (SightBlocked(ref hit)) {
-                transform.position = hit;
-            }
+        else {
+            position = Vector3.Lerp(position, hit, lerpFraction);
         }
-        /* TODO: Corrigir camera NEAR
-        var dist = transform.localPosition.magnitude - camera.nearClipPlane;
-        transform.localPosition = transform.localPosition.normalized * dist;
-        */
     }
 
-    bool SightBlocked(ref Vector3 hitPosition) {
-        Vector3 origin = owner.transform.position;
-        Vector3 delta = transform.position - origin;
-        //Debug.Log("origin=" + origin + " cam= " + transform.position + " delta=" + delta);
 
+    void NextPosition(Vector3 origin, Vector3 direction, out Vector3 hitPosition) {
+        Vector3 maxPosition = direction * maxDistance;
         RaycastHit hit;
-        Ray ray = new Ray(origin, delta.normalized);
-        Debug.DrawRay(origin, delta, Color.blue);
-
+        Ray ray = new Ray(origin, direction);
+        Debug.DrawRay(origin, maxPosition, Color.blue);
         if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-            //Debug.Log("Hitted = " + hit.collider.name);
             if (hit.collider.tag == "Walkable") {
-                //Debug.Log("Hit = " + hit.point);
-                 hitPosition = hit.point;
-                 return true;
+                hitPosition = hit.point;
+                return;
             }
         }
-        return false;
+        hitPosition = origin + maxPosition;
     }
-
-
-
 }
