@@ -23,12 +23,13 @@ public class CharacterArrows  {
 
     void Shoot() {
         if (input.shoot) {
+            Debug.Log("SHOOT");
             BuildArrow();
         }
     }
 
     void BuildArrow() {
-        /*
+        Debug.Log("Arrow Count " + arrowList.Count);
         if (arrowList.Count > 0) { 
             Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
             Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
@@ -37,7 +38,12 @@ public class CharacterArrows  {
             Ray ray = character.charCamera.ScreenPointToRay(rayPos);
             
             GetNextArrow().SetActive(true);
-            GameObject newArrow = character.worldMirror.InstantiateAll(GetNextArrow(), arrowPosition, arrowRotation);
+            
+            //Use after reimplementing reflections.
+            //GameObject newArrow = character.worldMirror.InstantiateAll(GetNextArrow(), arrowPosition, arrowRotation);
+
+            //Temporary until reflections are up again
+            GameObject newArrow = character.transform.parent.GetComponent<ClientManager>().InstantiateArrow(GetNextArrow(), arrowPosition, arrowRotation);
             RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
             
             RaycastHit hit;
@@ -49,11 +55,10 @@ public class CharacterArrows  {
             }
             newArrow.GetComponent<Arrow>().Shoot(character);
         }
-        */
     }
 
-    public void StoreArrow(Arrow arrow) {
-        GameObject newArrow = GetArrowByType(arrow.type);
+    public void StoreArrow(ArrowType type) {
+        GameObject newArrow = GetArrowByType(type);
         arrowList.Add(newArrow);
     }
 
@@ -72,5 +77,4 @@ public class CharacterArrows  {
                 return character.basicArrow;
         }
     }
-
 }

@@ -25,20 +25,19 @@ public class CameraBehavior : MonoBehaviour {
         */
     }
 
-
     bool SightBlocked(ref Vector3 hitPosition) {
         Vector3 origin = owner.transform.position;
         Vector3 delta = transform.position - origin;
-        Debug.Log("origin=" + origin + " cam= " + transform.position + " delta=" + delta);
+        //Debug.Log("origin=" + origin + " cam= " + transform.position + " delta=" + delta);
 
         RaycastHit hit;
         Ray ray = new Ray(origin, delta.normalized);
         Debug.DrawRay(origin, delta, Color.blue);
 
         if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-            Debug.Log("Hitted = " + hit.collider.name);
+            //Debug.Log("Hitted = " + hit.collider.name);
             if (hit.collider.tag == "Walkable") {
-                Debug.Log("Hit = " + hit.point);
+                //Debug.Log("Hit = " + hit.point);
                  hitPosition = hit.point;
                  return true;
             }

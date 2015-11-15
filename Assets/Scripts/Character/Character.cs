@@ -15,6 +15,7 @@ public class Character : Reflectable {
     public Camera charCamera { get; private set; }
     public GroundCollider groundCollider { get; private set; }
     public HandsCollider handsCollider { get; private set; }
+    public GameObject Feet { get; private set; }
 
     // World
     //public WorldMirror worldMirror { get; private set; }
@@ -54,6 +55,7 @@ public class Character : Reflectable {
 
         // Input must be last here
         input.FixedUpdate();
+        DetectJumpKill();
     }
 
     public void Create(int playerNumber) {
@@ -62,8 +64,6 @@ public class Character : Reflectable {
     }
 
     void Start() {
-        Debug.Log("Start");
-
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
         net = GetComponent<NetworkView>();
@@ -74,6 +74,7 @@ public class Character : Reflectable {
         //worldMirror = GetComponentInParent<WorldMirror>();
         handsCollider = GetComponentInChildren<HandsCollider>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+        Feet = transform.Find("Feet").gameObject;
 
         input = new CharacterInput(this);
         controller = new CharacterController(this, input);
@@ -115,7 +116,8 @@ public class Character : Reflectable {
             DamageDealer arrow = (DamageDealer)item;
             if (!arrow.alive) {
                 if (arrows.arrowList.Count < 7) {
-                    arrows.StoreArrow((Arrow)item);
+                    Arrow arrowItem = (Arrow)item;
+                    arrows.StoreArrow(arrowItem.type);
                 }
                 item.PickUp();
             }
@@ -126,6 +128,29 @@ public class Character : Reflectable {
         }
         else {
             Debug.LogError("PickUpItem - Item has invalid tag.");
+        }
+    }
+
+    void DetectJumpKill() {
+        int layerMask = 1 << 9;
+        Vector3 point1 = Feet.transform.position;
+        Vector3 point2 = point1 + Vector3.down * 0.2f;
+        float radius = 0.25f;
+        Vector3 direction = Vector3.down;
+        float maxDistance = 0.2f;
+        //Debug.DrawLine(point1, point2, Color.yellow);
+        Debug.DrawRay(point1, direction * maxDistance, Color.yellow);
+        RaycastHit hit;
+        Ray ray = new Ray(point1, direction);
+        if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
+       // if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
+            Debug.Log("JUMP HIT " + hit.collider.name);
+            if (hit.collider.transform.parent.tag == "Player") {
+                Debug.Log("JUMP KILL!");
+                rigidbody.AddForce(Vector3.up * 20f, ForceMode.Impulse);
+                Destroy(hit.collider.transform.parent.gameObject);
+
+            }
         }
     }
 

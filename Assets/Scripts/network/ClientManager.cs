@@ -20,7 +20,6 @@ public class ClientManager : MonoBehaviour {
     GameObject stage;
     GameObject[] spawnPoints;
 
-
     void Start() {
         client = GameObject.FindGameObjectWithTag("Client").GetComponent<Client>();
         stage = GameObject.FindGameObjectWithTag("Stage");
@@ -36,10 +35,20 @@ public class ClientManager : MonoBehaviour {
     }
 
     public void SpawnPlayer() {
-        Debug.Log("Spawn");
         var spawn = spawnPoints.PickRandom().transform;
         player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, 0);
         player.transform.SetParent(transform);
+        Character character = player.GetComponent<Character>();
+        character.Create(1);
+        character.arrows.StoreArrow(ArrowType.Basic);
+        character.arrows.StoreArrow(ArrowType.Basic);
+        character.arrows.StoreArrow(ArrowType.Basic);
+    }
+
+    public GameObject InstantiateArrow(GameObject obj, Vector3 position, Quaternion rotation) {
+        var originalObject = (GameObject)Instantiate(obj, position, rotation);
+        originalObject.transform.parent = transform;
+        return originalObject;
     }
 
     /* OLD Local Code

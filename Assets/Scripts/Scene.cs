@@ -20,7 +20,7 @@ public class Scene : MonoBehaviour {
     }
 
     void SpawnArrowOnButton() {
-        if (Input.GetKeyDown(KeyCode.F1)) {
+        if (Input.GetKeyDown(KeyCode.F2)) {
             gameManager.SpawnItem(gameManager.basicArrowPrefab, new Vector3(-58.45f, 4f, 69.44f), transform.rotation);
         }
     }
