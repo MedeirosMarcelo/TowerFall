@@ -10,8 +10,8 @@ public class Item : Reflectable {
     }
 
     void Destroy() {
-        WorldMirror worldMirror = transform.parent.GetComponent<WorldMirror>();
-        worldMirror.DestroyAll(this.gameObject);
+        //WorldMirror worldMirror = transform.parent.GetComponent<WorldMirror>();
+        //worldMirror.DestroyAll(this.gameObject);
     }
 
     void Use(Item item) {

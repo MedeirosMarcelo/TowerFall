@@ -15,7 +15,8 @@ public class Character : Reflectable {
     public Camera charCamera { get; private set; }
     public GroundCollider groundCollider { get; private set; }
     public HandsCollider handsCollider { get; private set; }
-    public GameObject Feet { get; private set; }
+    public GameObject feet { get; private set; }
+    public GameObject arrowSpawner { get; private set; }
 
     // World
     //public WorldMirror worldMirror { get; private set; }
@@ -74,11 +75,12 @@ public class Character : Reflectable {
         //worldMirror = GetComponentInParent<WorldMirror>();
         handsCollider = GetComponentInChildren<HandsCollider>();
         groundCollider = GetComponentInChildren<GroundCollider>();
-        Feet = transform.Find("Feet").gameObject;
+        feet = transform.FindChild("Feet").gameObject;
+        arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
 
         input = new CharacterInput(this);
         controller = new CharacterController(this, input);
-        arrows = new CharacterArrows(this, input);
+        arrows = new CharacterArrows(this, input, arrowSpawner);
         fsm = new CharacterFsm(this, input, controller);
     }
 
@@ -133,7 +135,7 @@ public class Character : Reflectable {
 
     void DetectJumpKill() {
         int layerMask = 1 << 9;
-        Vector3 point1 = Feet.transform.position;
+        Vector3 point1 = feet.transform.position;
         Vector3 point2 = point1 + Vector3.down * 0.2f;
         float radius = 0.25f;
         Vector3 direction = Vector3.down;

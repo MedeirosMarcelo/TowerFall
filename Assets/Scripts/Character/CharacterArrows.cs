@@ -8,13 +8,15 @@ public class CharacterArrows  {
 
     Character character;
     CharacterInput input;
+    GameObject arrowSpawner;
 
     public IList<GameObject> arrowList = new List<GameObject>();
     public string[] arrowListDetail = new string[10];
 
-    public CharacterArrows(Character character, CharacterInput input) {
+    public CharacterArrows(Character character, CharacterInput input, GameObject arrowSpawner) {
         this.character = character;
         this.input = input;
+        this.arrowSpawner = arrowSpawner;
     }
 
     public void FixedUpdate() {
@@ -30,23 +32,17 @@ public class CharacterArrows  {
 
     void BuildArrow() {
         Debug.Log("Arrow Count " + arrowList.Count);
-        if (arrowList.Count > 0) { 
-            Vector3 arrowPosition = character.transform.Find("ArrowSpawner").position;
-            Quaternion arrowRotation = character.transform.Find("ArrowSpawner").rotation;
+        //if (arrowList.Count > 0) { 
+        if (true) { 
+           
+            //GetNextArrow().SetActive(true);
 
-            Vector3 rayPos =  new Vector3(Screen.width * 0.5f, Screen.height * 0.5f).ToPlayerCamera(character.playerNumber);
-            Ray ray = character.charCamera.ScreenPointToRay(rayPos);
-            
-            GetNextArrow().SetActive(true);
-            
-            //Use after reimplementing reflections.
-            //GameObject newArrow = character.worldMirror.InstantiateAll(GetNextArrow(), arrowPosition, arrowRotation);
+            Vector3 arrowPosition = arrowSpawner.transform.position;
+            Quaternion arrowRotation = arrowSpawner.transform.rotation;
+            GameObject newArrow = (GameObject)Network.Instantiate(character.basicArrow, arrowPosition, arrowRotation, 0);
 
-            //Temporary until reflections are up again
-            GameObject newArrow = character.transform.parent.GetComponent<ClientManager>().InstantiateArrow(GetNextArrow(), arrowPosition, arrowRotation);
-            RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
-            
             RaycastHit hit;
+            Ray ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
             if (Physics.Raycast(ray, out hit)) {
                 newArrow.transform.LookAt(hit.point);
             }
@@ -54,6 +50,8 @@ public class CharacterArrows  {
                 newArrow.transform.LookAt(ray.GetPoint(15));
             }
             newArrow.GetComponent<Arrow>().Shoot(character);
+
+            //RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
         }
     }
 

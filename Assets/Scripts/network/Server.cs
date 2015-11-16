@@ -74,6 +74,8 @@ public class Server : MonoBehaviour {
         Debug.Log("OnPlayerDisconnected");
         statusText.text = "Server online\nConnections: " + (Network.connections.Length - 1);
         if (onDisconnected != null) { onDisconnected(player); }
+
+        Network.RemoveRPCs(player);
         Network.DestroyPlayerObjects(player);
     }
 

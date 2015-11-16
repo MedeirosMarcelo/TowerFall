@@ -21,12 +21,22 @@ public class Arrow : DamageDealer {
     NetworkView netView;
     AudioSource audioSource;
 
+    private bool isNotMine { get { return !netView.isMine; } }
+
     void Start() {
         netView = GetComponent<NetworkView>();
         audioSource = GetComponent<AudioSource>();
     }
 
+    void Destroy() {
+        Debug.Log("Destroy Arrow");
+        Network.Destroy(netView.viewID);
+    }
+
     void FixedUpdate() {
+        if (isNotMine) {
+            return;
+        }
         transform.forward = Vector3.Slerp(transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
     }
 
@@ -34,11 +44,12 @@ public class Arrow : DamageDealer {
         this.owner = owner;
         shot = true;
         alive = true;
-        Play();
+        //Play();
         Move();
         Invoke("AllowHitOwner", ownerHitDelay);
-        Destroy(this, lifespan);
+        Invoke("Destroy", lifespan);
     }
+
 
     void Play() {
         audioSource.Play();
@@ -51,6 +62,9 @@ public class Arrow : DamageDealer {
     }
 
     void OnCollisionEnter(Collision col) {
+        if (isNotMine) {
+            return;
+        }
         if (col.gameObject.name == "Floor" || col.gameObject.name == "Wall") {
             HitScenary();
         }

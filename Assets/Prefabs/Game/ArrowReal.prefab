@@ -59,12 +59,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 464590}
-  - 114: {fileID: 11464586}
   - 54: {fileID: 5464584}
   - 65: {fileID: 6564588}
-  - 114: {fileID: 11464584}
   - 65: {fileID: 6564586}
   - 82: {fileID: 8264584}
+  - 148: {fileID: 14843376}
+  - 114: {fileID: 11464586}
   m_Layer: 0
   m_Name: ArrowReal
   m_TagString: Arrow
@@ -301,18 +301,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11464584
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66bba7ffd8d23640b97c657f3215fa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Reflection: {fileID: 101018, guid: 77928808fdd93984ab24eca31f994961, type: 2}
 --- !u!114 &11464586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,6 +317,18 @@ MonoBehaviour:
   damage: 1
   alive: 0
   type: 0
+--- !u!148 &14843376
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164590}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 5464584}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
