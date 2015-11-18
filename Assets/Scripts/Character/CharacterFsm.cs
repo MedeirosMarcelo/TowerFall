@@ -6,8 +6,6 @@ using System.Collections;
 public class CharacterFsm {
 
     Character character;
-    CharacterInput input;
-    CharacterController controller;
     Rigidbody rigidBody;
 
     State state;
@@ -19,10 +17,8 @@ public class CharacterFsm {
         OnLedge,
     }
 
-    public CharacterFsm(Character character, CharacterInput input, CharacterController controller) {
+    public CharacterFsm(Character character) {
         this.character = character;
-        this.input = input;
-        this.controller = controller;
 
         rigidBody = character.rigidbody;
         state = State.OnGround;
@@ -31,24 +27,24 @@ public class CharacterFsm {
 
     // jump
     int jumpCount = 0;
-    bool jump { get { return (jumpCount < 2 && input.jump); } }
+    bool jump { get { return (jumpCount < 2 && character.input.jump); } }
 
     // dodge
     private float dodgeTime = 0.416f;
     private float dodgeSickTime = 0.75f - 0.416f;
     private bool dodgeSick = false;
 
-    private bool dodge { get { return (!dodgeSick && input.dodge); } }
+    private bool dodge { get { return (!dodgeSick && character.input.dodge); } }
 
     IEnumerator DodgeTimeout() {
         dodgeSick = true;
         yield return new WaitForSeconds(dodgeTime);
 
-        if (controller.isGrounded) {
+        if (character.controller.isGrounded) {
             EnterState(State.OnGround);
             yield break;
         }
-        if (controller.canGrabLedge) {
+        if (character.controller.canGrabLedge) {
             EnterState(State.OnLedge);
             yield break;
         }
@@ -73,7 +69,7 @@ public class CharacterFsm {
                         EnterState(State.OnAir);
                         break;
                     }
-                    controller.Move();
+                    character.controller.Move();
                     break;
                 }
             case State.OnAir:
@@ -83,17 +79,17 @@ public class CharacterFsm {
                         break;
                     }
                     if (jump) {
-                        controller.Jump();
+                        character.controller.Jump();
                         jumpCount++;
                         break;
                     }
-                    controller.AirMove();
+                    character.controller.AirMove();
 
-                    if (controller.isGrounded) {
+                    if (character.controller.isGrounded) {
                         EnterState(State.OnGround);
                         break;
                     }
-                    if (controller.canGrabLedge) {
+                    if (character.controller.canGrabLedge) {
                         EnterState(State.OnLedge);
                         break;
                     }
@@ -136,14 +132,14 @@ public class CharacterFsm {
                 }
             case State.OnAir:
                 {
-                    controller.Jump();
+                    character.controller.Jump();
                     jumpCount += 1;
                     break;
                 }
             case State.Dodging:
                 {
                     rigidBody.useGravity = false;
-                    controller.Dodge();
+                    character.controller.Dodge();
                     character.StartCoroutine(DodgeTimeout());
                     break;
                 }

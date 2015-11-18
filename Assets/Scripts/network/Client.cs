@@ -12,6 +12,7 @@ public class Client : MonoBehaviour {
     public InputField nameInput { get; private set; }
 
     NetworkView net;
+    string playerName;
 
     public delegate void OnConnect();
     public OnConnect onConnect { get; set; }
@@ -49,7 +50,7 @@ public class Client : MonoBehaviour {
 
     public void Connect() {
         if (IsValidName(nameInput.text)) {
-            //playerName = nameInput.text;
+            playerName = nameInput.text;
             int port;
             if (!int.TryParse(portInput.text, out port)) {
                 port = 25001;
@@ -70,7 +71,6 @@ public class Client : MonoBehaviour {
 
     void OnConnectedToServer() {
         Debug.Log("Connected");
-        //net.RPC("Login", RPCMode.Server, playerName);
         startButton.GetComponentInChildren<Text>().text = "Logout";
         nameInput.interactable = false;
 
@@ -85,7 +85,4 @@ public class Client : MonoBehaviour {
         if (onDisconnected != null) { onDisconnected(); }
     }
 
-    [RPC]
-    void Login(string playerName, NetworkMessageInfo info) {
-    }
 }

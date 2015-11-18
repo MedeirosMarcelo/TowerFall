@@ -2,14 +2,15 @@
 using System.Collections;
 
 public enum ArrowType {
-    Basic
+    None = 0,
+    Basic,
 }
 
 public class Arrow : DamageDealer {
 
     public ArrowType type = ArrowType.Basic;
-    Character owner;
 
+    Character owner;
     bool shot = false;
     bool canHitOwner = false;
     float ownerHitDelay = 1f;
@@ -22,19 +23,21 @@ public class Arrow : DamageDealer {
     AudioSource audioSource;
 
     private bool isNotMine { get { return !netView.isMine; } }
+    private bool isNotAlive { get { return !alive; } }
 
     void Start() {
-        netView = GetComponent<NetworkView>();
+        Debug.Log("Start arrow " + GetInstanceID());
+        netView     = GetComponent<NetworkView>();
         audioSource = GetComponent<AudioSource>();
     }
 
     void Destroy() {
-        Debug.Log("Destroy Arrow");
+        Debug.Log("Destroy Arrow " + GetInstanceID());
         Network.Destroy(netView.viewID);
     }
 
     void FixedUpdate() {
-        if (isNotMine) {
+        if (isNotMine || isNotAlive) {
             return;
         }
         transform.forward = Vector3.Slerp(transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
@@ -78,10 +81,10 @@ public class Arrow : DamageDealer {
     }
 
     void HitScenary() {
-        rigidbody.isKinematic = true;
-        canHitOwner = false;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidbody.detectCollisions = false;
         alive = false;
-        Debug.Log("HitScene");
+        netView.RPC("ToServer", RPCMode.Server, (int)type, transform.position, transform.rotation);
     }
 
     void HitPlayer(GameObject player) {
@@ -96,5 +99,14 @@ public class Arrow : DamageDealer {
 
     bool CanHit(GameObject player) {
         return (alive && (canHitOwner || player != owner.gameObject));
+    }
+
+    [RPC]
+    void ToServer(int type, Vector3 position, Quaternion rotation, NetworkMessageInfo info) {
+        Debug.Log("ToServer");
+        var prefab = GameObject.FindGameObjectWithTag("World Main").GetComponent<ServerManager>().arrowPickupPrefab;
+        var newArrow = Network.Instantiate(prefab, position, rotation, 0) as GameObject;
+        newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
+        Destroy();
     }
 }

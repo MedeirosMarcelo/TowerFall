@@ -38,12 +38,6 @@ public class ClientManager : MonoBehaviour {
         var spawn = spawnPoints.PickRandom().transform;
         player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, 0);
         player.transform.SetParent(transform);
-        /*
-        Character character = player.GetComponent<Character>();
-        character.arrows.StoreArrow(ArrowType.Basic);
-        character.arrows.StoreArrow(ArrowType.Basic);
-        character.arrows.StoreArrow(ArrowType.Basic);
-        */
     }
 
     public GameObject InstantiateArrow(GameObject obj, Vector3 position, Quaternion rotation) {

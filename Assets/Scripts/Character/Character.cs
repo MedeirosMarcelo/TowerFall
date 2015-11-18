@@ -20,12 +20,12 @@ public class Character : Reflectable {
 
     // World
     //public WorldMirror worldMirror { get; private set; }
-    //GameManager gameManager;
 
     //Network
-    public NetworkView net { get; private set; }
-    public bool isMine { get { return net.isMine; } }
-    public bool isNotMine { get { return !net.isMine; } }
+    public NetworkView netRigidBody { get; private set; }
+    public NetworkView netView { get; private set; }
+    public bool isMine { get { return netView.isMine; } }
+    public bool isNotMine { get { return !netView.isMine; } }
 
     public int playerNumber;
     public int health = 1;
@@ -65,11 +65,12 @@ public class Character : Reflectable {
     }
 
     void Start() {
+         Debug.Log("Char Start");
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
-        net = GetComponent<NetworkView>();
+        netView = GetComponent<NetworkView>();
 
-        if (!net.isMine) {
+        if (isNotMine) {
             charCamera.gameObject.SetActive(false);
         }
         //worldMirror = GetComponentInParent<WorldMirror>();
@@ -79,13 +80,9 @@ public class Character : Reflectable {
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
 
         input = new CharacterInput(this);
-        controller = new CharacterController(this, input);
-        arrows = new CharacterArrows(this, input, arrowSpawner);
-        fsm = new CharacterFsm(this, input, controller);
-    }
-
-    void UseItem(Item item) {
-
+        controller = new CharacterController(this);
+        arrows = new CharacterArrows(this);
+        fsm = new CharacterFsm(this);
     }
 
     public void TakeHit(DamageDealer damager) {
@@ -112,6 +109,9 @@ public class Character : Reflectable {
             Destroy(this.gameObject);
         }
     }
+    /*
+    void UseItem(Item item) {
+    }
 
     public void PickUpItem(Item item) {
         if (item.tag == "Arrow") {
@@ -132,12 +132,13 @@ public class Character : Reflectable {
             Debug.LogError("PickUpItem - Item has invalid tag.");
         }
     }
+    */
 
     void DetectJumpKill() {
         int layerMask = 1 << 9;
         Vector3 point1 = feet.transform.position;
         Vector3 point2 = point1 + Vector3.down * 0.2f;
-        float radius = 0.25f;
+        //float radius = 0.25f;
         Vector3 direction = Vector3.down;
         float maxDistance = 0.2f;
         //Debug.DrawLine(point1, point2, Color.yellow);
@@ -145,7 +146,7 @@ public class Character : Reflectable {
         RaycastHit hit;
         Ray ray = new Ray(point1, direction);
         if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-       // if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
+        //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
             Debug.Log("JUMP HIT " + hit.collider.name);
             if (hit.collider.transform.parent.tag == "Player") {
                 Debug.Log("JUMP KILL!");
@@ -156,12 +157,11 @@ public class Character : Reflectable {
         }
     }
 
-    void OnTriggerEnter(Collider col) {
-        if (col.tag == "Item" || col.tag == "Arrow") {
-            Item item = col.gameObject.GetComponent<Item>();
-            if (item.grabbable) {
-                PickUpItem(item);
-            }
+    [RPC]
+    void StoreArrow(int type) {
+        if (isMine && (arrows.stack.Count < arrows.maxArrows)) {
+            Debug.Log("Got Arrow type = " + (ArrowType)type);
+            arrows.stack.Push((ArrowType)type);
         }
     }
 }

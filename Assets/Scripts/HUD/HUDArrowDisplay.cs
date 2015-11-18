@@ -17,7 +17,7 @@ public class HUDArrowDisplay : MonoBehaviour {
     void Start() {
         gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
         targetPlayer = gameManager.playerList[targetPlayerNumber - 1].GetComponent<Character>();
-        arrowCount = targetPlayer.arrows.arrowList.Count;
+        //arrowCount = targetPlayer.arrows.arrowList.Count;
     }
 
     void Update() {
@@ -25,6 +25,7 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     public void UpdateArrowPanel() {
+    /*
         if (targetPlayer != null) {
             if (arrowCount != targetPlayer.arrows.arrowList.Count) {
                 int i = 0;
@@ -38,6 +39,7 @@ public class HUDArrowDisplay : MonoBehaviour {
                 arrowCount = targetPlayer.arrows.arrowList.Count;
             }
         }
+    */
     }
 
     void AddArrowIcon(int i, GameObject arrowObj) {

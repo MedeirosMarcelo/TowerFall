@@ -6,7 +6,6 @@ using System.Collections;
 public class CharacterController {
 
     Character character;
-    CharacterInput input;
     GroundCollider groundCollider;
     HandsCollider handsCollider;
 
@@ -18,9 +17,8 @@ public class CharacterController {
     public bool isGrounded { get { return groundCollider.isGrounded; } }
     public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
 
-    public CharacterController(Character character, CharacterInput input) {
+    public CharacterController(Character character) {
         this.character = character;
-        this.input = input;
         groundCollider = character.groundCollider;
         handsCollider = character.handsCollider;
 
@@ -40,7 +38,7 @@ public class CharacterController {
 
     public void Move() {
         // Calculate how fast we should be moving
-        var relativeVelocity = character.transform.TransformDirection(input.vector) * runSpeed;
+        var relativeVelocity = character.transform.TransformDirection(character.input.vector) * runSpeed;
         // Calcualte the delta velocity
         var velocityChange = relativeVelocity - character.rigidbody.velocity;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxAcceleration, maxAcceleration);
@@ -51,13 +49,13 @@ public class CharacterController {
 
     public void Dodge() {
         Debug.Log("Dodge");
-        Vector3 dash = input.vector.normalized;
+        Vector3 dash = character.input.vector.normalized;
         if (dash == Vector3.zero) { dash = Vector3.forward; }
         character.rigidbody.AddForce(character.charCamera.transform.TransformDirection(dash * dashForce), ForceMode.Impulse);
     }
 
     public void Jump() {
-        if (input.jump) {
+        if (character.input.jump) {
             Debug.Log("jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -88,7 +86,7 @@ public class CharacterController {
     bool mouseLook;
 
     public void Update() {
-        if (input.escape) {
+        if (character.input.escape) {
             mouseLook = !mouseLook;
             Screen.showCursor = !Screen.showCursor;
             Screen.lockCursor = !Screen.lockCursor;
@@ -98,7 +96,7 @@ public class CharacterController {
 
     public void Look() {
         if (mouseLook) {
-            rotationY += input.lookVertical * sensitivityY;
+            rotationY += character.input.lookVertical * sensitivityY;
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
             //Camera
@@ -107,7 +105,7 @@ public class CharacterController {
 
             //player
             var charTransform = character.transform;
-            float rotationX = charTransform.localEulerAngles.y + input.lookHorizontal * sensitivityX;
+            float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
             charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
         }
     }

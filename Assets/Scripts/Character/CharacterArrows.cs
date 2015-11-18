@@ -1,78 +1,47 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 [Serializable]
-public class CharacterArrows  {
+public class CharacterArrows {
 
     Character character;
-    CharacterInput input;
-    GameObject arrowSpawner;
 
-    public IList<GameObject> arrowList = new List<GameObject>();
-    public string[] arrowListDetail = new string[10];
+    Stack<ArrowType> arrowStack = new Stack<ArrowType>();
+    public Stack<ArrowType> stack { get { return arrowStack; } }
+    public readonly int maxArrows = 7;
 
-    public CharacterArrows(Character character, CharacterInput input, GameObject arrowSpawner) {
+    public CharacterArrows(Character character) {
         this.character = character;
-        this.input = input;
-        this.arrowSpawner = arrowSpawner;
+
+        // 6 arrows start
+        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Basic);
     }
 
     public void FixedUpdate() {
-        Shoot();
-    }
-
-    void Shoot() {
-        if (input.shoot) {
-            Debug.Log("SHOOT");
+        if (character.input.shoot && (arrowStack.Count > 0)) {
+            Debug.Log("Shoot");
             BuildArrow();
         }
     }
 
     void BuildArrow() {
-        Debug.Log("Arrow Count " + arrowList.Count);
-        //if (arrowList.Count > 0) { 
-        if (true) { 
-           
-            //GetNextArrow().SetActive(true);
+        Vector3 arrowPosition = character.arrowSpawner.transform.position;
+        Quaternion arrowRotation = character.arrowSpawner.transform.rotation;
+        var obj = Network.Instantiate(character.basicArrow, arrowPosition, arrowRotation, 0) as GameObject;
+        var ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-            Vector3 arrowPosition = arrowSpawner.transform.position;
-            Quaternion arrowRotation = arrowSpawner.transform.rotation;
-            GameObject newArrow = (GameObject)Network.Instantiate(character.basicArrow, arrowPosition, arrowRotation, 0);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)) { obj.transform.LookAt(hit.point); }
+        else { obj.transform.LookAt(ray.GetPoint(15)); }
 
-            RaycastHit hit;
-            Ray ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
-            if (Physics.Raycast(ray, out hit)) {
-                newArrow.transform.LookAt(hit.point);
-            }
-            else {
-                newArrow.transform.LookAt(ray.GetPoint(15));
-            }
-            newArrow.GetComponent<Arrow>().Shoot(character);
-
-            //RemoveArrow(GetNextArrow()); //TEMPORÁRIO TAMBÉM!
-        }
-    }
-
-    public void StoreArrow(ArrowType type) {
-        GameObject newArrow = GetArrowByType(type);
-        arrowList.Add(newArrow);
-    }
-
-    public void RemoveArrow(GameObject arrow) {
-        arrowList.Remove(arrow);
-    }
-
-    public GameObject GetNextArrow() {
-        return arrowList[arrowList.Count - 1];
-    }
-
-    GameObject GetArrowByType(ArrowType type) {
-        switch (type) {
-            default:
-            case ArrowType.Basic:
-                return character.basicArrow;
-        }
+        var arrow = obj.GetComponent<Arrow>();
+        arrow.type = arrowStack.Pop();
+        arrow.Shoot(character);
     }
 }
