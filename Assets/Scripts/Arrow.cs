@@ -65,7 +65,7 @@ public class Arrow : DamageDealer {
     }
 
     void OnCollisionEnter(Collision col) {
-        if (isNotMine) {
+        if (Network.isClient) {
             return;
         }
         if (col.gameObject.name == "Floor" || col.gameObject.name == "Wall") {
@@ -82,9 +82,12 @@ public class Arrow : DamageDealer {
 
     void HitScenary() {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        rigidbody.detectCollisions = false;
         alive = false;
-        netView.RPC("ToServer", RPCMode.Server, (int)type, transform.position, transform.rotation);
+        Debug.Log("ToServer");
+        var prefab = GameObject.FindGameObjectWithTag("World Main").GetComponent<ServerManager>().arrowPickupPrefab;
+        var newArrow = Network.Instantiate(prefab, transform.position, transform.rotation, 0) as GameObject;
+        newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
+        Destroy();
     }
 
     void HitPlayer(GameObject player) {
@@ -101,12 +104,4 @@ public class Arrow : DamageDealer {
         return (alive && (canHitOwner || player != owner.gameObject));
     }
 
-    [RPC]
-    void ToServer(int type, Vector3 position, Quaternion rotation, NetworkMessageInfo info) {
-        Debug.Log("ToServer");
-        var prefab = GameObject.FindGameObjectWithTag("World Main").GetComponent<ServerManager>().arrowPickupPrefab;
-        var newArrow = Network.Instantiate(prefab, position, rotation, 0) as GameObject;
-        newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
-        Destroy();
-    }
 }
