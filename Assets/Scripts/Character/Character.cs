@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Character : Reflectable {
 
+    public static readonly int group = (int)NetworkGroup.Character;
     // Internals
     // exposing getters for internals 
     public CharacterController controller { get; private set; }
@@ -65,7 +66,7 @@ public class Character : Reflectable {
     }
 
     void Start() {
-         Debug.Log("Char Start");
+        Debug.Log("Char Start");
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
         netView = GetComponent<NetworkView>();
@@ -86,53 +87,27 @@ public class Character : Reflectable {
     }
 
     public void TakeHit(DamageDealer damager) {
+        Debug.Log("Take hit");
+
+        if (Network.isClient) {
+            return;
+        }
+        int dmg = damager.GetComponent<DamageDealer>().damage;
+        TakeDamage(dmg);
         /*
         if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
-        else */
-        {
-            int dmg = damager.GetComponent<DamageDealer>().damage;
-            TakeDamage(dmg);
-        }
-    }
-
-    void TakeDamage(int damage) {
-        Debug.Log(health + " " + damage);
-        health -= damage;
-        MonitorHealth();
-    }
+        else
+        */
+   }
 
     void MonitorHealth() {
         if (health <= 0) {
             //gameManager.Respawn(playerNumber);
-            Destroy(this.gameObject);
+            Destroy();
         }
     }
-    /*
-    void UseItem(Item item) {
-    }
-
-    public void PickUpItem(Item item) {
-        if (item.tag == "Arrow") {
-            DamageDealer arrow = (DamageDealer)item;
-            if (!arrow.alive) {
-                if (arrows.arrowList.Count < 7) {
-                    Arrow arrowItem = (Arrow)item;
-                    arrows.StoreArrow(arrowItem.type);
-                }
-                item.PickUp();
-            }
-        }
-        else if (item.tag == "Item") {
-            UseItem(item);
-            item.PickUp();
-        }
-        else {
-            Debug.LogError("PickUpItem - Item has invalid tag.");
-        }
-    }
-    */
 
     void DetectJumpKill() {
         int layerMask = 1 << 9;
@@ -146,7 +121,7 @@ public class Character : Reflectable {
         RaycastHit hit;
         Ray ray = new Ray(point1, direction);
         if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-        //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
+            //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
             Debug.Log("JUMP HIT " + hit.collider.name);
             if (hit.collider.transform.parent.tag == "Player") {
                 Debug.Log("JUMP KILL!");
@@ -157,6 +132,31 @@ public class Character : Reflectable {
         }
     }
 
+    [RPC]
+    void Destroy() {
+        if(Network.isServer) {
+            Debug.Log("Destroy Character " + GetInstanceID());
+            Network.RemoveRPCs(networkView.owner, group);
+            networkView.RPC("Destroy", RPCMode.Others);
+            return;
+        }
+        if (networkView.isMine) {
+            Debug.Log("Destroy Character " + GetInstanceID());
+            Network.Destroy(gameObject);
+            return;
+        }
+    }
+
+    [RPC]
+    void TakeDamage(int damage) {
+        Debug.Log(health + " " + damage);
+        health -= damage;
+        MonitorHealth();
+
+        if (Network.isServer && health > 0) {
+            netView.RPC("TakeDamage", RPCMode.Others, damage);
+        }
+    }
     [RPC]
     void StoreArrow(int type) {
         if (isMine && (arrows.stack.Count < arrows.maxArrows)) {
