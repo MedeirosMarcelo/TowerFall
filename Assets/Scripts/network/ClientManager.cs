@@ -9,6 +9,7 @@ public class ClientManager : MonoBehaviour {
 
     //public IList<GameObject> playerList = new List<GameObject>();
     public GameObject basicArrowPrefab;
+    public GameObject arrowPickupPrefab;
     public GameObject characterPrefab;
 
     int maxArrows = 7;
@@ -47,7 +48,6 @@ public class ClientManager : MonoBehaviour {
     }
 
     /* OLD Local Code
-
     void Start() {
         worldMirror = GetComponent<WorldMirror>();
         score = GameObject.FindWithTag("Canvas").transform.Find("Score").GetComponent<Score>();

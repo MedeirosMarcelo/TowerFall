@@ -65,7 +65,7 @@ public class Character : Reflectable {
     }
 
     void Start() {
-         Debug.Log("Char Start");
+        Debug.Log("Char Start");
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
         netView = GetComponent<NetworkView>();
@@ -86,27 +86,26 @@ public class Character : Reflectable {
     }
 
     public void TakeHit(DamageDealer damager) {
+        if (Network.isClient) {
+            /* Take hit is a server thing */
+            return;
+        }
         /*
         if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
         else */
+
         {
             int dmg = damager.GetComponent<DamageDealer>().damage;
             TakeDamage(dmg);
         }
     }
 
-    void TakeDamage(int damage) {
-        Debug.Log(health + " " + damage);
-        health -= damage;
-        MonitorHealth();
-    }
-
     void MonitorHealth() {
         if (health <= 0) {
             //gameManager.Respawn(playerNumber);
-            Destroy(this.gameObject);
+            Destroy();
         }
     }
     /*
@@ -134,6 +133,7 @@ public class Character : Reflectable {
     }
     */
 
+
     void DetectJumpKill() {
         int layerMask = 1 << 9;
         Vector3 point1 = feet.transform.position;
@@ -146,7 +146,7 @@ public class Character : Reflectable {
         RaycastHit hit;
         Ray ray = new Ray(point1, direction);
         if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-        //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
+            //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
             Debug.Log("JUMP HIT " + hit.collider.name);
             if (hit.collider.transform.parent.tag == "Player") {
                 Debug.Log("JUMP KILL!");
@@ -157,6 +157,27 @@ public class Character : Reflectable {
         }
     }
 
+    [RPC]
+    void Destroy() {
+        if (Network.isServer) {
+            Network.RemoveRPCs(netView.viewID);
+            Network.Destroy(netView.viewID);
+        }
+        else {
+            netView.RPC("Destroy", RPCMode.Server);
+        }
+    }
+
+    [RPC]
+    void TakeDamage(int damage) {
+        Debug.Log(health + " " + damage);
+        health -= damage;
+        MonitorHealth();
+
+        if (Network.isServer && health > 0) {
+            netView.RPC("TakeDamage", RPCMode.Others, damage);
+        }
+    }
     [RPC]
     void StoreArrow(int type) {
         if (isMine && (arrows.stack.Count < arrows.maxArrows)) {

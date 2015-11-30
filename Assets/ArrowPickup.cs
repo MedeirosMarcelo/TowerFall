@@ -30,6 +30,7 @@ public class ArrowPickup : Item {
 
     public void Destroy() {
         Debug.Log("Destroy: " + name + " id:" + GetInstanceID());
+        Network.RemoveRPCs(netView.viewID);
         Network.Destroy(netView.viewID);
     }
 }

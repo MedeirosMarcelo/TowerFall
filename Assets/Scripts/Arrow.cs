@@ -11,7 +11,6 @@ public class Arrow : DamageDealer {
     public ArrowType type = ArrowType.Basic;
 
     Character owner;
-    bool shot = false;
     bool canHitOwner = false;
     float ownerHitDelay = 1f;
     float lifespan = 5f;
@@ -27,12 +26,18 @@ public class Arrow : DamageDealer {
 
     void Start() {
         Debug.Log("Start arrow " + GetInstanceID());
-        netView     = GetComponent<NetworkView>();
+        netView = GetComponent<NetworkView>();
         audioSource = GetComponent<AudioSource>();
+
+        if (Network.isServer) {
+            /* No arrow may be allowed to live this long*/
+            //Invoke("Destroy", lifespan);
+        }
     }
 
     void Destroy() {
         Debug.Log("Destroy Arrow " + GetInstanceID());
+        Network.RemoveRPCs(netView.viewID);
         Network.Destroy(netView.viewID);
     }
 
@@ -45,23 +50,18 @@ public class Arrow : DamageDealer {
 
     public void Shoot(Character owner) {
         this.owner = owner;
-        shot = true;
         alive = true;
-        //Play();
-        Move();
-        Invoke("AllowHitOwner", ownerHitDelay);
-        Invoke("Destroy", lifespan);
-    }
 
-
-    void Play() {
-        audioSource.Play();
-    }
-
-    void Move() {
         Vector3 direction = transform.forward;
         direction.y += arc;
         rigidbody.AddForce(direction * speed, ForceMode.Impulse);
+
+        //audioSource.Play();
+        Invoke("AllowHitOwner", ownerHitDelay);
+    }
+
+    void AllowHitOwner() {
+        canHitOwner = true;
     }
 
     void OnCollisionEnter(Collision col) {
@@ -76,12 +76,9 @@ public class Arrow : DamageDealer {
         }
     }
 
-    void AllowHitOwner() {
-        canHitOwner = true;
-    }
-
     void HitScenary() {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidbody.detectCollisions = false;
         alive = false;
         Debug.Log("ToServer");
         var prefab = GameObject.FindGameObjectWithTag("World Main").GetComponent<ServerManager>().arrowPickupPrefab;
@@ -91,13 +88,14 @@ public class Arrow : DamageDealer {
     }
 
     void HitPlayer(GameObject player) {
-        if (CanHit(player)) {
-            rigidbody.isKinematic = true;
-            canHitOwner = false;
-            alive = false;
-            Hit(player);
-            Debug.Log("HitPlayer");
+        if (!CanHit(player)) {
+            return;
         }
+        Debug.Log("HitPlayer");
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidbody.detectCollisions = false;
+        alive = false;
+        Hit(player);
     }
 
     bool CanHit(GameObject player) {
