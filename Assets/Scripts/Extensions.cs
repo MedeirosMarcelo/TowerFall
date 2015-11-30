@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum NetworkGroup {
+    None = 0,
+    Character = 1,
+    Arrow = 2
+}
+
 public static class Extensions {
 
     public static T PickRandom<T>(this T[] source) {

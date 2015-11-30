@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Character : Reflectable {
 
+    public static readonly int group = (int)NetworkGroup.Character;
     // Internals
     // exposing getters for internals 
     public CharacterController controller { get; private set; }
@@ -86,21 +87,20 @@ public class Character : Reflectable {
     }
 
     public void TakeHit(DamageDealer damager) {
+        Debug.Log("Take hit");
+
         if (Network.isClient) {
-            /* Take hit is a server thing */
             return;
         }
+        int dmg = damager.GetComponent<DamageDealer>().damage;
+        TakeDamage(dmg);
         /*
         if (fsm.state == CharacterFsm.State.Dash) {
             PickUpItem(damager);
         }
-        else */
-
-        {
-            int dmg = damager.GetComponent<DamageDealer>().damage;
-            TakeDamage(dmg);
-        }
-    }
+        else
+        */
+   }
 
     void MonitorHealth() {
         if (health <= 0) {
@@ -108,31 +108,6 @@ public class Character : Reflectable {
             Destroy();
         }
     }
-    /*
-    void UseItem(Item item) {
-    }
-
-    public void PickUpItem(Item item) {
-        if (item.tag == "Arrow") {
-            DamageDealer arrow = (DamageDealer)item;
-            if (!arrow.alive) {
-                if (arrows.arrowList.Count < 7) {
-                    Arrow arrowItem = (Arrow)item;
-                    arrows.StoreArrow(arrowItem.type);
-                }
-                item.PickUp();
-            }
-        }
-        else if (item.tag == "Item") {
-            UseItem(item);
-            item.PickUp();
-        }
-        else {
-            Debug.LogError("PickUpItem - Item has invalid tag.");
-        }
-    }
-    */
-
 
     void DetectJumpKill() {
         int layerMask = 1 << 9;
@@ -159,12 +134,16 @@ public class Character : Reflectable {
 
     [RPC]
     void Destroy() {
-        if (Network.isServer) {
-            Network.RemoveRPCs(netView.viewID);
-            Network.Destroy(netView.viewID);
+        if(Network.isServer) {
+            Debug.Log("Destroy Character " + GetInstanceID());
+            Network.RemoveRPCs(networkView.owner, group);
+            networkView.RPC("Destroy", RPCMode.Others);
+            return;
         }
-        else {
-            netView.RPC("Destroy", RPCMode.Server);
+        if (networkView.isMine) {
+            Debug.Log("Destroy Character " + GetInstanceID());
+            Network.Destroy(gameObject);
+            return;
         }
     }
 
