@@ -31,7 +31,7 @@ GameObject:
   - 64: {fileID: 6461998}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ GameObject:
   - 64: {fileID: 6462002}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ GameObject:
   - 64: {fileID: 6462004}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,7 +240,7 @@ GameObject:
   - 33: {fileID: 3361974}
   - 23: {fileID: 2361990}
   - 64: {fileID: 6462012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - 64: {fileID: 6462014}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,7 +296,7 @@ GameObject:
   - 64: {fileID: 6462016}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,7 +332,7 @@ GameObject:
   - 64: {fileID: 6462020}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,7 +350,7 @@ GameObject:
   - 64: {fileID: 6462022}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -368,7 +368,7 @@ GameObject:
   - 64: {fileID: 6462024}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,7 +404,7 @@ GameObject:
   - 64: {fileID: 6462026}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,7 +422,7 @@ GameObject:
   - 64: {fileID: 6462028}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,7 +475,7 @@ GameObject:
   - 64: {fileID: 6462032}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -507,7 +507,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 461992}
   - 65: {fileID: 6562082}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - 33: {fileID: 3362004}
   - 23: {fileID: 2362018}
   - 64: {fileID: 6462036}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Block
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - 33: {fileID: 3362006}
   - 23: {fileID: 2362020}
   - 64: {fileID: 6462038}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - 64: {fileID: 6462040}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -581,7 +581,7 @@ GameObject:
   - 64: {fileID: 6462042}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -597,7 +597,7 @@ GameObject:
   - 33: {fileID: 3362012}
   - 23: {fileID: 2362026}
   - 64: {fileID: 6462044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Block
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - 64: {fileID: 6462046}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -688,7 +688,7 @@ GameObject:
   - 64: {fileID: 6462048}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -741,7 +741,7 @@ GameObject:
   - 64: {fileID: 6462050}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -795,7 +795,7 @@ GameObject:
   - 64: {fileID: 6462054}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -829,7 +829,7 @@ GameObject:
   - 33: {fileID: 3362038}
   - 23: {fileID: 2362048}
   - 64: {fileID: 6462056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stone Pillar
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   - 64: {fileID: 6462058}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -882,7 +882,7 @@ GameObject:
   - 64: {fileID: 6462060}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,7 +898,7 @@ GameObject:
   - 33: {fileID: 3362044}
   - 23: {fileID: 2362054}
   - 64: {fileID: 6462062}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stone Pillar
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -918,7 +918,7 @@ GameObject:
   - 64: {fileID: 6462064}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +947,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 462042}
   - 65: {fileID: 6562098}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,7 +982,7 @@ GameObject:
   - 64: {fileID: 6462066}
   m_Layer: 8
   m_Name: Arch Wall
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1000,7 +1000,7 @@ GameObject:
   - 64: {fileID: 6462068}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,7 +1018,7 @@ GameObject:
   - 64: {fileID: 6462070}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1089,7 +1089,7 @@ GameObject:
   - 64: {fileID: 6462074}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1107,7 +1107,7 @@ GameObject:
   - 64: {fileID: 6462076}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1125,7 +1125,7 @@ GameObject:
   - 64: {fileID: 6462078}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1160,7 +1160,7 @@ GameObject:
   - 64: {fileID: 6462080}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1229,7 +1229,7 @@ GameObject:
   - 33: {fileID: 3362076}
   - 23: {fileID: 2362080}
   - 64: {fileID: 6462084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: C_Corridor_Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1249,7 +1249,7 @@ GameObject:
   - 64: {fileID: 6462086}
   m_Layer: 8
   m_Name: Arch Wall
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1267,7 +1267,7 @@ GameObject:
   - 64: {fileID: 6462088}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1334,7 +1334,7 @@ GameObject:
   - 33: {fileID: 3362086}
   - 23: {fileID: 2362090}
   - 64: {fileID: 6462094}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stairs Basic
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1390,7 +1390,7 @@ GameObject:
   - 64: {fileID: 6462096}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1444,7 +1444,7 @@ GameObject:
   - 64: {fileID: 6462102}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,7 +1480,7 @@ GameObject:
   - 64: {fileID: 6462106}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1534,7 +1534,7 @@ GameObject:
   - 64: {fileID: 6462110}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1552,7 +1552,7 @@ GameObject:
   - 64: {fileID: 6462112}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1588,7 +1588,7 @@ GameObject:
   - 64: {fileID: 6462116}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1656,7 +1656,7 @@ GameObject:
   - 33: {fileID: 3374238}
   - 23: {fileID: 2374236}
   - 64: {fileID: 6474236}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stone Pillar
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1672,7 +1672,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474240}
   - 65: {fileID: 6574238}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1692,7 @@ GameObject:
   - 64: {fileID: 6474238}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1710,7 +1710,7 @@ GameObject:
   - 64: {fileID: 6474240}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1764,7 +1764,7 @@ GameObject:
   - 64: {fileID: 6474246}
   m_Layer: 8
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1817,7 +1817,7 @@ GameObject:
   - 64: {fileID: 6474248}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1833,7 +1833,7 @@ GameObject:
   - 33: {fileID: 3374254}
   - 23: {fileID: 2374252}
   - 64: {fileID: 6474250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stairs Basic
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1853,7 +1853,7 @@ GameObject:
   - 64: {fileID: 6474252}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1871,7 +1871,7 @@ GameObject:
   - 64: {fileID: 6474254}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1959,7 +1959,7 @@ GameObject:
   - 33: {fileID: 3374268}
   - 23: {fileID: 2374266}
   - 64: {fileID: 6474260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stairs Basic
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -1993,7 +1993,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474276}
   - 65: {fileID: 6574248}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2045,7 +2045,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474282}
   - 65: {fileID: 6574252}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2096,7 +2096,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474288}
   - 65: {fileID: 6574256}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2116,7 +2116,7 @@ GameObject:
   - 64: {fileID: 6474266}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2134,7 +2134,7 @@ GameObject:
   - 64: {fileID: 6474268}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2152,7 +2152,7 @@ GameObject:
   - 64: {fileID: 6474270}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2203,7 +2203,7 @@ GameObject:
   - 33: {fileID: 3374290}
   - 23: {fileID: 2374284}
   - 64: {fileID: 6474274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2223,7 +2223,7 @@ GameObject:
   - 64: {fileID: 6474276}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2294,7 +2294,7 @@ GameObject:
   - 64: {fileID: 6474282}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2308,7 +2308,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474312}
   - 65: {fileID: 6574262}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2364,7 +2364,7 @@ GameObject:
   - 64: {fileID: 6474288}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2400,7 +2400,7 @@ GameObject:
   - 64: {fileID: 6474292}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2502,7 +2502,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474334}
   - 65: {fileID: 6574270}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2520,7 +2520,7 @@ GameObject:
   - 33: {fileID: 3374322}
   - 23: {fileID: 2374310}
   - 64: {fileID: 6474298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stone Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2538,7 +2538,7 @@ GameObject:
   - 33: {fileID: 3374324}
   - 23: {fileID: 2374312}
   - 64: {fileID: 6474300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stairs Basic
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2556,7 +2556,7 @@ GameObject:
   - 33: {fileID: 3374326}
   - 23: {fileID: 2374314}
   - 64: {fileID: 6474302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Castle Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2576,7 +2576,7 @@ GameObject:
   - 64: {fileID: 6474304}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2594,7 +2594,7 @@ GameObject:
   - 64: {fileID: 6474306}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2612,7 +2612,7 @@ GameObject:
   - 64: {fileID: 6474308}
   m_Layer: 8
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2630,7 +2630,7 @@ GameObject:
   - 64: {fileID: 6474310}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2648,7 +2648,7 @@ GameObject:
   - 64: {fileID: 6474312}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2666,7 +2666,7 @@ GameObject:
   - 64: {fileID: 6474314}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2684,7 +2684,7 @@ GameObject:
   - 64: {fileID: 6474316}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2698,7 +2698,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474356}
   - 65: {fileID: 6574272}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2718,7 +2718,7 @@ GameObject:
   - 64: {fileID: 6474318}
   m_Layer: 8
   m_Name: 4-way Wall_Divider
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2783,7 +2783,7 @@ GameObject:
   - 33: {fileID: 3374348}
   - 23: {fileID: 2374332}
   - 64: {fileID: 6474320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stone Pillar
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -2801,7 +2801,7 @@ GameObject:
   - 33: {fileID: 3374350}
   - 23: {fileID: 2374334}
   - 64: {fileID: 6474322}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Small Stone Wall
   m_TagString: Walkable
   m_Icon: {fileID: 0}
@@ -9848,7 +9848,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161992}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.4209042, y: .328729957, z: 5.18372536}
@@ -9944,7 +9944,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162042}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.1688118, y: .365413189, z: 5.2746768}
@@ -10088,7 +10088,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174240}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.08185482, y: .327372223, z: 5.08453131}
@@ -10148,7 +10148,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174276}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.51128674, y: .317768067, z: 5.15854454}
@@ -10172,7 +10172,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174282}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.554903, y: .419166565, z: 5.12730789}
@@ -10196,7 +10196,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174288}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.4209042, y: .328729957, z: 5.18372536}
@@ -10232,7 +10232,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174312}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10.554903, y: .419166565, z: 5.12730789}
@@ -10280,7 +10280,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174334}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.51128674, y: .317768246, z: 5.30850887}
@@ -10292,7 +10292,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174356}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.08185482, y: .327372223, z: 5.08453131}
