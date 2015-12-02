@@ -17,6 +17,7 @@ public class CharacterController {
     public bool isGrounded { get { return groundCollider.isGrounded; } }
     public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
 
+
     public CharacterController(Character character) {
         this.character = character;
         groundCollider = character.groundCollider;
@@ -24,12 +25,6 @@ public class CharacterController {
 
         // Make the rigid body not change rotation
         character.rigidbody.freezeRotation = true;
-
-        if (character.isMine) {
-            mouseLook = true;
-            Screen.showCursor = false;
-            Screen.lockCursor = true;
-        }
     }
 
     public void AirMove() {
@@ -83,31 +78,20 @@ public class CharacterController {
     float minimumY = -60F;
     float maximumY = 60F;
     float rotationY = 0F;
-    bool mouseLook;
 
-    public void Update() {
-        if (character.input.escape) {
-            mouseLook = !mouseLook;
-            Screen.showCursor = !Screen.showCursor;
-            Screen.lockCursor = !Screen.lockCursor;
-            Debug.Log("Mouse Look:" + mouseLook);
-        }
-    }
 
     public void Look() {
-        if (mouseLook) {
-            rotationY += character.input.lookVertical * sensitivityY;
-            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+        rotationY += character.input.lookVertical * sensitivityY;
+        rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
 
-            //Camera
-            var camTransform = character.charCamera.transform;
-            camTransform.localEulerAngles = new Vector3(-rotationY, camTransform.localEulerAngles.y, 0);
+        //Camera
+        var camTransform = character.charCamera.transform;
+        camTransform.localEulerAngles = new Vector3(-rotationY, camTransform.localEulerAngles.y, 0);
 
-            //player
-            var charTransform = character.transform;
-            float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
-            charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
-        }
+        //player
+        var charTransform = character.transform;
+        float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
+        charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
     }
 
 

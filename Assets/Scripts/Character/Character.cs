@@ -23,10 +23,12 @@ public class Character : Reflectable {
     //public WorldMirror worldMirror { get; private set; }
 
     //Network
-    public NetworkView netRigidBody { get; private set; }
-    public NetworkView netView { get; private set; }
-    public bool isMine { get { return netView.isMine; } }
-    public bool isNotMine { get { return !netView.isMine; } }
+    public bool isMine { get { return networkView.isMine; } }
+    public bool isNotMine { get { return !networkView.isMine; } }
+
+    //Input lock flags 
+    public bool mouseLookEnabled { get; set; }
+    public bool keyboardMovementEnabled { get; set; }
 
     public int playerNumber;
     public int health = 1;
@@ -42,7 +44,6 @@ public class Character : Reflectable {
             return;
         }
         input.Update();
-        controller.Update();
     }
 
 
@@ -69,7 +70,6 @@ public class Character : Reflectable {
         Debug.Log("Char Start");
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
-        netView = GetComponent<NetworkView>();
 
         if (isNotMine) {
             charCamera.gameObject.SetActive(false);
@@ -84,6 +84,9 @@ public class Character : Reflectable {
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
         fsm = new CharacterFsm(this);
+
+        mouseLookEnabled = true;
+        keyboardMovementEnabled = true;
     }
 
     public void TakeHit(DamageDealer damager) {
@@ -136,11 +139,11 @@ public class Character : Reflectable {
     void Destroy() {
         if(Network.isServer) {
             Debug.Log("Destroy Character " + GetInstanceID());
-            Network.RemoveRPCs(networkView.owner, group);
-            networkView.RPC("Destroy", RPCMode.Others);
+            Network.RemoveRPCs(base.networkView.owner, group);
+            base.networkView.RPC("Destroy", RPCMode.Others);
             return;
         }
-        if (networkView.isMine) {
+        if (base.networkView.isMine) {
             Debug.Log("Destroy Character " + GetInstanceID());
             Network.Destroy(gameObject);
             return;
@@ -154,7 +157,7 @@ public class Character : Reflectable {
         MonitorHealth();
 
         if (Network.isServer && health > 0) {
-            netView.RPC("TakeDamage", RPCMode.Others, damage);
+            networkView.RPC("TakeDamage", RPCMode.Others, damage);
         }
     }
     [RPC]

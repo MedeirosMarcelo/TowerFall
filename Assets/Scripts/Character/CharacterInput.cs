@@ -47,20 +47,25 @@ public class CharacterInput {
     }
 
     public void Update() {
-        horizontal = Input.GetAxis(config.moveHorizontal);
-        vertical = Input.GetAxis(config.moveVertical);
-        lookHorizontal = Input.GetAxis(config.lookHorizontal);
-        lookVertical = Input.GetAxis(config.lookVertical);
+        if (character.mouseLookEnabled) {
+            lookHorizontal = Input.GetAxis(config.lookHorizontal);
+            lookVertical = Input.GetAxis(config.lookVertical);
+        }
+
+        if (character.keyboardMovementEnabled) {
+            horizontal = Input.GetAxis(config.moveHorizontal);
+            vertical = Input.GetAxis(config.moveVertical);
+
+            // AccumulateButtons
+            shoot |= Input.GetButtonDown(config.shoot);
+            dodge |= Input.GetButtonDown(config.dodge);
+            jump |= Input.GetButtonDown(config.jump);
+        }
 
         // this buttons should be read at update
         submit = Input.GetButtonDown(config.submit);
         cancel = Input.GetButtonDown(config.cancel);
         escape = Input.GetButtonDown(config.escape);
-
-        // AccumulateButtons
-        shoot |= Input.GetButtonDown(config.shoot);
-        dodge |= Input.GetButtonDown(config.dodge);
-        jump |= Input.GetButtonDown(config.jump);
 
         /*
         Debug.Log("horizontal:" + horizontal +
@@ -117,9 +122,9 @@ public class Config {
         shoot = "kShoot",
         dodge = "kDodge",
         jump = "kJump",
-        escape = "kEscape",
-        submit = "kSubmit",
-        cancel = "kCancel"
+        escape = "Escape",
+        submit = "Submit",
+        cancel = "Cancel"
     };
     public static Config controller = new Config() {
         moveHorizontal = "cHorizontal",
@@ -129,8 +134,8 @@ public class Config {
         shoot = "cShoot",
         dodge = "cDodge",
         jump = "cJump",
-        escape = "cEscape",
-        submit = "cSubmit",
-        cancel = "cCancel"
+        escape = "Escape",
+        submit = "Submit",
+        cancel = "Cancel"
     };
 };

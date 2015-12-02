@@ -651,7 +651,7 @@ RectTransform:
   - {fileID: 1657305196}
   - {fileID: 961487916}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1019,6 +1019,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 538410960}
   - 114: {fileID: 538410961}
+  - 114: {fileID: 538410963}
+  - 148: {fileID: 538410962}
   m_Layer: 0
   m_Name: World Main
   m_TagString: World Main
@@ -1038,7 +1040,7 @@ Transform:
   m_Children:
   - {fileID: 1605576323}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &538410961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,6 +1055,29 @@ MonoBehaviour:
   playerPrefab: {fileID: 193262, guid: 3a4b1c921a09dbc4bb3ce0219f35e07a, type: 2}
   arrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
   arrowPickupPrefab: {fileID: 159234, guid: 8ff7750d1a9e5e24eb05ae1e4fabafc7, type: 2}
+--- !u!148 &538410962
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 538410959}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 538410960}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
+--- !u!114 &538410963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 538410959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea73c51bb01db0b4cb8c1ed95560eefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &551796695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1192,7 @@ GameObject:
   - 114: {fileID: 584731072}
   m_Layer: 5
   m_Name: Port
-  m_TagString: Server Port
+  m_TagString: UI Port Input
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1677,7 +1702,7 @@ GameObject:
   - 114: {fileID: 815074627}
   m_Layer: 5
   m_Name: Status
-  m_TagString: Server Status
+  m_TagString: UI Status Text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2032,7 +2057,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &954295101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,7 +2556,7 @@ GameObject:
   - 114: {fileID: 1209016681}
   m_Layer: 5
   m_Name: ServerCanvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2756,58 +2781,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 67358068}
   m_GameObject: {fileID: 1292261877}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1355103568
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1355103571}
-  - 148: {fileID: 1355103570}
-  - 114: {fileID: 1355103569}
-  m_Layer: 0
-  m_Name: Server
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1355103569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1355103568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7902f6bf9e47e04aad92403d9dc25d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!148 &1355103570
-NetworkView:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1355103568}
-  m_Enabled: 1
-  m_StateSynchronization: 1
-  m_Observed: {fileID: 1355103571}
-  m_ViewID:
-    m_ID: 1
-    m_Type: 1
---- !u!4 &1355103571
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1355103568}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!1 &1374358347
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,7 +3013,7 @@ GameObject:
   - 114: {fileID: 1547009667}
   m_Layer: 5
   m_Name: Start
-  m_TagString: Server Start
+  m_TagString: UI Start Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3836,7 +3809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1 &2064909146
 GameObject:
   m_ObjectHideFlags: 0
