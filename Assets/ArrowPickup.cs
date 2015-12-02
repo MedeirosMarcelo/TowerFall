@@ -22,7 +22,7 @@ public class ArrowPickup : Item {
             case "Player":
             Debug.Log("Pickup");
                 var character = col.gameObject.GetComponent<Character>();
-                character.netView.RPC("StoreArrow", RPCMode.Others, (int)type);
+                character.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
                 Destroy();
                 break;
         }

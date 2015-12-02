@@ -7,20 +7,25 @@ TagManager:
   - Arrow
   - World Main
   - Canvas
-  - Server
-  - Server Start
-  - Server Port
-  - Server Status
-  - Client
-  - Client Start
-  - Client Name
-  - Client IP
-  - Client Port
+  - UI Login Panel
+  - UI Chat Panel
+  - UI Chat Scrool
+  - UI Start Button
+  - UI Login Button
+  - UI IP Input
+  - UI Port Input
+  - UI Name Input
+  - UI Chat Input
+  - UI Status Text
+  - UI Background
   - Stage
   - Spawn
   - 
   - Command
   - Scrool
+  - 
+  - Name
+  - Connection
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

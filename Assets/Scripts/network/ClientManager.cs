@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ClientManager : MonoBehaviour {
+
     public GameObject player { get; private set; }
+    public Character character { get; private set; }
 
     // All prefabs are referenced here to guaratee it's inclusion on build
     public GameObject basicArrowPrefab;
@@ -13,27 +15,47 @@ public class ClientManager : MonoBehaviour {
     //WorldMirror worldMirror;
     //Score score;
 
-    Client client;
+    ClientUIManager clientUIManager;
     GameObject stage;
     GameObject[] spawnPoints;
 
     void Start() {
-        client = GameObject.FindGameObjectWithTag("Client").GetComponent<Client>();
+        clientUIManager = GetComponent<ClientUIManager>();
         stage = GameObject.FindGameObjectWithTag("Stage");
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+    }
 
-        client.onConnected += delegate () {
+    public void OnConnected() {
             SpawnPlayer();
-        };
-
-        client.onDisconnect += delegate () {
+    }
+    public void OnDisconnected() {
             Network.Destroy(player);
-        };
+    }
+    public void OnMenuOpen() {
+        if (character != null) {
+            character.mouseLookEnabled = false;
+        }
+    }
+    public void OnMenuClosed() {
+        if (character != null) {
+            character.mouseLookEnabled = true;
+        }
+    }
+    public void OnChatOpened() {
+        if (character != null) {
+            character.keyboardMovementEnabled = false;
+        }
+    }
+    public void OnChatClosed() {
+        if (character != null) {
+            character.keyboardMovementEnabled = true;
+        }
     }
 
     public void SpawnPlayer() {
         var spawn = spawnPoints.PickRandom().transform;
         player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group);
         player.transform.SetParent(transform);
+        character = player.GetComponent<Character>();
     }
 }
