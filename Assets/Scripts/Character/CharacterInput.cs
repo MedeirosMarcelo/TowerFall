@@ -51,6 +51,10 @@ public class CharacterInput {
             lookHorizontal = Input.GetAxis(config.lookHorizontal);
             lookVertical = Input.GetAxis(config.lookVertical);
         }
+        else {
+            lookHorizontal = 0f;
+            lookVertical = 0f; 
+        }
 
         if (character.keyboardMovementEnabled) {
             horizontal = Input.GetAxis(config.moveHorizontal);

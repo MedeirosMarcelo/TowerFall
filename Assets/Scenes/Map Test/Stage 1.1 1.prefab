@@ -1796,7 +1796,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 474254}
   - 114: {fileID: 11474236}
-  - 114: {fileID: 11474234}
   m_Layer: 0
   m_Name: Stage 1.1 1
   m_TagString: Untagged
@@ -10321,18 +10320,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: .0500000007, z: 1}
   m_Center: {x: 0, y: .474999994, z: 0}
---- !u!114 &11474234
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c619be64063fa654681679233ef65da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DrawnBounds: 1
 --- !u!114 &11474236
 MonoBehaviour:
   m_ObjectHideFlags: 1

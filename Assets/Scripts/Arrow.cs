@@ -57,7 +57,7 @@ public class Arrow : DamageDealer {
     }
 
     void FixedUpdate() {
-        if (!networkView.isMine || !alive) {
+        if (!networkView.isMine) {
             return;
         }
         transform.forward = Vector3.Slerp(transform.forward, rigidbody.velocity.normalized, rotationSpeed * Time.deltaTime);
@@ -67,7 +67,7 @@ public class Arrow : DamageDealer {
         if (Network.isClient) {
             return;
         }
-        if (col.gameObject.name == "Floor" || col.gameObject.name == "Wall") {
+        if (col.gameObject.tag ==  "Walkable") {
             HitScenary();
         }
         else if (col.gameObject.tag == "Player") {
