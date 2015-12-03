@@ -1,37 +1,44 @@
 # TowerFall 3D
 Unity3D Towerfall 3D prototype
 
-- Splitscreen: ok
-- Controller
-- Flechas limitadas: ok
-- Pegar flechas: ok
+- Splitscreen: OK
+- Controller: OK
+- Flechas limitadas: OK
+- Pegar flechas: OK
 - Pegar flechas durante o dash
-- Flechas especiais
-- Morrer: ok
-- Colisao da camera
+- Morrer
+- Colisao da camera: OK
 - Power Up
- - Asas
- - Invisibilidade
+ - Spawn
+ - Flechas bomba
  - Escudo
-- Pular na cabeca do adversario
+- Pular na cabeca do adversario: NetCode (tiago.bonetti)
 - UI
- - flechas: parcial
- - Placar: parcial
-- Scenes
+ - flechas
+ - Placar 
+- Fluxo de jogo
  - Menus
- - lobby
-- networking 0.1
+ - Lobby
+ - Start
+ - End
+- Castle: OK
+- Player Model
+ - Animations
+- networking 0.1: OK
  - server dedicado
  - client
  - cenario fixo sem reflexao
  - clientes aparecem no server e outros clientes
  - sem flechas
-- networking 0.2
+- networking 0.2 : OK
  - clientes atiram flexas pelo server
-- networking 0.?
+- networking 0.3: OK
  - chat
+- loop 0.2: (tiago.bonetti)
+- relfections 0.2: (tiago.bonetti)
 
-
+ Known Issues:
+ - Flecha atirando para tras
 
 
 ## Dodge Stalling
