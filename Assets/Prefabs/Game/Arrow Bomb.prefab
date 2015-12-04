@@ -51,7 +51,7 @@ GameObject:
   - 148: {fileID: 14843376}
   - 114: {fileID: 11465720}
   m_Layer: 0
-  m_Name: ArrowReal Bomb
+  m_Name: Arrow Bomb
   m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

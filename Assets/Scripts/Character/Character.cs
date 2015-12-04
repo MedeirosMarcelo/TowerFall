@@ -20,8 +20,6 @@ public class Character : Reflectable {
     public GameObject arrowSpawner { get; private set; }
 
     // World
-    //public WorldMirror worldMirror { get; private set; }
-
     //Network
     public bool isMine { get { return networkView.isMine; } }
     public bool isNotMine { get { return !networkView.isMine; } }
@@ -61,11 +59,6 @@ public class Character : Reflectable {
         DetectJumpKill();
     }
 
-    public void Create(int playerNumber) {
-        Start();
-        this.playerNumber = playerNumber;
-    }
-
     void Start() {
         Debug.Log("Char Start");
         this.playerNumber = 0;
@@ -74,7 +67,6 @@ public class Character : Reflectable {
         if (isNotMine) {
             charCamera.gameObject.SetActive(false);
         }
-        //worldMirror = GetComponentInParent<WorldMirror>();
         handsCollider = GetComponentInChildren<HandsCollider>();
         groundCollider = GetComponentInChildren<GroundCollider>();
         feet = transform.FindChild("Feet").gameObject;

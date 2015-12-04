@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TerrainBounds : MonoBehaviour {
+public class StageManager : MonoBehaviour {
+    public GameObject reflectionPrefab;
 
     public bool DrawnBounds = true;
-    public Bounds localBounds {
-        get {
-            return GetLocalBounds();
-        }
+    public Bounds bounds { get; private set; }
+
+    void Start () {
+        bounds = GetBounds();
     }
 
     void OnDrawGizmos() {
         if (DrawnBounds) {
-            Bounds bounds = GetLocalBounds();
+            Bounds bounds = GetBounds();
             Gizmos.DrawWireCube(bounds.center + transform.position, bounds.size);
         }
     }
 
-    Bounds GetLocalBounds() {
+    public Bounds GetBounds() {
         Renderer[] renderers = gameObject.GetComponentsInChildren<Renderer>();
         Bounds bounds = new Bounds(transform.position, Vector3.zero);
         foreach (var render in renderers) {

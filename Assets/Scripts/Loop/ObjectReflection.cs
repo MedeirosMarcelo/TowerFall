@@ -11,8 +11,8 @@ public class ObjectReflection : MonoBehaviour {
 
 	void MirrorActions(){
 		if (original) {
-			this.transform.localPosition = original.transform.localPosition;
-			this.transform.localRotation = original.transform.localRotation;
+			this.transform.localPosition = original.transform.position;
+			this.transform.localRotation = original.transform.rotation;
 		}
 	}
 }

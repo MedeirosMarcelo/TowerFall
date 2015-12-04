@@ -4,6 +4,12 @@ using System.Collections;
 
 [Serializable]
 public class CharacterInput {
+    public enum InputMode {
+        InGame,
+        OnChat,
+        OnMenu
+    }
+    public InputMode mode = InputMode.InGame;
 
     Character character;
     Config config;
@@ -47,23 +53,38 @@ public class CharacterInput {
     }
 
     public void Update() {
-        if (character.mouseLookEnabled) {
-            lookHorizontal = Input.GetAxis(config.lookHorizontal);
-            lookVertical = Input.GetAxis(config.lookVertical);
-        }
-        else {
-            lookHorizontal = 0f;
-            lookVertical = 0f; 
-        }
-
-        if (character.keyboardMovementEnabled) {
-            horizontal = Input.GetAxis(config.moveHorizontal);
-            vertical = Input.GetAxis(config.moveVertical);
-
-            // AccumulateButtons
-            shoot |= Input.GetButtonDown(config.shoot);
-            dodge |= Input.GetButtonDown(config.dodge);
-            jump |= Input.GetButtonDown(config.jump);
+        switch (mode) {
+            case InputMode.InGame:
+                lookHorizontal = Input.GetAxis(config.lookHorizontal);
+                lookVertical = Input.GetAxis(config.lookVertical);
+                horizontal = Input.GetAxis(config.moveHorizontal);
+                vertical = Input.GetAxis(config.moveVertical);
+                // AccumulateButton
+                jump |= Input.GetButtonDown(config.jump);
+                shoot |= Input.GetButtonDown(config.shoot);
+                dodge |= Input.GetButtonDown(config.dodge);
+                break;
+            case InputMode.OnChat:
+                lookHorizontal = Input.GetAxis(config.lookHorizontal);
+                lookVertical = Input.GetAxis(config.lookVertical);
+                horizontal = 0f;
+                vertical = 0f;
+                // AccumulateButton
+                jump = false;
+                shoot = false;
+                dodge = false;
+                break;
+            default:
+            case InputMode.OnMenu:
+                lookHorizontal = 0f;
+                lookVertical = 0f;
+                horizontal = 0f;
+                vertical = 0f;
+                // AccumulateButton
+                jump = false;
+                shoot = false;
+                dodge = false;
+                break;
         }
 
         // this buttons should be read at update

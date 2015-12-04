@@ -1795,10 +1795,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474254}
+  - 114: {fileID: 11427166}
   - 114: {fileID: 11474236}
   m_Layer: 0
   m_Name: Stage 1.1 1
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10320,9 +10321,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: .0500000007, z: 1}
   m_Center: {x: 0, y: .474999994, z: 0}
---- !u!114 &11474236
+--- !u!114 &11427166
 MonoBehaviour:
   m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a83ce3bb4d67094ea19be346f1bac70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reflectionPrefab: {fileID: 191332, guid: d9e939b59f1e285479e0a477fc6d50c1, type: 2}
+  DrawnBounds: 1
+--- !u!114 &11474236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174254}

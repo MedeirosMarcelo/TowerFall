@@ -164,8 +164,8 @@ GameObject:
   - 65: {fileID: 6593260}
   - 54: {fileID: 5493260}
   - 148: {fileID: 14893458}
-  - 114: {fileID: 11444952}
   - 114: {fileID: 11431360}
+  - 114: {fileID: 11444952}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -416,7 +416,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &6559050
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -525,12 +525,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193262}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d66bba7ffd8d23640b97c657f3215fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Reflection: {fileID: 167356, guid: d698216420b502549a41c5f3fb7d4da9, type: 2}
+  reflectionPrefab: {fileID: 167356, guid: d698216420b502549a41c5f3fb7d4da9, type: 2}
 --- !u!114 &11484512
 MonoBehaviour:
   m_ObjectHideFlags: 1

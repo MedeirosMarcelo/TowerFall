@@ -9,14 +9,11 @@ public class HUDArrowDisplay : MonoBehaviour {
     public GameObject arrowIconPrefab;
     public Sprite spriteBasicArrow;
 
-    GameManager gameManager;
     Character targetPlayer;
 
     private int arrowCount;
 
     void Start() {
-        gameManager = GameObject.FindWithTag("World Main").GetComponent<GameManager>();
-        targetPlayer = gameManager.playerList[targetPlayerNumber - 1].GetComponent<Character>();
         //arrowCount = targetPlayer.arrows.arrowList.Count;
     }
 

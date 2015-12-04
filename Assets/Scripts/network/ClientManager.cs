@@ -28,27 +28,27 @@ public class ClientManager : MonoBehaviour {
     public void OnConnected() {
             SpawnPlayer();
     }
-    public void OnDisconnected() {
+    public void OnDisconnect() {
             Network.Destroy(player);
     }
     public void OnMenuOpen() {
         if (character != null) {
-            character.mouseLookEnabled = false;
+            character.input.mode = CharacterInput.InputMode.OnMenu;
         }
     }
     public void OnMenuClosed() {
         if (character != null) {
-            character.mouseLookEnabled = true;
+            character.input.mode = CharacterInput.InputMode.InGame;
         }
     }
     public void OnChatOpened() {
         if (character != null) {
-            character.keyboardMovementEnabled = false;
+            character.input.mode = CharacterInput.InputMode.OnChat;
         }
     }
     public void OnChatClosed() {
         if (character != null) {
-            character.keyboardMovementEnabled = true;
+            character.input.mode = CharacterInput.InputMode.InGame;
         }
     }
 
