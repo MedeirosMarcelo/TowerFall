@@ -28,18 +28,20 @@ public class CameraBehavior : MonoBehaviour {
         }
     }
 
+    private float sideAngle = 30;
+    private float minDownAngle = 60;
+
     void LateUpdate() {
         Vector3 hit;
 
         Vector3 direction = -transform.forward;
-        direction = Quaternion.AngleAxis(-30f, transform.up) * direction;
+        direction = Quaternion.AngleAxis(-sideAngle, transform.up) * direction;
 
         /* We limit camera when lloging up so it doesnt go to characters feet */
         float angle = Vector3.Angle(Vector3.up, transform.forward);
-        if (angle < 60) {
-            direction = Quaternion.AngleAxis(60 - angle, transform.right) * direction;
+        if (angle < minDownAngle) {
+            direction = Quaternion.AngleAxis(minDownAngle - angle, transform.right) * direction;
         }
-
 
         NextPosition(targetPosition, direction, out hit);
 
