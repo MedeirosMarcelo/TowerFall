@@ -34,11 +34,11 @@ public class CharacterArrows {
         Vector3 arrowPosition = character.arrowSpawner.transform.position;
         Quaternion arrowRotation = character.arrowSpawner.transform.rotation;
         var obj = Network.Instantiate(character.basicArrow, arrowPosition, arrowRotation, Arrow.group) as GameObject;
-        var ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) { obj.transform.LookAt(hit.point); }
-        else { obj.transform.LookAt(ray.GetPoint(15)); }
+        //var ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit)) { obj.transform.LookAt(hit.point); }
+        //else { obj.transform.LookAt(ray.GetPoint(15)); }
 
         var arrow = obj.GetComponent<Arrow>();
         arrow.type = arrowStack.Pop();

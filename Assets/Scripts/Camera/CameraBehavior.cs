@@ -14,9 +14,12 @@ public class CameraBehavior : MonoBehaviour {
         set { transform.position = value; }
     }
     private Vector3 targetPosition {
-        get { return target.transform.position; }
-        set { target.transform.position = value; }
+        get { return target.transform.position + (Vector3.up * 0.9f); }
     }
+    private float near {
+        get { return camera.nearClipPlane + 1f; }
+    }
+
 
     void Start() {
         layerMask = LayerMask.GetMask("Wall");
@@ -28,12 +31,20 @@ public class CameraBehavior : MonoBehaviour {
     void LateUpdate() {
         Vector3 hit;
 
-        // this is the current camera direction relative to target we are following
-        Vector3 direction = (position - targetPosition).normalized;
+        Vector3 direction = -transform.forward;
+        direction = Quaternion.AngleAxis(-30f, transform.up) * direction;
+
+        /* We limit camera when lloging up so it doesnt go to characters feet */
+        float angle = Vector3.Angle(Vector3.up, transform.forward);
+        if (angle < 60) {
+            direction = Quaternion.AngleAxis(60 - angle, transform.right) * direction;
+        }
+
+
         NextPosition(targetPosition, direction, out hit);
 
         // hit now contains the global position we should put the camera, yet we must compensate camera near 
-        hit -= (direction * camera.nearClipPlane);
+        hit -= (direction * near);
 
         // if hit position is closer to target just jump to it otherwise lerp to it
         if ((hit - targetPosition).magnitude < (position - targetPosition).magnitude) {

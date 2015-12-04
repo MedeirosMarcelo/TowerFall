@@ -91,6 +91,6 @@ public class CharacterController {
         //player
         var charTransform = character.transform;
         float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
-        charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+        charTransform.localEulerAngles = new Vector3(0, rotationX, 0);
     }
 }
