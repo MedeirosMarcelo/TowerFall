@@ -16,6 +16,7 @@ public class Character : Reflectable {
     public Camera charCamera { get; private set; }
     public GroundCollider groundCollider { get; private set; }
     public HandsCollider handsCollider { get; private set; }
+    public GameObject head { get; private set; }
     public GameObject feet { get; private set; }
     public GameObject arrowSpawner { get; private set; }
 
@@ -28,10 +29,13 @@ public class Character : Reflectable {
     public bool mouseLookEnabled { get; set; }
     public bool keyboardMovementEnabled { get; set; }
 
+
     public int playerNumber;
     public int health = 1;
     public GameObject basicArrow;
     public CharacterInput.Type inputType;
+
+
 
     void OnValidate() {
         if (input != null) { input.type = inputType; }
@@ -46,17 +50,19 @@ public class Character : Reflectable {
 
 
     void FixedUpdate() {
+        if (Network.isServer && !waitingDestruction) {
+            DetectJumpKill();
+            return;
+        }
         if (isNotMine) {
             return;
         }
-
         controller.Look();
         fsm.FixedUpdate(Time.deltaTime);
         arrows.FixedUpdate();
 
         // Input must be last here
         input.FixedUpdate();
-        DetectJumpKill();
     }
 
     void Start() {
@@ -69,6 +75,7 @@ public class Character : Reflectable {
         }
         handsCollider = GetComponentInChildren<HandsCollider>();
         groundCollider = GetComponentInChildren<GroundCollider>();
+        head = transform.FindChild("Head").gameObject;
         feet = transform.FindChild("Feet").gameObject;
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
 
@@ -98,38 +105,51 @@ public class Character : Reflectable {
         }
     }
 
+
+
+    private int headMask;
+    private float headMaxDistance = 0.2f;
+    private float headRadius = 0.25f;
+    private float headKillForce = 25f;
+
     void DetectJumpKill() {
-        int layerMask = 1 << 9;
-        Vector3 point1 = feet.transform.position;
-        Vector3 point2 = point1 + Vector3.down * 0.2f;
-        //float radius = 0.25f;
-        Vector3 direction = Vector3.down;
-        float maxDistance = 0.2f;
-        //Debug.DrawLine(point1, point2, Color.yellow);
-        Debug.DrawRay(point1, direction * maxDistance, Color.yellow);
+        headMask = LayerMask.GetMask("Feet");
+        Vector3 position = head.transform.position;
+        Vector3 direction = Vector3.up;
         RaycastHit hit;
-        Ray ray = new Ray(point1, direction);
-        if (Physics.Raycast(ray, out hit, maxDistance, layerMask)) {
-            //if (Physics.CapsuleCast(point1, point2, radius, direction, out hit, maxDistance, layerMask)) {
-            Debug.Log("JUMP HIT " + hit.collider.name);
-            if (hit.collider.transform.parent.tag == "Player") {
-                Debug.Log("JUMP KILL!");
-                rigidbody.AddForce(Vector3.up * 20f, ForceMode.Impulse);
-                Destroy(hit.collider.transform.parent.gameObject);
+        Ray ray = new Ray(position, direction);
+
+        Debug.DrawRay(position, direction * headMaxDistance, Color.yellow);
+        Debug.DrawRay(position + Vector3.forward * headRadius, direction * headMaxDistance, Color.yellow);
+        Debug.DrawRay(position + Vector3.right * headRadius, direction * headMaxDistance, Color.yellow);
+        Debug.DrawRay(position + Vector3.back * headRadius, direction * headMaxDistance, Color.yellow);
+        Debug.DrawRay(position + Vector3.left * headRadius, direction * headMaxDistance, Color.yellow);
+
+        if (Physics.SphereCast(ray, headRadius, out hit, headMaxDistance, headMask)) {
+            Debug.Log("Head Hit" + hit.collider.name);
+            var parent = hit.collider.transform.parent;
+            if (parent.tag == "Player") {
+                Debug.Log("Jump kill!");
+                Destroy();
+                parent.rigidbody.AddForce(Vector3.up * headKillForce, ForceMode.Impulse);
 
             }
         }
     }
 
+
+    private bool waitingDestruction = false;
     [RPC]
     void Destroy() {
         if(Network.isServer) {
+            waitingDestruction = true;
             Debug.Log("Destroy Character " + GetInstanceID());
-            Network.RemoveRPCs(base.networkView.owner, group);
-            base.networkView.RPC("Destroy", RPCMode.Others);
+            Network.RemoveRPCs(networkView.owner, group);
+            networkView.RPC("Destroy", RPCMode.Others);
+            gameObject.SetActive(false);
             return;
         }
-        if (base.networkView.isMine) {
+        if (networkView.isMine) {
             Debug.Log("Destroy Character " + GetInstanceID());
             Network.Destroy(gameObject);
             return;

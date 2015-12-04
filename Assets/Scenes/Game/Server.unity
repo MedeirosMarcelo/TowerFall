@@ -8180,7 +8180,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 981864622}
-  - 114: {fileID: 981864623}
   m_Layer: 0
   m_Name: Stage 1.2 Reflection
   m_TagString: Stage
@@ -8201,20 +8200,6 @@ Transform:
   - {fileID: 1997657088}
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &981864623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11427400, guid: d9e939b59f1e285479e0a477fc6d50c1,
-    type: 2}
-  m_PrefabInternal: {fileID: 612723983}
-  m_GameObject: {fileID: 981864621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a83ce3bb4d67094ea19be346f1bac70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reflectionPrefab: {fileID: 191332, guid: d9e939b59f1e285479e0a477fc6d50c1, type: 2}
-  DrawnBounds: 1
 --- !u!1 &982728855
 GameObject:
   m_ObjectHideFlags: 0
