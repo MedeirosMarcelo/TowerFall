@@ -27,8 +27,7 @@ public class ArrowPickup : Item {
 
     public void PickUp(GameObject character) {
         Debug.Log("Pickup");
-        Character picker = gameObject.GetComponent<Character>();
-        picker.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
+        character.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
         Destroy();
     }
 
