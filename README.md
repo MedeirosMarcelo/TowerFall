@@ -12,7 +12,7 @@ Unity3D Towerfall 3D prototype
  - Spawn
  - Flechas bomba
  - Escudo
-- Pular na cabeca do adversario: NetCode (tiago.bonetti)
+- Pular na cabeca do adversario: OK
 - UI
  - flechas
  - Placar 
@@ -34,11 +34,12 @@ Unity3D Towerfall 3D prototype
  - clientes atiram flexas pelo server
 - networking 0.3: OK
  - chat
-- loop 0.2: (tiago.bonetti)
-- relfections 0.2: (tiago.bonetti)
+- loop 0.2: OK
+- relfections 0.2: OK
 
  Known Issues:
- - Flecha atirando para tras
+ - Colisao com as paredes
+ - Flecha atirando para tras (tiago.bonetti)
 
 
 ## Dodge Stalling
