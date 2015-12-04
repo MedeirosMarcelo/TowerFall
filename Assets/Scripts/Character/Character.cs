@@ -97,12 +97,6 @@ public class Character : Reflectable {
         }
         int dmg = damager.GetComponent<DamageDealer>().damage;
         TakeDamage(dmg);
-        /*
-        if (fsm.state == CharacterFsm.State.Dash) {
-            PickUpItem(damager);
-        }
-        else
-        */
    }
 
     void MonitorHealth() {

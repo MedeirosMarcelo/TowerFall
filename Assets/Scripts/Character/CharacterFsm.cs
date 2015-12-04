@@ -5,10 +5,10 @@ using System.Collections;
 [Serializable]
 public class CharacterFsm {
 
+    public State state;
+
     Character character;
     Rigidbody rigidBody;
-
-    State state;
 
     public enum State {
         OnGround,  //  State, Update will check for  

@@ -71,7 +71,12 @@ public class Arrow : DamageDealer {
             HitScenary();
         }
         else if (col.gameObject.tag == "Player") {
-            HitPlayer(col.gameObject);
+            if (col.gameObject.GetComponent<Character>().fsm.state == CharacterFsm.State.Dodging) {
+                PickUp(col.gameObject);
+            }
+            else {
+                HitPlayer(col.gameObject);
+            }
         }
     }
 
@@ -94,6 +99,13 @@ public class Arrow : DamageDealer {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         rigidbody.detectCollisions = false;
         Hit(player);
+        Destroy();
+    }
+
+    public void PickUp(GameObject character) {
+        Debug.Log("Pickup");
+        Character picker = gameObject.GetComponent<Character>();
+        picker.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
         Destroy();
     }
 }
