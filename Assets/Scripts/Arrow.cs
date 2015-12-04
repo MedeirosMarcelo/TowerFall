@@ -4,6 +4,7 @@ using System.Collections;
 public enum ArrowType {
     None = 0,
     Basic,
+    Bomb
 }
 
 public class Arrow : DamageDealer {
@@ -42,7 +43,7 @@ public class Arrow : DamageDealer {
     void AllowHitOwner() { canHitOwner = true; }
     
     [RPC]
-    void Destroy() {
+    protected void Destroy() {
         if(Network.isServer) {
             Debug.Log("Destroy Arrow " + GetInstanceID());
             Network.RemoveRPCs(networkView.owner, group);

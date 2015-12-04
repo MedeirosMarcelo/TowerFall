@@ -15,6 +15,7 @@ public class CharacterFsm {
         OnAir,
         Dodging,
         OnLedge,
+        Dead
     }
 
     public CharacterFsm(Character character) {

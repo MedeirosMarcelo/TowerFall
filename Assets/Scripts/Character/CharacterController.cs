@@ -93,6 +93,4 @@ public class CharacterController {
         float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
         charTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
     }
-
-
 }
