@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 0fccc284ce0be504ca444cdd471df353
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - basicArrow: {instanceID: 0}
+  - chest: {fileID: 154308, guid: bb968546e061eaf4ea57c4062f1298fe, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

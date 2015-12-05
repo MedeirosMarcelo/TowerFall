@@ -19,6 +19,7 @@ public class Character : Reflectable {
     public GameObject head { get; private set; }
     public GameObject feet { get; private set; }
     public GameObject arrowSpawner { get; private set; }
+    public Animation animation { get; private set; }
 
     // World
     //Network
@@ -32,6 +33,7 @@ public class Character : Reflectable {
 
     public int playerNumber;
     public int health = 1;
+    public Color color = Color.white;
     public GameObject basicArrow;
     public CharacterInput.Type inputType;
 
@@ -47,7 +49,6 @@ public class Character : Reflectable {
         }
         input.Update();
     }
-
 
     void FixedUpdate() {
         if (Network.isServer && !waitingDestruction) {
@@ -78,7 +79,8 @@ public class Character : Reflectable {
         head = transform.FindChild("Head").gameObject;
         feet = transform.FindChild("Feet").gameObject;
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
-
+        animation = transform.FindChild("Model").GetComponent<Animation>();
+        
         input = new CharacterInput(this);
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
@@ -104,7 +106,6 @@ public class Character : Reflectable {
             Destroy();
         }
     }
-
 
 
     private int headMask;

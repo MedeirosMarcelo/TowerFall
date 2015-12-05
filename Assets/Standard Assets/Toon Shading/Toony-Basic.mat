@@ -40,19 +40,19 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .462686539, g: .462686539, b: .462686539, a: 1}
+        second: {r: .117647052, g: .117647052, b: .117647052, a: 1}
       data:
         first:
           name: _SpecColor
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _Emission
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

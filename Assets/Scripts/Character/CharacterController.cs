@@ -40,6 +40,7 @@ public class CharacterController {
         velocityChange.z = Mathf.Clamp(velocityChange.z, -maxAcceleration, maxAcceleration);
         velocityChange.y = 0;
         character.rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+        WalkAnimation();
     }
 
     public void Dodge() {
@@ -52,7 +53,29 @@ public class CharacterController {
     public void Jump() {
         if (character.input.jump) {
             Debug.Log("jump");
+            character.animation.Play("Jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    public void WalkAnimation() {
+        if (character.fsm.state == CharacterFsm.State.OnGround) {
+            Debug.Log("State: " + character.fsm.state);
+            if (character.input.vector.z > 0f) {
+                character.animation["Walk"].speed = character.input.vector.z * 2;
+                character.animation.CrossFade("Walk");
+            }
+            else if (character.input.vector.z < 0f) {
+                character.animation["Walk"].speed = character.input.vector.z * -2;
+                character.animation.CrossFade("Walk");
+            }
+            else if (character.input.vector.x != 0f) {
+                character.animation["Walk"].speed = character.input.vector.x * 2;
+                character.animation.CrossFade("Walk");
+            }
+            else {
+                character.animation.CrossFade("Wait");
+            }
         }
     }
 
