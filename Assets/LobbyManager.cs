@@ -8,11 +8,10 @@ public class LobbyManager : MonoBehaviour {
     public Button colorButton;
 
     public Button readyButton;
-    public ScrollRect scroolRect;
+    public TextScroolManager chat;
     public InputFieldManager chatInput;
     public GameObject playerList;
 
-    public Text textPrefab;
     public GameObject lobbyCharacterPrefab;
 
     GameManager gameManager;
@@ -29,7 +28,7 @@ public class LobbyManager : MonoBehaviour {
         headerText =  header.GetComponentInChildren<Text>();
         readyButtonText = readyButton.GetComponentInChildren<Text>();
         colorView = colorButton.GetComponentInChildren<Image>();
-
+        gameManager.onLobbyMessage += chat.AddMessage;
         colorButton.onClick.AddListener(() => {
             // use callbacks so we can change local variables without need to add new listeners
             ChangeColorCallback();
@@ -76,20 +75,7 @@ public class LobbyManager : MonoBehaviour {
             readyButtonText.text = "Cancel";
         }
     }
-
     void SetColor(Color color) {
         colorView.color = color;
     }
-
-    bool updateScrool =  false;
-
-    /*
-    [RPC]
-    void LobbyMessage(string msg) {
-        var newText = Instantiate(textPrefab) as Text;
-        newText.text = msg;
-        newText.rectTransform.SetParent(scroolRect.content.transform);
-        updateScrool = true;
-    }
-    */
 }

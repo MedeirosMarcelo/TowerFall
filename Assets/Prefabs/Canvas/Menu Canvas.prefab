@@ -392,6 +392,7 @@ GameObject:
   - 114: {fileID: 11484432}
   - 114: {fileID: 11484434}
   - 222: {fileID: 22284460}
+  - 114: {fileID: 11493274}
   m_Layer: 5
   m_Name: Chat Scrool
   m_TagString: UI Chat Scrool
@@ -999,10 +1000,9 @@ MonoBehaviour:
   header: {fileID: 184420}
   colorButton: {fileID: 11484382}
   readyButton: {fileID: 11484352}
-  scroolRect: {fileID: 11484430}
+  chat: {fileID: 11493274}
   chatInput: {fileID: 11484496}
   playerList: {fileID: 184492}
-  textPrefab: {fileID: 11446464, guid: bd583c20893e8a749bf5ca1a960014a9, type: 2}
   lobbyCharacterPrefab: {fileID: 130472, guid: a6622cdfc56ed2d43ac7c0af3dbebea7, type: 2}
 --- !u!114 &11484364
 MonoBehaviour:
@@ -2672,6 +2672,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Ready
+--- !u!114 &11493274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57083a43c370d2c4c9fd910b267c9443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoScrool: 1
+  textPrefab: {fileID: 146464, guid: bd583c20893e8a749bf5ca1a960014a9, type: 2}
 --- !u!222 &22284420
 CanvasRenderer:
   m_ObjectHideFlags: 1

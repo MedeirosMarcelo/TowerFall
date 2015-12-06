@@ -39,4 +39,22 @@ public class GameManager : MonoBehaviour {
     void StartRound() {
         Application.LoadLevel("Client");
     }
+
+    // This are here so we guarantee Server <> Client RPCs will find ech other
+
+    public delegate void OnTextMessage(string msg);
+    public OnTextMessage onLobbyMessage;
+    public OnTextMessage onChatMessage;
+    [RPC]
+    void LobbyMessage(string msg) {
+        if (onLobbyMessage != null) {
+            onLobbyMessage(msg);
+        }
+    }
+    [RPC]
+    void ChatMessage(string msg) {
+        if (onChatMessage != null) {
+            onChatMessage(msg);
+        }
+    }
 }
