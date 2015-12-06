@@ -85,7 +85,7 @@ public class Arrow : DamageDealer {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         rigidbody.detectCollisions = false;
         Debug.Log("ToServer");
-        var prefab = GameObject.FindGameObjectWithTag("World Main").GetComponent<ServerManager>().arrowPickupPrefab;
+        var prefab = ServerManager.Get().arrowPickupPrefab;
         var newArrow = Network.Instantiate(prefab, transform.position, transform.rotation, 0) as GameObject;
         newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
         Destroy();

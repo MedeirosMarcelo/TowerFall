@@ -8,10 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 461096}
-  - 114: {fileID: 11461018}
-  - 114: {fileID: 11461020}
-  - 148: {fileID: 14861016}
-  - 114: {fileID: 11461022}
+  - 114: {fileID: 11473716}
   m_Layer: 0
   m_Name: Server World Main
   m_TagString: World Main
@@ -31,32 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11461018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e946bc647ab80c44bb441f54dddbeab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 193262, guid: 3a4b1c921a09dbc4bb3ce0219f35e07a, type: 2}
-  arrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
-  arrowPickupPrefab: {fileID: 159234, guid: 8ff7750d1a9e5e24eb05ae1e4fabafc7, type: 2}
---- !u!114 &11461020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea73c51bb01db0b4cb8c1ed95560eefb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11461022
+--- !u!114 &11473716
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,18 +42,6 @@ MonoBehaviour:
   ReflectionsX: 0
   ReflectionsY: 0
   ReflectionsZ: 0
---- !u!148 &14861016
-NetworkView:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161096}
-  m_Enabled: 1
-  m_StateSynchronization: 1
-  m_Observed: {fileID: 461096}
-  m_ViewID:
-    m_ID: 0
-    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

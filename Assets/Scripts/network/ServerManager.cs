@@ -3,7 +3,18 @@ using System.Collections;
 
 public class ServerManager : MonoBehaviour {
 
-    public GameObject playerPrefab;
+    public static ServerManager Get() {
+        var obj = GameObject.FindWithTag("GameController");
+        if (obj == null) {
+            Debug.LogError("Server Manager Not Found");
+            return null;
+        }
+        return obj.GetComponent<ServerManager>();
+    }
+
+    public GameObject lobbyCharacterPrefab;
+    public GameObject characterPrefab;
+
     public GameObject arrowPrefab;
     public GameObject arrowPickupPrefab;
 

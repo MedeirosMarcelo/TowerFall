@@ -5,16 +5,12 @@ using System.Collections.Generic;
 
 public class ServerUIManager : MonoBehaviour {
 
-    public Button startButton { get; private set; }
-    public InputField portInput { get; private set; }
-    public Text statusText { get; private set; }
+    public Button startButton;
+    public InputField portInput;
+    public Text statusText;
 
 
     void Start() {
-        startButton = GameObject.FindGameObjectWithTag("UI Start Button").GetComponent<Button>();
-        portInput = GameObject.FindGameObjectWithTag("UI Port Input").GetComponent<InputField>();
-        statusText = GameObject.FindGameObjectWithTag("UI Status Text").GetComponent<Text>();
-
         startButton.onClick.AddListener(() => {
             if (Network.peerType == NetworkPeerType.Disconnected) { StartServer(); }
             else { StopServer(); }
