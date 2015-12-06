@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class HUDArrowDisplay : MonoBehaviour {
@@ -8,13 +9,24 @@ public class HUDArrowDisplay : MonoBehaviour {
     public int targetPlayerNumber;
     public GameObject arrowIconPrefab;
     public Sprite spriteBasicArrow;
+    public Sprite spriteBombArrow;
 
     Character targetPlayer;
+    Stack<ArrowType> arrowStack = new Stack<ArrowType>();
 
     private int arrowCount;
 
     void Start() {
-        //arrowCount = targetPlayer.arrows.arrowList.Count;
+        targetPlayer = GameObject.FindWithTag("World Main").GetComponent<ClientManager>().character;
+        arrowStack = targetPlayer.arrows.stack;
+    }
+
+    public void Show() {
+        arrowCount = arrowStack.Count;
+    }
+
+    public void Hide() {
+        arrowCount = arrowStack.Count;
     }
 
     void Update() {
@@ -22,28 +34,26 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     public void UpdateArrowPanel() {
-    /*
+    
         if (targetPlayer != null) {
-            if (arrowCount != targetPlayer.arrows.arrowList.Count) {
+            if (arrowCount != arrowStack.Count) {
                 int i = 0;
-                foreach (GameObject arrowObj in targetPlayer.arrows.arrowList) {
-                    AddArrowIcon(i, arrowObj);
+                foreach (ArrowType arrow in targetPlayer.arrows.stack) {
+                    AddArrowIcon(i, arrow);
                     i++;
                 }
                 for (int k = i; k < arrowIconArray.Length; k++) {
                     RemoveArrowIcon(k);
                 }
-                arrowCount = targetPlayer.arrows.arrowList.Count;
+                arrowCount = targetPlayer.arrows.stack.Count;
             }
         }
-    */
     }
 
-    void AddArrowIcon(int i, GameObject arrowObj) {
+    void AddArrowIcon(int i, ArrowType arrowType) {
         if (i < arrowIconArray.Length) {
             Image arrowIcon = arrowIconArray[i].GetComponent<Image>();
-            Arrow arrow = arrowObj.GetComponent<Arrow>();
-            arrowIcon.sprite = GetArrowIcon(arrow.type);
+            arrowIcon.sprite = GetArrowIcon(arrowType);
             arrowIcon.enabled = true;
         }
     }
@@ -60,6 +70,8 @@ public class HUDArrowDisplay : MonoBehaviour {
             default:
             case ArrowType.Basic:
                 return spriteBasicArrow;
+            case ArrowType.Bomb:
+                return spriteBombArrow;
         }
     }
 }
