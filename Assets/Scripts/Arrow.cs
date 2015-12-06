@@ -12,16 +12,19 @@ public class Arrow : DamageDealer {
     public ArrowType type = ArrowType.Basic;
     public static readonly int group = (int)NetworkGroup.Arrow;
 
-    bool canHitOwner = false;
-    float ownerHitDelay = 1f;
-    float lifespan = 5f;
-    float speed = 35f;
-    float rotationSpeed = 10f;
-    float arc = 0.2f;
+    protected bool canHitOwner = false;
+    protected float ownerHitDelay = 1f;
+    protected float lifespan = 5f;
+    protected float speed = 35f;
+    protected float rotationSpeed = 10f;
+    protected float arc = 0.2f;
 
     AudioSource audioSource;
 
     void Start() {
+        if (type == ArrowType.Bomb) {
+            damageArea = transform.Find("DamageArea").gameObject;
+        }
         Debug.Log("Start arrow " + GetInstanceID());
         audioSource = GetComponent<AudioSource>();
 
@@ -45,6 +48,7 @@ public class Arrow : DamageDealer {
     [RPC]
     protected void Destroy() {
         if(Network.isServer) {
+            if (type == ArrowType.Bomb) Explode();
             Debug.Log("Destroy Arrow " + GetInstanceID());
             Network.RemoveRPCs(networkView.owner, group);
             networkView.RPC("Destroy", RPCMode.Others);
@@ -84,8 +88,7 @@ public class Arrow : DamageDealer {
     void HitScenary() {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         rigidbody.detectCollisions = false;
-        Debug.Log("ToServer");
-        var prefab = ServerManager.Get().arrowPickupPrefab;
+        var prefab = GetPickupArrowByType(type);
         var newArrow = Network.Instantiate(prefab, transform.position, transform.rotation, 0) as GameObject;
         newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
         Destroy();
@@ -96,7 +99,6 @@ public class Arrow : DamageDealer {
             return;
         }
 
-        Debug.Log("HitPlayer");
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         rigidbody.detectCollisions = false;
         Hit(player);
@@ -108,5 +110,38 @@ public class Arrow : DamageDealer {
         Character picker = gameObject.GetComponent<Character>();
         picker.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
         Destroy();
+    }
+    //Bomb Arrow
+    public float explosionDelay;
+    public float destroyDelay;
+    GameObject damageArea;
+
+    public void Explode() {
+        Debug.Log("EXPLODE");
+        damageArea.SetActive(true);
+        damageArea.transform.SetParent(null);
+        Destroy(damageArea, 1.2f);
+        //StartCoroutine("WaitAndExplode");
+    }
+
+    IEnumerator WaitAndExplode() {
+        yield return new WaitForSeconds(explosionDelay);
+        damageArea.SetActive(true);
+        StartCoroutine("WaitAndDestroy");
+    }
+
+    IEnumerator WaitAndDestroy() {
+        yield return new WaitForSeconds(destroyDelay);
+        Destroy();
+    }
+
+    GameObject GetPickupArrowByType(ArrowType type) {
+        switch (type) {
+            default:
+            case ArrowType.Basic:
+                return ServerManager.Get().arrowPickupPrefab;
+            case ArrowType.Bomb:
+                return ServerManager.Get().bombArrowPickupPrefab;
+        }
     }
 }

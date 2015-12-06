@@ -17,6 +17,8 @@ public class ServerManager : MonoBehaviour {
 
     public GameObject arrowPrefab;
     public GameObject arrowPickupPrefab;
+    public GameObject bombArrowPrefab;
+    public GameObject bombArrowPickupPrefab;
 
     private readonly int countdownMax = 10;
     private int countDown = 10;

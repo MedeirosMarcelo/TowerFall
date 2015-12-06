@@ -15,12 +15,12 @@ public class CharacterArrows {
         this.character = character;
 
         // 6 arrows start
-        stack.Push(ArrowType.Basic);
-        stack.Push(ArrowType.Basic);
-        stack.Push(ArrowType.Basic);
-        stack.Push(ArrowType.Basic);
-        stack.Push(ArrowType.Basic);
-        stack.Push(ArrowType.Basic);
+        stack.Push(ArrowType.Bomb);
+        stack.Push(ArrowType.Bomb);
+        stack.Push(ArrowType.Bomb);
+        stack.Push(ArrowType.Bomb);
+        stack.Push(ArrowType.Bomb);
+        stack.Push(ArrowType.Bomb);
     }
 
     public void FixedUpdate() {
@@ -33,7 +33,7 @@ public class CharacterArrows {
     void BuildArrow() {
         Vector3 arrowPosition = character.arrowSpawner.transform.position;
         Quaternion arrowRotation = character.arrowSpawner.transform.rotation;
-        var obj = Network.Instantiate(character.basicArrow, arrowPosition, arrowRotation, Arrow.group) as GameObject;
+        var obj = Network.Instantiate(GetArrowByType(arrowStack.Peek()), arrowPosition, arrowRotation, Arrow.group) as GameObject;
         AimArrow(obj.transform);
         var arrow = obj.GetComponent<Arrow>();
         arrow.type = arrowStack.Pop();
@@ -43,5 +43,15 @@ public class CharacterArrows {
     {
         var ray = character.charCamera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
         arrowTransform.LookAt(ray.GetPoint(15)); 
+    }
+
+    GameObject GetArrowByType(ArrowType type) {
+        switch (type) {
+            default:
+            case ArrowType.Basic:
+                return character.basicArrow;
+            case ArrowType.Bomb:
+                return character.bombArrow;
+        }
     }
 }

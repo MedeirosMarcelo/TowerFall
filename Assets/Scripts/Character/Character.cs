@@ -20,6 +20,7 @@ public class Character : Reflectable {
     public GameObject feet { get; private set; }
     public GameObject arrowSpawner { get; private set; }
     public Animation animation { get; private set; }
+    public GameObject shield { get; private set; }
 
     // World
     //Network
@@ -35,6 +36,7 @@ public class Character : Reflectable {
     public int health = 1;
     public Color color = Color.white;
     public GameObject basicArrow;
+    public GameObject bombArrow;
     public CharacterInput.Type inputType;
 
 
@@ -80,7 +82,8 @@ public class Character : Reflectable {
         feet = transform.FindChild("Feet").gameObject;
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
         animation = transform.FindChild("Model").GetComponent<Animation>();
-        
+        shield = transform.Find("Shield").gameObject;
+
         input = new CharacterInput(this);
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
@@ -181,7 +184,16 @@ public class Character : Reflectable {
         if (isMine && (health == 1)) {
             Debug.Log("Got SHIELD");
             health = 2;
+            shield.SetActive(true);
+        }
+    }
 
+    [RPC]
+    void RemoveShield() {
+        if (isMine) {
+            Debug.Log("REMOVE SHIELD");
+            health = 1;
+            shield.SetActive(false);
         }
     }
 }

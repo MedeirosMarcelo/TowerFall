@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ArrowPickup : Item {
+public class ShieldPickup : MonoBehaviour {
 
-    public ArrowType type = ArrowType.Basic;
     NetworkView netView;
     private bool isNotMine { get { return !netView.isMine; } }
 
     void Start() {
-       // Debug.Log("Start: " + name + " id:" + GetInstanceID());
+        Debug.Log("Start: " + name + " id:" + GetInstanceID());
         netView = GetComponent<NetworkView>();
         if (isNotMine) {
             collider.enabled = false;
@@ -27,7 +26,7 @@ public class ArrowPickup : Item {
 
     public void PickUp(GameObject character) {
         Debug.Log("Pickup");
-        character.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
+        character.networkView.RPC("ApplyShield", RPCMode.Others);
         Destroy();
     }
 
