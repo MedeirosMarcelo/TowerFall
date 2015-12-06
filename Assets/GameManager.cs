@@ -57,4 +57,10 @@ public class GameManager : MonoBehaviour {
             onChatMessage(msg);
         }
     }
+    public void SendLobbyMessage(string msg) {
+        networkView.RPC("LobbyMessage", RPCMode.Others, msg);
+    }
+    public void SendChatMessage(string msg) {
+        networkView.RPC("ChatMessage", RPCMode.Others, msg);
+    }
 }

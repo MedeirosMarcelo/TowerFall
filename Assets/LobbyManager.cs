@@ -38,6 +38,10 @@ public class LobbyManager : MonoBehaviour {
             // use callbacks so we can change local variables without need to add new listeners
             ReadyButtonCallback();
         });
+        chatInput.onSubmit += delegate () {
+            chat.AddMessage("you: " + chatInput.text);
+            gameManager.SendLobbyMessage(gameManager.playerName + ": " + chatInput.text);
+        };
         BuildLobbyCharacter();
     }
 
