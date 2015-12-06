@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public string playerName { get; set; }
+    public bool lockCursor { get; set; }
 
     void Awake() {
         if (gameManager != null) {
@@ -22,6 +23,16 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
     void Start() {
+    }
+
+    void Update() {
+        /* if cursor is not locked as desired we relock/unlock it here */
+        if (lockCursor && !Screen.lockCursor) {
+            Screen.lockCursor = true;
+        }
+        if (!lockCursor && Screen.lockCursor) {
+            Screen.lockCursor = false;
+        }
     }
 
     [RPC]

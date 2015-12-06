@@ -15,14 +15,17 @@ public class ClientManager : MonoBehaviour {
     //WorldMirror worldMirror;
     //Score score;
 
-    ClientUIManager clientUIManager;
+    GameManager gameManager;
     GameObject stage;
     GameObject[] spawnPoints;
 
     void Start() {
-        clientUIManager = GetComponent<ClientUIManager>();
+        gameManager = GameManager.Get();
+        gameManager.lockCursor = true;
+
         stage = GameObject.FindGameObjectWithTag("Stage");
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+
          if (Network.isClient) {
             SpawnPlayer();
         }
@@ -46,6 +49,7 @@ public class ClientManager : MonoBehaviour {
     public void OnConnectedToServer() {
         SpawnPlayer();
     }
+
     public void OnMenuOpen() {
         if (character != null) {
             character.input.mode = CharacterInput.InputMode.OnMenu;

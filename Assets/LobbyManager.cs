@@ -43,7 +43,7 @@ public class LobbyManager : MonoBehaviour {
     }
 
     void OnEnable() {
-        // First Enable happens before start, start will BuildLobbyCharacter
+        // First Enable happens before start cousing errors so we skip it here and start will build lobbyCharacter
         if (started) {
             BuildLobbyCharacter();
         }
@@ -81,8 +81,15 @@ public class LobbyManager : MonoBehaviour {
         colorView.color = color;
     }
 
-    [RPC]
-    void AddMessage() {
+    bool updateScrool =  false;
 
+    /*
+    [RPC]
+    void LobbyMessage(string msg) {
+        var newText = Instantiate(textPrefab) as Text;
+        newText.text = msg;
+        newText.rectTransform.SetParent(scroolRect.content.transform);
+        updateScrool = true;
     }
+    */
 }

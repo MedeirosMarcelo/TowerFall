@@ -115,13 +115,12 @@ public class ServerManager : MonoBehaviour {
             return;
         }
         if (countDown == 0) {
-            Debug.Log("Starting Game Now");
             SendLobbyMessage("Starting Game now");
             countDown = countdownMax;
             ChangeState(ServerState.InRound);
             return;
         } else {
-            Debug.Log("Starting Game in " + countDown);
+
             SendLobbyMessage("Starting Game in " + countDown);
             countDown--;
             Invoke("CountDown", 1);
@@ -134,7 +133,8 @@ public class ServerManager : MonoBehaviour {
     }
 
     void SendLobbyMessage(string msg) {
-        networkView.RPC("LobbyMessage", RPCMode.Others, msg);
+        Debug.Log("Lobby message: \"" + msg + "\"");
+        //networkView.RPC("LobbyMessage", RPCMode.Others, msg);
     }
     [RPC]
     void LobbyMessage(string msg) {
@@ -142,6 +142,7 @@ public class ServerManager : MonoBehaviour {
     [RPC]
     void ChatMessage(string msg) {
     }
-
-
+    void OnDisconnectedFromServer() {
+        ChangeState(ServerState.Empty);
+    }
 }

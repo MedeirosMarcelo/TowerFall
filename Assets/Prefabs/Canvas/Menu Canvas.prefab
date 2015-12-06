@@ -192,7 +192,6 @@ GameObject:
   - 223: {fileID: 22384498}
   - 114: {fileID: 11484384}
   - 114: {fileID: 11484386}
-  - 148: {fileID: 14884498}
   - 114: {fileID: 11484388}
   m_Layer: 5
   m_Name: Menu Canvas
@@ -999,7 +998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: {fileID: 184420}
   colorButton: {fileID: 11484382}
-  colorView: {fileID: 0}
   readyButton: {fileID: 11484352}
   scroolRect: {fileID: 11484430}
   chatInput: {fileID: 11484496}
@@ -1318,8 +1316,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2674,18 +2672,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Ready
---- !u!148 &14884498
-NetworkView:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 184436}
-  m_Enabled: 1
-  m_StateSynchronization: 1
-  m_Observed: {fileID: 11484388}
-  m_ViewID:
-    m_ID: 0
-    m_Type: 0
 --- !u!222 &22284420
 CanvasRenderer:
   m_ObjectHideFlags: 1
