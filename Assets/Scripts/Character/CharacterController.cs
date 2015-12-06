@@ -10,13 +10,14 @@ public class CharacterController {
     HandsCollider handsCollider;
 
     float runSpeed = 14f;
-    float dashForce = 30f;
+    float dashForce = 60f;
     float maxAcceleration = 8f;
     float jumpForce = 25f;
 
     public bool isGrounded { get { return groundCollider.isGrounded; } }
     public bool canGrabLedge { get { return handsCollider.canGrabLedge; } }
-
+    public string animationPlaying { get; private set; }
+    public float animationSpeed { get; private set; }
 
     public CharacterController(Character character) {
         this.character = character;
@@ -54,6 +55,7 @@ public class CharacterController {
         if (character.input.jump) {
             Debug.Log("jump");
             character.animation.Play("Jump");
+            StoreAnimationForReflections("Jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
@@ -61,21 +63,24 @@ public class CharacterController {
     public void WalkAnimation() {
         if (character.fsm.state == CharacterFsm.State.OnGround) {
             Debug.Log("State: " + character.fsm.state);
+            string animName;
             if (character.input.vector.z > 0f) {
-                character.animation["Walk"].speed = character.input.vector.z * 2;
-                character.animation.CrossFade("Walk");
+                animName = "Walk";
+                character.animation[animName].speed = character.input.vector.z * 2;
             }
             else if (character.input.vector.z < 0f) {
+                animName = "Walk";
                 character.animation["Walk"].speed = character.input.vector.z * -2;
-                character.animation.CrossFade("Walk");
             }
             else if (character.input.vector.x != 0f) {
+                animName = "Walk";
                 character.animation["Walk"].speed = character.input.vector.x * 2;
-                character.animation.CrossFade("Walk");
             }
             else {
-                character.animation.CrossFade("Wait");
+                animName = "Wait";
             }
+            character.animation.CrossFade(animName);
+            StoreAnimationForReflections(animName);
         }
     }
 
@@ -115,5 +120,10 @@ public class CharacterController {
         var charTransform = character.transform;
         float rotationX = charTransform.localEulerAngles.y + character.input.lookHorizontal * sensitivityX;
         charTransform.localEulerAngles = new Vector3(0, rotationX, 0);
+    }
+
+    void StoreAnimationForReflections(string animName) {
+        animationSpeed = character.animation[animName].speed;
+        animationPlaying = animName;
     }
 }

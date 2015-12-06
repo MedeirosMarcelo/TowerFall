@@ -175,4 +175,13 @@ public class Character : Reflectable {
             arrows.stack.Push((ArrowType)type);
         }
     }
+
+    [RPC]
+    void ApplyShield() {
+        if (isMine && (health == 1)) {
+            Debug.Log("Got SHIELD");
+            health = 2;
+
+        }
+    }
 }

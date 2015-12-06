@@ -5,28 +5,15 @@ using UnityEngine.UI;
 
 public class HUDArrowDisplay : MonoBehaviour {
 
-    public GameObject[] arrowIconArray = new GameObject[7];
-    public int targetPlayerNumber;
-    public GameObject arrowIconPrefab;
+    public IList<Image> slotList;
     public Sprite spriteBasicArrow;
     public Sprite spriteBombArrow;
-
+    
+    int arrowCount;
     Character targetPlayer;
-    Stack<ArrowType> arrowStack = new Stack<ArrowType>();
-
-    private int arrowCount;
 
     void Start() {
-        targetPlayer = GameObject.FindWithTag("World Main").GetComponent<ClientManager>().character;
-        arrowStack = targetPlayer.arrows.stack;
-    }
-
-    public void Show() {
-        arrowCount = arrowStack.Count;
-    }
-
-    public void Hide() {
-        arrowCount = arrowStack.Count;
+        slotList = transform.GetComponentsInChildren<Image>();
     }
 
     void Update() {
@@ -34,15 +21,18 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     public void UpdateArrowPanel() {
-    
+        if (targetPlayer == null) {
+            targetPlayer = GameObject.FindWithTag("World Main").GetComponent<ClientManager>().character;
+        }
+
         if (targetPlayer != null) {
-            if (arrowCount != arrowStack.Count) {
+            if (arrowCount != targetPlayer.arrows.stack.Count) {
                 int i = 0;
-                foreach (ArrowType arrow in targetPlayer.arrows.stack) {
-                    AddArrowIcon(i, arrow);
+                foreach (ArrowType arrowType in targetPlayer.arrows.stack) {
+                    AddArrowIcon(i, arrowType);
                     i++;
                 }
-                for (int k = i; k < arrowIconArray.Length; k++) {
+                for (int k = i; k < slotList.Count; k++) {
                     RemoveArrowIcon(k);
                 }
                 arrowCount = targetPlayer.arrows.stack.Count;
@@ -51,18 +41,13 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     void AddArrowIcon(int i, ArrowType arrowType) {
-        if (i < arrowIconArray.Length) {
-            Image arrowIcon = arrowIconArray[i].GetComponent<Image>();
-            arrowIcon.sprite = GetArrowIcon(arrowType);
-            arrowIcon.enabled = true;
-        }
+        slotList[i].sprite = GetArrowIcon(arrowType);
+        slotList[i].enabled = true;
     }
 
     void RemoveArrowIcon(int i) {
-        if (i < arrowIconArray.Length) {
-            Image arrowIcon = arrowIconArray[i].GetComponent<Image>();
-            arrowIcon.enabled = false;
-        }
+        slotList[i].sprite = null;
+        slotList[i].enabled = false;
     }
 
     Sprite GetArrowIcon(ArrowType arrowType) {

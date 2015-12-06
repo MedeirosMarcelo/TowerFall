@@ -31,8 +31,8 @@ public class CharacterFsm {
     bool jump { get { return (jumpCount < 2 && character.input.jump); } }
 
     // dodge
-    private float dodgeTime = 0.416f;
-    private float dodgeSickTime = 0.75f - 0.416f;
+    private float dodgeTime = 0.1f;
+    private float dodgeSickTime = 0.75f - 0.1f;
     private bool dodgeSick = false;
 
     private bool dodge { get { return (!dodgeSick && character.input.dodge); } }
