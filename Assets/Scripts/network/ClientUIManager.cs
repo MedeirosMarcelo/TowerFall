@@ -98,7 +98,7 @@ public class ClientUIManager : MonoBehaviour {
 
     public void Disconnect() {
         Debug.Log("Disconnect");
-        clientManager.OnDisconnect();
+        //clientManager.OnDisconnect();
         Network.Disconnect(250);
     }
 
@@ -110,7 +110,7 @@ public class ClientUIManager : MonoBehaviour {
         nameInput.interactable = false;
         background.SetActive(false);
         CloseMenu();
-        clientManager.OnConnected();
+        //clientManager.OnConnected();
     }
 
     void OnDisconnectedFromServer() {

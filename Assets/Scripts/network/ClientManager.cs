@@ -25,11 +25,23 @@ public class ClientManager : MonoBehaviour {
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
     }
 
-    public void OnConnected() {
-            SpawnPlayer();
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.F12)) {
+            if (Network.isClient) {
+                Debug.Log("Disconnect");
+                Network.Destroy(player);
+                Network.Disconnect();
+            }
+            else {
+                Debug.Log("Connect");
+                Network.Connect("127.0.0.1", 25001);
+            }
+        }
+
     }
-    public void OnDisconnect() {
-            Network.Destroy(player);
+
+    public void OnConnectedToServer() {
+        SpawnPlayer();
     }
     public void OnMenuOpen() {
         if (character != null) {
@@ -51,7 +63,6 @@ public class ClientManager : MonoBehaviour {
             character.input.mode = CharacterInput.InputMode.InGame;
         }
     }
-
     public void SpawnPlayer() {
         var spawn = spawnPoints.PickRandom().transform;
         player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group);

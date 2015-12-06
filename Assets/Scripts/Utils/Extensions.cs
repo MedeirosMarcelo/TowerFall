@@ -2,12 +2,21 @@
 using System.Collections;
 
 public enum NetworkGroup {
-    None = 0,
-    Character = 1,
-    Arrow = 2
+    None,
+    Character,
+    Arrow,
+    CharacterLobby
 }
 
 public static class Extensions {
+
+    public static bool IsConnected() {
+        return (Network.peerType != NetworkPeerType.Disconnected);
+    }
+
+    public static bool isDisconnected() {
+        return (Network.peerType == NetworkPeerType.Disconnected);
+    }
 
     public static T PickRandom<T>(this T[] source) {
         return source[Random.Range(0, source.Length)];

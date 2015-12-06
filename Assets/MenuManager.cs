@@ -5,50 +5,66 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+public enum MenuState {
+    OnStart,
+    OnLogin,
+    OnLobby
+}
+
 public class MenuManager : MonoBehaviour {
-    public GameObject background;
+
+    public static MenuManager Get() {
+        var obj = GameObject.FindWithTag("Canvas");
+        if (obj == null) {
+            Debug.LogError("Menu Manager Not Found");
+            return null;
+        }
+        return obj.GetComponent<MenuManager>();
+    }
+
     public Button exitButton;
     public Button backButton;
 
-    public GameObject menuPanel;
-    public Button startButton;
+    public StartManager startPanel;
+    public LoginManager loginPanel;
+    public LobbyManager lobbyPanel;
 
-    public GameObject loginPanel;
-    public InputFieldManager nameInput;
-    public Button loginButton;
-    public InputField ipInput;
-    public InputField portInput;
+    MenuState state;
+    GameManager gameManager;
 
-    public GameObject lobbyPanel;
-    public ScrollRect scroolRect;
-    public InputFieldManager chatInput;
-    public Text textPrefab;
-
-    public bool isConnected { get { return (Network.peerType != NetworkPeerType.Disconnected); } }
-    public bool isDisconnected { get { return (Network.peerType == NetworkPeerType.Disconnected); } }
-
-    enum State {
-        OnMenu,
-        OnLogin,
-        OnLobby
+    void Start() {
+        gameManager = GameManager.Get();
+        exitButton.onClick.AddListener(() => {
+            Application.Quit();
+        });
+        backButton.onClick.AddListener(() => {
+            Back();
+        });
+        startPanel.startButton.onClick.AddListener(() => {
+            ChangeState(MenuState.OnLogin);
+        });
+ 
     }
-    State state = State.OnMenu;
+    void Update() {
+        if (Input.GetButtonDown("Escape")) {
+            Back();
+        }
+    }
 
-    void ChangeState(State newState) {
+    public void ChangeState(MenuState newState) {
         if (state == newState) {
             return;
         }
         // state exit
         switch (state) {
-            case State.OnMenu:
-                menuPanel.SetActive(false);
+            case MenuState.OnStart:
+                startPanel.gameObject.SetActive(false);
                 break;
-            case State.OnLogin:
-                loginPanel.SetActive(false);
+            case MenuState.OnLogin:
+                loginPanel.gameObject.SetActive(false);
                 break;
-            case State.OnLobby:
-                lobbyPanel.SetActive(false);
-
+            case MenuState.OnLobby:
+                lobbyPanel.gameObject.SetActive(false);
                 break;
             default:
                 Debug.LogError("Wait what? " + state);
@@ -57,92 +73,43 @@ public class MenuManager : MonoBehaviour {
         // state enter
         state = newState;
         switch (state) {
-            case State.OnMenu:
-                menuPanel.SetActive(true);
+            case MenuState.OnStart:
+                startPanel.gameObject.SetActive(true);
                 break;
-            case State.OnLogin:
-                loginPanel.SetActive(true);
+            case MenuState.OnLogin:
+                loginPanel.gameObject.SetActive(true);
                 break;
-            case State.OnLobby:
-                lobbyPanel.SetActive(true);
+            case MenuState.OnLobby:
+                lobbyPanel.gameObject.SetActive(true);
                 break;
             default:
                 Debug.LogError("Wait what? " + state);
                 break;
         }
     }
-
-    //bool updateScrool;
-    string playerName;
-
-
-    void Start() {
-        exitButton.onClick.AddListener(() => {
-            //Application.Quit();
-        });
-        backButton.onClick.AddListener(() => {
-            Back();
-        });
-        startButton.onClick.AddListener(() => {
-            ChangeState(State.OnLogin);
-        });
-        nameInput.onSubmit += delegate () {
-            Connect();
-        };
-        loginButton.onClick.AddListener(() => {
-            Connect();
-        });
-    }
-   void Update() {
-        if (Input.GetButtonDown("Escape")) {
-            Back();
-       }
-    }
-
-    void Back() {
-            switch (state) {
-                default:
-                case State.OnMenu:
-                    break;
-                case State.OnLogin:
-                    ChangeState(State.OnMenu);
-                    break;
-                case State.OnLobby:
-                    Disconnect();
-                    break;
-            }
-    }
- 
-    bool IsValidName(string name) {
-        return (name.Length > 2);
-    }
-
-    public void Connect() {
-        if (IsValidName(nameInput.text)) {
-            playerName = nameInput.text;
-            int port;
-            if (!int.TryParse(portInput.text, out port)) {
-                port = 25001;
-            }
-            string ip = (ipInput.text == string.Empty) ? "127.0.0.1" : ipInput.text;
-
-            Debug.Log("Connect");
-            Network.Connect(ip, port);
+    public void Back() {
+        switch (state) {
+            default:
+            case MenuState.OnStart:
+                break;
+            case MenuState.OnLogin:
+                ChangeState(MenuState.OnStart);
+                break;
+            case MenuState.OnLobby:
+                Disconnect();
+                break;
         }
     }
-
     public void Disconnect() {
         Debug.Log("Disconnect");
         Network.Disconnect(250);
     }
-
     void OnConnectedToServer() {
         Debug.Log("Connected");
-        ChangeState(State.OnLobby);
+        ChangeState(MenuState.OnLobby);
     }
-
     void OnDisconnectedFromServer() {
         Debug.Log("Disconnected");
-        ChangeState(State.OnMenu);
+        ChangeState(MenuState.OnStart);
     }
 }

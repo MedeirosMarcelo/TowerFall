@@ -137,7 +137,9 @@ public class Character : Reflectable {
             }
         }
     }
-
+    void OnDisconnectedFromServer() {
+        Destroy(gameObject);
+    }
 
     private bool waitingDestruction = false;
     [RPC]
@@ -156,7 +158,6 @@ public class Character : Reflectable {
             return;
         }
     }
-
     [RPC]
     void TakeDamage(int damage) {
         Debug.Log(health + " " + damage);
