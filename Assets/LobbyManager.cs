@@ -6,7 +6,7 @@ using System.Collections;
 public class LobbyManager : MonoBehaviour {
     public GameObject header;
     public Button colorButton;
-    public Image colorView;
+
     public Button readyButton;
     public ScrollRect scroolRect;
     public InputFieldManager chatInput;
@@ -17,45 +17,72 @@ public class LobbyManager : MonoBehaviour {
 
     GameManager gameManager;
     LobbyCharacter lobbyCharacter;
+    Text headerText;
+    Text readyButtonText;
+    Image colorView;
 
-    void Awake() {
-        // WARNING
-        // this can only be here because This script is started disabled
-        //  It however cannot be o Start because it happens after OnEnable
+    // Start happenas after first OnEnable 
+    private bool started = false;
+    void Start() {
+        started = true;
         gameManager = GameManager.Get();
+        headerText =  header.GetComponentInChildren<Text>();
+        readyButtonText = readyButton.GetComponentInChildren<Text>();
+        colorView = colorButton.GetComponentInChildren<Image>();
+
+        colorButton.onClick.AddListener(() => {
+            // use callbacks so we can change local variables without need to add new listeners
+            ChangeColorCallback();
+        });
+        readyButtonText.text = "Ready";
+        readyButton.onClick.AddListener(() => {
+            // use callbacks so we can change local variables without need to add new listeners
+            ReadyButtonCallback();
+        });
+        BuildLobbyCharacter();
     }
 
     void OnEnable() {
-        header.GetComponentInChildren<Text>().text = gameManager.playerName;
+        // First Enable happens before start, start will BuildLobbyCharacter
+        if (started) {
+            BuildLobbyCharacter();
+        }
+    }
+    void BuildLobbyCharacter() {
+        headerText.text = gameManager.playerName;
+        readyButtonText.text = "Ready";
         var obj = Network.Instantiate(lobbyCharacterPrefab,
                                       new Vector3(),
                                       new Quaternion(),
                                       (int)NetworkGroup.CharacterLobby) as GameObject;
         lobbyCharacter = obj.GetComponent<LobbyCharacter>();
         lobbyCharacter.lobbyManager = this;
-
-        colorButton.onClick.AddListener(() => {
-            lobbyCharacter.ChangeColor();
-        });
-
-        var readyButtonText = readyButton.GetComponentInChildren<Text>();
-        readyButton.onClick.AddListener(() => {
-            if (lobbyCharacter.isReady) {
-                lobbyCharacter.isReady = false;
-                readyButtonText.text = "Cancel";
-            }
-            else {
-                lobbyCharacter.isReady = false;
-                readyButtonText.text = "Ready";
-            }
-        });
     }
     void OnDisable() {
         lobbyCharacter.Destroy();
     }
+
+    // This callbacks use local variable
+    void ChangeColorCallback() {
+        lobbyCharacter.ChangeColor();
+    }
+    void ReadyButtonCallback() {
+        if (lobbyCharacter.isReady) {
+            lobbyCharacter.isReady = false;
+            readyButtonText.text = "Ready";
+        }
+        else {
+            lobbyCharacter.isReady = true;
+            readyButtonText.text = "Cancel";
+        }
+    }
+
     void SetColor(Color color) {
         colorView.color = color;
     }
 
+    [RPC]
+    void AddMessage() {
 
+    }
 }

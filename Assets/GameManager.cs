@@ -22,8 +22,10 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
     void Start() {
-        var obj = GameObject.FindGameObjectWithTag("Canvas");
-        var menuManager = obj.GetComponent<MenuManager>();
-        menuManager.startPanel.gameObject.SetActive(true);
+    }
+
+    [RPC]
+    void StartRound() {
+        Application.LoadLevel("Client");
     }
 }

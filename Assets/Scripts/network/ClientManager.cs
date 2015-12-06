@@ -23,6 +23,9 @@ public class ClientManager : MonoBehaviour {
         clientUIManager = GetComponent<ClientUIManager>();
         stage = GameObject.FindGameObjectWithTag("Stage");
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+         if (Network.isClient) {
+            SpawnPlayer();
+        }
     }
 
     void Update() {

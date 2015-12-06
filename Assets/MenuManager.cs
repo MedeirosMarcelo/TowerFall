@@ -43,7 +43,12 @@ public class MenuManager : MonoBehaviour {
         startPanel.startButton.onClick.AddListener(() => {
             ChangeState(MenuState.OnLogin);
         });
- 
+
+        if (Network.isClient) {
+            lobbyPanel.gameObject.SetActive(true);
+        } else {
+            startPanel.gameObject.SetActive(true);
+        }
     }
     void Update() {
         if (Input.GetButtonDown("Escape")) {
