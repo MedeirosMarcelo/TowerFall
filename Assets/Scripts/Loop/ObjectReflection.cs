@@ -5,6 +5,7 @@ public class ObjectReflection : MonoBehaviour {
 
 	public GameObject original;
 
+    public GameObject damageArea;
     public bool mirrorCharacterAnim;
     Animation animation;
     Animation originalAnim;

@@ -11,7 +11,7 @@ public class ClientManager : MonoBehaviour {
     public GameObject basicArrowPrefab;
     public GameObject arrowPickupPrefab;
     public GameObject characterPrefab;
-
+    public GameObject mainStage;
     //WorldMirror worldMirror;
     //Score score;
 

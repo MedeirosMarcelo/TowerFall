@@ -21,6 +21,7 @@ public class Character : Reflectable {
     public GameObject arrowSpawner { get; private set; }
     public Animation animation { get; private set; }
     public GameObject shield { get; private set; }
+    public GameObject mainStage { get; private set; }
 
     // World
     //Network
@@ -83,6 +84,7 @@ public class Character : Reflectable {
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
         animation = transform.FindChild("Model").GetComponent<Animation>();
         shield = transform.Find("Shield").gameObject;
+        mainStage = Camera.main.GetComponent<Stage>().mainStage;
 
         input = new CharacterInput(this);
         controller = new CharacterController(this);

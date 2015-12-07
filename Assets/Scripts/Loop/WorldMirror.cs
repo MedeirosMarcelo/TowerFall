@@ -68,8 +68,26 @@ public class WorldMirror : MonoBehaviour {
 
     public void DestroyReflections(GameObject obj) {
         IList<GameObject> reflectionList = obj.GetComponent<Reflectable>().GetReflections();
-        foreach (GameObject reflection in reflectionList) {
-            Destroy(reflection.gameObject);
+        //--- Creates reflection for Explosion
+        if (obj.GetComponent<Arrow>()) {
+            Arrow arrow = obj.GetComponent<Arrow>();
+            if (arrow.type == ArrowType.Bomb) {
+                foreach (GameObject reflection in reflectionList) {
+                    GameObject damageArea = reflection.GetComponent<ObjectReflection>().damageArea;
+                    if (reflection.name == "Arrow Reflection(Clone)") {
+                        damageArea.SetActive(true);
+                        damageArea.transform.SetParent(damageArea.transform.parent.parent, true);
+                        damageArea.transform.localPosition = obj.transform.localPosition;
+                    }
+                    Destroy(reflection.gameObject);
+                }
+            }
+        }
+        else {
+        //---
+            foreach (GameObject reflection in reflectionList) {
+                Destroy(reflection.gameObject);
+            }
         }
     }
 }

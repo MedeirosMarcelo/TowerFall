@@ -48,9 +48,9 @@ public class Arrow : DamageDealer {
     [RPC]
     protected void Destroy() {
         if(Network.isServer) {
-            if (type == ArrowType.Bomb) Explode();
             Debug.Log("Destroy Arrow " + GetInstanceID());
             Network.RemoveRPCs(networkView.owner, group);
+            if (type == ArrowType.Bomb) networkView.RPC("Explode", RPCMode.All);
             networkView.RPC("Destroy", RPCMode.Others);
             return;
         }
@@ -88,9 +88,11 @@ public class Arrow : DamageDealer {
     void HitScenary() {
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         rigidbody.detectCollisions = false;
-        var prefab = GetPickupArrowByType(type);
-        var newArrow = Network.Instantiate(prefab, transform.position, transform.rotation, 0) as GameObject;
-        newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
+        if (type == ArrowType.Basic) {
+            var prefab = ServerManager.Get().arrowPickupPrefab;
+            var newArrow = Network.Instantiate(prefab, transform.position, transform.rotation, 0) as GameObject;
+            newArrow.GetComponent<ArrowPickup>().type = (ArrowType)type;
+        }
         Destroy();
     }
 
@@ -112,36 +114,13 @@ public class Arrow : DamageDealer {
         Destroy();
     }
     //Bomb Arrow
-    public float explosionDelay;
-    public float destroyDelay;
     GameObject damageArea;
-
+    [RPC]
     public void Explode() {
         Debug.Log("EXPLODE");
-        damageArea.SetActive(true);
-        damageArea.transform.SetParent(null);
-        Destroy(damageArea, 1.2f);
-        //StartCoroutine("WaitAndExplode");
-    }
-
-    IEnumerator WaitAndExplode() {
-        yield return new WaitForSeconds(explosionDelay);
-        damageArea.SetActive(true);
-        StartCoroutine("WaitAndDestroy");
-    }
-
-    IEnumerator WaitAndDestroy() {
-        yield return new WaitForSeconds(destroyDelay);
-        Destroy();
-    }
-
-    GameObject GetPickupArrowByType(ArrowType type) {
-        switch (type) {
-            default:
-            case ArrowType.Basic:
-                return ServerManager.Get().arrowPickupPrefab;
-            case ArrowType.Bomb:
-                return ServerManager.Get().bombArrowPickupPrefab;
+        if (networkView.isMine) {
+            damageArea.SetActive(true);
+            damageArea.transform.SetParent(null);
         }
     }
 }

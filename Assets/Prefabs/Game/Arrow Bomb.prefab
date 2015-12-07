@@ -25,6 +25,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 456766}
   - 135: {fileID: 13556766}
+  - 114: {fileID: 11475366}
+  - 114: {fileID: 11413012}
   - 198: {fileID: 19874356}
   - 199: {fileID: 19974356}
   m_Layer: 0
@@ -276,6 +278,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11413012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ae12af24d9bb24d9b77fba6c9ee5a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseReflections: 0
+  grabbable: 0
+  damage: 1
+  alive: 1
 --- !u!114 &11430246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -292,8 +309,6 @@ MonoBehaviour:
   damage: 1
   alive: 0
   type: 2
-  explosionDelay: 0
-  destroyDelay: 0
 --- !u!114 &11448670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,6 +321,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reflectionPrefab: {fileID: 110408, guid: 3589e02a16273bc43a877e7ed229b5fb, type: 2}
+--- !u!114 &11475366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e156a1bf852e24f903ded276815b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: .449999988
 --- !u!135 &13556766
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -313,7 +340,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156766}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
