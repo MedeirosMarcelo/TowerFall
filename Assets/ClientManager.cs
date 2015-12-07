@@ -18,7 +18,7 @@ public class ClientManager : MonoBehaviour {
     public GameObject characterPrefab;
 
     public LobbyManager lobbyManager { get; set; }
-    public HUDManager hudManager { get; set; }
+    public ChatManager chatManager { get; set; }
     public GameObject stage { get; set; }
     public GameObject[] spawnPoints { get; set; }
     public Character character { get; private set; }
@@ -86,8 +86,8 @@ public class ClientManager : MonoBehaviour {
     }
     [RPC]
     void ChatMessage(string msg) {
-        if (hudManager != null) {
-            hudManager.chat.AddMessage(msg);
+        if (chatManager != null) {
+            chatManager.chat.AddMessage(msg);
         }
     }
     public void SendLobbyMessage(string msg) {

@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 public class InputFieldManager : MonoBehaviour {
 
-
     public delegate void OnSubmit();
     public OnSubmit onSubmit { get; set; }
     public Scrollbar scroolbar { get; private set; }
@@ -19,9 +18,10 @@ public class InputFieldManager : MonoBehaviour {
         get { return inputField.interactable; }
         set { inputField.interactable = value; }
     }
-
-    void Start() {
+    void Awake() {
         inputField = GetComponent<InputField>();
+    }
+    void Start() {
         scroolbar = transform.parent.GetComponentInChildren<Scrollbar>();
         onSubmit += delegate () {
             if (refocus) {
