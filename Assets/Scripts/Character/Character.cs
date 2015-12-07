@@ -63,7 +63,7 @@ public class Character : Reflectable {
         clientManager = ClientManager.Get();
 
         Debug.Log("Char Start");
-        if (Network.isClient && isNotMine) {
+        if (Network.isServer || (Network.isClient && isNotMine)) {
             charCamera.gameObject.SetActive(false);
         }
 

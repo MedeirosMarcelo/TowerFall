@@ -30,7 +30,7 @@ public class HUDManager : MonoBehaviour {
                 CloseMenu();
             }
             else {
-                //OpenMenu();
+                OpenMenu();
             }
         }
         if (Input.GetButtonUp("Chat") && !chat.isOpen & !isMenuOpen) {

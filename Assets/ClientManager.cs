@@ -31,10 +31,9 @@ public class ClientManager : MonoBehaviour {
         }
         DontDestroyOnLoad(this);
     }
-    void Start() {
-    }
 
     void Update() {
+
         /* if cursor is not locked as desired we relock/unlock it here */
         if (lockCursor && !Screen.lockCursor) {
             Screen.lockCursor = true;
@@ -43,7 +42,7 @@ public class ClientManager : MonoBehaviour {
             Screen.lockCursor = false;
         }
 
-#if UNITY_EDITOR
+        //#if UNITY_EDITOR
         // Simple connect for running on editor
         if (Input.GetKeyDown(KeyCode.F12)) {
             if (Network.isClient) {
@@ -56,14 +55,16 @@ public class ClientManager : MonoBehaviour {
                 Network.Connect("127.0.0.1", 25001);
             }
         }
-#endif
+        //#endif
     }
 
-#if UNITY_EDITOR
+    //#if UNITY_EDITOR
+    /*
     public void OnConnectedToServer() {
         SpawnPlayer();
     }
-#endif
+    */
+    //#endif
 
     public void SpawnPlayer() {
         var spawn = spawnPoints.PickRandom().transform;
@@ -75,7 +76,7 @@ public class ClientManager : MonoBehaviour {
     [RPC]
     void StartRound() {
         Application.LoadLevel("Client");
-        SpawnPlayer();
+        Invoke("SpawnPlayer", 1);
     }
     // This are here so we guarantee Server <> Client RPCs will find ech other
     [RPC]
