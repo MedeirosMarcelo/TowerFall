@@ -38,13 +38,6 @@ public class Character : Reflectable {
     public Color color = Color.white;
     public GameObject basicArrow;
     public GameObject bombArrow;
-    public CharacterInput.Type inputType;
-
-
-
-    void OnValidate() {
-        if (input != null) { input.type = inputType; }
-    }
 
     void Update() {
         if (isNotMine) {
@@ -74,7 +67,7 @@ public class Character : Reflectable {
         this.playerNumber = 0;
         charCamera = GetComponentInChildren<Camera>();
 
-        if (isNotMine) {
+        if (Network.isClient && isNotMine) {
             charCamera.gameObject.SetActive(false);
         }
         handsCollider = GetComponentInChildren<HandsCollider>();

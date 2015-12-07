@@ -62,7 +62,7 @@ public class CharacterController {
 
     public void WalkAnimation() {
         if (character.fsm.state == CharacterFsm.State.OnGround) {
-            Debug.Log("State: " + character.fsm.state);
+            //Debug.Log("State: " + character.fsm.state);
             string animName;
             if (character.input.vector.z > 0f) {
                 animName = "Walk";

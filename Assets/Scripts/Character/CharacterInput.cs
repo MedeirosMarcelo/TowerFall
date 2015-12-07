@@ -4,6 +4,18 @@ using System.Collections;
 
 [Serializable]
 public class CharacterInput {
+
+    string moveHorizontalAxis = "Horizontal";
+    string moveVerticalAxis = "Vertical";
+    string lookHorizontalAxis = "LookHorizontal";
+    string lookVerticalAxis = "LookVertical";
+    string shootButton = "Shoot";
+    string dodgeButton = "Dodge";
+    string jumpButton = "Jump";
+    string escapeButton = "Escape";
+    string submitButton = "Submit";
+    string cancelButton = "Cancel";
+
     public enum InputMode {
         InGame,
         OnChat,
@@ -12,11 +24,10 @@ public class CharacterInput {
     public InputMode mode = InputMode.InGame;
 
     Character character;
-    Config config;
 
-    public float horizontal { get; private set; }
+    public float moveHorizontal { get; private set; }
 
-    public float vertical { get; private set; }
+    public float moveVertical { get; private set; }
 
     public float lookHorizontal { get; private set; }
 
@@ -35,14 +46,13 @@ public class CharacterInput {
     public bool escape { get; private set; }
 
     public Vector3 vector {
-        get { return new Vector3(horizontal, 0, vertical); }
+        get { return new Vector3(moveHorizontal, 0, moveVertical); }
     }
 
     public CharacterInput(Character character) {
         this.character = character;
-        type = Type.Keyboard;
-        horizontal = 0f;
-        vertical = 0f;
+        moveHorizontal = 0f;
+        moveVertical = 0f;
         submit = false;
         cancel = false;
         escape = false;
@@ -55,20 +65,20 @@ public class CharacterInput {
     public void Update() {
         switch (mode) {
             case InputMode.InGame:
-                lookHorizontal = Input.GetAxis(config.lookHorizontal);
-                lookVertical = Input.GetAxis(config.lookVertical);
-                horizontal = Input.GetAxis(config.moveHorizontal);
-                vertical = Input.GetAxis(config.moveVertical);
+                lookHorizontal = Input.GetAxis(lookHorizontalAxis);
+                lookVertical = Input.GetAxis(lookVerticalAxis);
+                moveHorizontal = Input.GetAxis(moveHorizontalAxis);
+                moveVertical = Input.GetAxis(moveVerticalAxis);
                 // AccumulateButton
-                jump |= Input.GetButtonDown(config.jump);
-                shoot |= Input.GetButtonDown(config.shoot);
-                dodge |= Input.GetButtonDown(config.dodge);
+                jump |= Input.GetButtonDown(jumpButton);
+                shoot |= Input.GetButtonDown(shootButton);
+                dodge |= Input.GetButtonDown(dodgeButton);
                 break;
             case InputMode.OnChat:
-                lookHorizontal = Input.GetAxis(config.lookHorizontal);
-                lookVertical = Input.GetAxis(config.lookVertical);
-                horizontal = 0f;
-                vertical = 0f;
+                lookHorizontal = Input.GetAxis(lookHorizontalAxis);
+                lookVertical = Input.GetAxis(lookVerticalAxis);
+                moveHorizontal = 0f;
+                moveVertical = 0f;
                 // AccumulateButton
                 jump = false;
                 shoot = false;
@@ -78,8 +88,8 @@ public class CharacterInput {
             case InputMode.OnMenu:
                 lookHorizontal = 0f;
                 lookVertical = 0f;
-                horizontal = 0f;
-                vertical = 0f;
+                moveHorizontal = 0f;
+                moveVertical = 0f;
                 // AccumulateButton
                 jump = false;
                 shoot = false;
@@ -88,13 +98,13 @@ public class CharacterInput {
         }
 
         // this buttons should be read at update
-        submit = Input.GetButtonDown(config.submit);
-        cancel = Input.GetButtonDown(config.cancel);
-        escape = Input.GetButtonDown(config.escape);
+        submit = Input.GetButtonDown(submitButton);
+        cancel = Input.GetButtonDown(cancelButton);
+        escape = Input.GetButtonDown(escapeButton);
 
         /*
-        Debug.Log("horizontal:" + horizontal +
-            "\nvertical:" + vertical +
+        Debug.Log("movoHorizontal:" + moveHorizontal +
+            "\nmoveVertical:" + moveVertical +
             "\nlookHorizontal:" + lookHorizontal +
             "\nlookVertical:" + lookVertical +
             "\nsubmit:" + submit +
@@ -113,54 +123,5 @@ public class CharacterInput {
         jump = false;
     }
 
-    public enum Type {
-        Keyboard,
-        Controller
-    };
-    Type _type;
 
-    public Type type {
-        get { return _type; }
-        set {
-            _type = value;
-            config = (_type == Type.Controller) ? Config.controller : Config.keyboard;
-        }
-    }
 }
-
-public class Config {
-    public string moveHorizontal;
-    public string moveVertical;
-    public string lookHorizontal;
-    public string lookVertical;
-    public string shoot;
-    public string dodge;
-    public string jump;
-    public string escape;
-    public string submit;
-    public string cancel;
-    public static Config keyboard = new Config() {
-        moveHorizontal = "kHorizontal",
-        moveVertical = "kVertical",
-        lookHorizontal = "kLookHorizontal",
-        lookVertical = "kLookVertical",
-        shoot = "kShoot",
-        dodge = "kDodge",
-        jump = "kJump",
-        escape = "Escape",
-        submit = "Submit",
-        cancel = "Cancel"
-    };
-    public static Config controller = new Config() {
-        moveHorizontal = "cHorizontal",
-        moveVertical = "cVertical",
-        lookHorizontal = "cLookHorizontal",
-        lookVertical = "cLookVertical",
-        shoot = "cShoot",
-        dodge = "cDodge",
-        jump = "cJump",
-        escape = "Escape",
-        submit = "Submit",
-        cancel = "Cancel"
-    };
-};

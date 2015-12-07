@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class ClientManager : MonoBehaviour {
 
-    public GameObject player { get; private set; }
     public Character character { get; private set; }
 
     // All prefabs are referenced here to guaratee it's inclusion on build
@@ -35,7 +34,7 @@ public class ClientManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F12)) {
             if (Network.isClient) {
                 Debug.Log("Disconnect");
-                Network.Destroy(player);
+                Network.Destroy(character.gameObject);
                 Network.Disconnect();
             }
             else {
@@ -72,8 +71,8 @@ public class ClientManager : MonoBehaviour {
     }
     public void SpawnPlayer() {
         var spawn = spawnPoints.PickRandom().transform;
-        player = (GameObject)Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group);
-        player.transform.SetParent(transform);
-        character = player.GetComponent<Character>();
+        var obj = Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group) as GameObject;
+        obj.transform.SetParent(transform);
+        character = obj.GetComponent<Character>();
     }
 }
