@@ -1496,12 +1496,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseReflections: 0
-  playerNumber: 1
+  charCamera: {fileID: 2093260}
+  groundCollider: {fileID: 11484514}
+  handsCollider: {fileID: 11484512}
+  head: {fileID: 159050}
+  feet: {fileID: 159052}
+  arrowSpawner: {fileID: 184510}
+  modelAnimation: {fileID: 11119500}
+  shield: {fileID: 108800}
+  arrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
+  bombArrowPrefab: {fileID: 164590, guid: c8c36f8469f9b084bac83e3dd73db7e7, type: 2}
   health: 1
   color: {r: 1, g: 1, b: 1, a: 1}
-  basicArrow: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
-  bombArrow: {fileID: 164590, guid: c8c36f8469f9b084bac83e3dd73db7e7, type: 2}
-  inputType: 0
 --- !u!114 &11444950
 MonoBehaviour:
   m_ObjectHideFlags: 1

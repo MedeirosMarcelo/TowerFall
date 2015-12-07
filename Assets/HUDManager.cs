@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HUDManager : MonoBehaviour {
 
+    [Header("Children Objects")]
     public GameObject background;
     public TextScroolManager chat;
     public InputFieldManager chatInput;
@@ -13,15 +14,15 @@ public class HUDManager : MonoBehaviour {
     bool isChatOpen = false;
     bool isMenuOpen = true;
 
-    GameManager gameManager;
+    ClientManager clientManager;
 
     void Start() {
-        gameManager = GameManager.Get();
-        gameManager.hudManager = this;
+        clientManager = ClientManager.Get();
+        clientManager.hudManager = this;
         chatInput.interactable = false;
         chatInput.onSubmit += delegate () {
             chat.AddMessage("you: " + chatInput.text);
-            gameManager.SendChatMessage(gameManager.playerName + ": " + chatInput.text);
+            clientManager.SendChatMessage(clientManager.playerName + ": " + chatInput.text);
         };
     }
     public void Update() {
@@ -60,18 +61,22 @@ public class HUDManager : MonoBehaviour {
         Debug.Log("Open Menu");
         lockCursor = false;
         isMenuOpen = true;
+        clientManager.character.input.mode = CharacterInput.InputMode.OnMenu;
     }
     private void CloseMenu() {
         Debug.Log("Close Menu");
         lockCursor = true;
         isMenuOpen = false;
+        clientManager.character.input.mode = CharacterInput.InputMode.InGame;
     }
     public void OpenChat() {
         Debug.Log("Open Chat");
         isChatOpen = true;
+        clientManager.character.input.mode = CharacterInput.InputMode.OnChat;
     }
     public void CloseChat() {
         Debug.Log("Close Chat");
         isChatOpen = false;
+        clientManager.character.input.mode = CharacterInput.InputMode.InGame;
     }
 }

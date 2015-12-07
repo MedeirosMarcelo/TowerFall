@@ -10,9 +10,10 @@ public class HUDArrowDisplay : MonoBehaviour {
     public Sprite spriteBombArrow;
     
     int arrowCount;
-    Character targetPlayer;
+    ClientManager gameManager;
 
     void Start() {
+        gameManager = ClientManager.Get();
         slotList = transform.GetComponentsInChildren<Image>();
     }
 
@@ -21,21 +22,17 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     public void UpdateArrowPanel() {
-        if (targetPlayer == null) {
-            targetPlayer = GameObject.FindWithTag("World Main").GetComponent<ClientManager>().character;
-        }
-
-        if (targetPlayer != null) {
-            if (arrowCount != targetPlayer.arrows.stack.Count) {
+        if (Network.isClient) {
+            if (arrowCount != gameManager.character.arrows.stack.Count) {
                 int i = 0;
-                foreach (ArrowType arrowType in targetPlayer.arrows.stack) {
+                foreach (ArrowType arrowType in gameManager.character.arrows.stack) {
                     AddArrowIcon(i, arrowType);
                     i++;
                 }
                 for (int k = i; k < slotList.Count; k++) {
                     RemoveArrowIcon(k);
                 }
-                arrowCount = targetPlayer.arrows.stack.Count;
+                arrowCount = gameManager.character.arrows.stack.Count;
             }
         }
     }

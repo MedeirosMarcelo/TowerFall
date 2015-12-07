@@ -7,7 +7,12 @@ public class StageManager : MonoBehaviour {
     public bool DrawnBounds = true;
     public Bounds bounds { get; private set; }
 
+    ClientManager clienManager;
+
     void Start () {
+        clienManager = ClientManager.Get();
+        clienManager.stage = gameObject;
+        clienManager.spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
         bounds = GetBounds();
     }
 

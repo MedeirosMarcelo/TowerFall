@@ -50,9 +50,9 @@ public class CharacterArrows {
         switch (type) {
             default:
             case ArrowType.Basic:
-                return character.basicArrow;
+                return character.arrowPrefab;
             case ArrowType.Bomb:
-                return character.bombArrow;
+                return character.bombArrowPrefab;
         }
     }
 }

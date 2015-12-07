@@ -39,7 +39,7 @@ public class LobbyCharacter : MonoBehaviour {
     }
 
     ServerManager serverManager;
-    GameManager gameManager;
+    ClientManager gameManager;
 
     void Start() {
         if (Network.isServer) {
@@ -49,7 +49,7 @@ public class LobbyCharacter : MonoBehaviour {
             networkView.RPC("SendColor", networkView.owner, _color.r, _color.g, _color.b, _color.a);
         }
         else if (Network.isClient) {
-            gameManager = GameManager.Get();
+            gameManager = ClientManager.Get();
             if (!networkView.isMine) {
                 var obj = Instantiate(lobbyCharacterViewPrefab) as GameObject;
                 obj.transform.SetParent(gameManager.lobbyManager.playerList.transform);

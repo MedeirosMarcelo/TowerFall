@@ -7,9 +7,9 @@ public class LoginManager : MonoBehaviour {
     public Button loginButton;
     public InputField ipInput;
     public InputField portInput;
-    GameManager gameManager;
+    ClientManager gameManager;
     void Start() {
-        gameManager = GameManager.Get();
+        gameManager = ClientManager.Get();
         nameInput.onSubmit += delegate () {
             Connect();
         };

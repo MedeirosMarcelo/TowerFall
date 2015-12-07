@@ -6,38 +6,33 @@ public class Character : Reflectable {
 
     public static readonly int group = (int)NetworkGroup.Character;
     // Internals
-    // exposing getters for internals 
     public CharacterController controller { get; private set; }
     public CharacterInput input { get; private set; }
     public CharacterArrows arrows { get; private set; }
     public CharacterFsm fsm { get; private set; }
-
-    // Children
-    public Camera charCamera { get; private set; }
-    public GroundCollider groundCollider { get; private set; }
-    public HandsCollider handsCollider { get; private set; }
-    public GameObject head { get; private set; }
-    public GameObject feet { get; private set; }
-    public GameObject arrowSpawner { get; private set; }
-    public Animation modelAnimation { get; private set; }
-    public GameObject shield { get; private set; }
-    public GameObject mainStage { get; private set; }
-
     // World
-    //Network
+    public GameObject mainStage { get { return clientManager.stage; } }
+    // Network
     public bool isMine { get { return networkView.isMine; } }
     public bool isNotMine { get { return !networkView.isMine; } }
 
-    //Input lock flags 
-    public bool mouseLookEnabled { get; set; }
-    public bool keyboardMovementEnabled { get; set; }
+    [Header("Children Objects")]
+    public Camera charCamera;
+    public GroundCollider groundCollider;
+    public HandsCollider handsCollider;
+    public GameObject head;
+    public GameObject feet;
+    public GameObject arrowSpawner;
+    public Animation modelAnimation;
+    public GameObject shield;
 
+    [Header("Arrow Prefabs")]
+    public GameObject arrowPrefab;
+    public GameObject bombArrowPrefab;
 
-    public int playerNumber;
+    [Header("Character config")]
     public int health = 1;
     public Color color = Color.white;
-    public GameObject basicArrow;
-    public GameObject bombArrow;
 
     void Update() {
         if (isNotMine) {
@@ -62,30 +57,21 @@ public class Character : Reflectable {
         input.FixedUpdate();
     }
 
-    void Start() {
-        Debug.Log("Char Start");
-        this.playerNumber = 0;
-        charCamera = GetComponentInChildren<Camera>();
+    ClientManager clientManager;
 
+    void Start() {
+        clientManager = ClientManager.Get();
+
+        Debug.Log("Char Start");
         if (Network.isClient && isNotMine) {
             charCamera.gameObject.SetActive(false);
         }
-        handsCollider = GetComponentInChildren<HandsCollider>();
-        groundCollider = GetComponentInChildren<GroundCollider>();
-        head = transform.FindChild("Head").gameObject;
-        feet = transform.FindChild("Feet").gameObject;
-        arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
-        modelAnimation = transform.FindChild("Model").GetComponent<Animation>();
-        shield = transform.Find("Shield").gameObject;
-        mainStage = Camera.main.GetComponent<Stage>().mainStage;
+
 
         input = new CharacterInput(this);
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
         fsm = new CharacterFsm(this);
-
-        mouseLookEnabled = true;
-        keyboardMovementEnabled = true;
     }
 
     public void TakeHit(DamageDealer damager) {
@@ -96,11 +82,10 @@ public class Character : Reflectable {
         }
         int dmg = damager.GetComponent<DamageDealer>().damage;
         TakeDamage(dmg);
-   }
+    }
 
     void MonitorHealth() {
         if (health <= 0) {
-            //gameManager.Respawn(playerNumber);
             Destroy();
         }
     }
@@ -142,7 +127,7 @@ public class Character : Reflectable {
     private bool waitingDestruction = false;
     [RPC]
     void Destroy() {
-        if(Network.isServer) {
+        if (Network.isServer) {
             waitingDestruction = true;
             Debug.Log("Destroy Character " + GetInstanceID());
             Network.RemoveRPCs(networkView.owner, group);

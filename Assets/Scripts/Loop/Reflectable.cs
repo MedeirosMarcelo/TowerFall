@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Reflectable : MonoBehaviour {
-
+    [Header("Reflectable Configs")]
     public bool UseReflections = true;
+
     IList<GameObject> reflectionList = new List<GameObject>();
 
     public void SetReflections(IList<GameObject> reflections) {

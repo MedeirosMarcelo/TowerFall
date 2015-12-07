@@ -30,10 +30,10 @@ public class MenuManager : MonoBehaviour {
     public LobbyManager lobbyPanel;
 
     MenuState state;
-    GameManager gameManager;
+    ClientManager gameManager;
 
     void Start() {
-        gameManager = GameManager.Get();
+        gameManager = ClientManager.Get();
         exitButton.onClick.AddListener(() => {
             Application.Quit();
         });

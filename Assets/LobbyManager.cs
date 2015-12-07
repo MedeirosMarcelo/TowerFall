@@ -15,13 +15,13 @@ public class LobbyManager : MonoBehaviour {
 
     public GameObject lobbyCharacterPrefab;
 
-    GameManager gameManager;
+    ClientManager gameManager;
     LobbyCharacter lobbyCharacter;
     // Start happenas after first OnEnable 
     private bool started = false;
     void Start() {
         started = true;
-        gameManager = GameManager.Get();
+        gameManager = ClientManager.Get();
         gameManager.lobbyManager = this;
         colorButton.onClick.AddListener(() => {
             // use callbacks so we can change local variables without need to add new listeners
