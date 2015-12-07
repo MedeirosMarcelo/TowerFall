@@ -51,6 +51,10 @@ public class ServerUIManager : MonoBehaviour {
         Debug.Log("OnPlayerDisconnected");
         statusText.text = "Server online\nConnections: " + (Network.connections.Length - 1);
 
+        Network.RemoveRPCs(player, (int)NetworkGroup.None);
+        Network.RemoveRPCs(player, (int)NetworkGroup.Arrow);
+        Network.RemoveRPCs(player, (int)NetworkGroup.Character);
+        Network.RemoveRPCs(player, (int)NetworkGroup.CharacterLobby);
         Network.RemoveRPCs(player);
         Network.DestroyPlayerObjects(player);
     }

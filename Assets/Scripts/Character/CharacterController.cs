@@ -54,7 +54,7 @@ public class CharacterController {
     public void Jump() {
         if (character.input.jump) {
             Debug.Log("jump");
-            character.animation.Play("Jump");
+            character.modelAnimation.Play("Jump");
             StoreAnimationForReflections("Jump");
             character.rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -66,20 +66,20 @@ public class CharacterController {
             string animName;
             if (character.input.vector.z > 0f) {
                 animName = "Walk";
-                character.animation[animName].speed = character.input.vector.z * 2;
+                character.modelAnimation[animName].speed = character.input.vector.z * 2;
             }
             else if (character.input.vector.z < 0f) {
                 animName = "Walk";
-                character.animation["Walk"].speed = character.input.vector.z * -2;
+                character.modelAnimation["Walk"].speed = character.input.vector.z * -2;
             }
             else if (character.input.vector.x != 0f) {
                 animName = "Walk";
-                character.animation["Walk"].speed = character.input.vector.x * 2;
+                character.modelAnimation["Walk"].speed = character.input.vector.x * 2;
             }
             else {
                 animName = "Wait";
             }
-            character.animation.CrossFade(animName);
+            character.modelAnimation.CrossFade(animName);
             StoreAnimationForReflections(animName);
         }
     }
@@ -123,7 +123,7 @@ public class CharacterController {
     }
 
     void StoreAnimationForReflections(string animName) {
-        animationSpeed = character.animation[animName].speed;
+        animationSpeed = character.modelAnimation[animName].speed;
         animationPlaying = animName;
     }
 }

@@ -68,7 +68,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39921151efed654ea21b46ebb7470be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original: {fileID: 0}
+  mirrorMovement: 1
+  damageArea: {fileID: 0}
+  mirrorAnimation: 0
+  animation: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

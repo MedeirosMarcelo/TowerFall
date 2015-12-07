@@ -1203,6 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   original: {fileID: 0}
+  damageArea: {fileID: 0}
   mirrorCharacterAnim: 0
 --- !u!114 &11477012
 MonoBehaviour:
@@ -1216,7 +1217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   original: {fileID: 0}
-  mirrorCharacterAnim: 1
+  damageArea: {fileID: 0}
+  mirrorCharacterAnim: 0
 --- !u!137 &13796092
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

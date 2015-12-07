@@ -518,7 +518,9 @@ MonoBehaviour:
   UseReflections: 0
   playerNumber: 1
   health: 1
+  color: {r: 1, g: 1, b: 1, a: 1}
   basicArrow: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
+  bombArrow: {fileID: 0}
   inputType: 0
 --- !u!114 &11444950
 MonoBehaviour:

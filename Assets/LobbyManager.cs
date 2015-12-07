@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.EventSystems;
 using System.Collections;
 
 public class LobbyManager : MonoBehaviour {
-    public GameObject header;
-    public Button colorButton;
 
+    public Text headerText;
     public Button readyButton;
+    public Text readyButtonText;
+    public Button colorButton;
+    public Image colorImage;
     public TextScroolManager chat;
     public InputFieldManager chatInput;
     public GameObject playerList;
@@ -16,19 +17,12 @@ public class LobbyManager : MonoBehaviour {
 
     GameManager gameManager;
     LobbyCharacter lobbyCharacter;
-    Text headerText;
-    Text readyButtonText;
-    Image colorView;
-
     // Start happenas after first OnEnable 
     private bool started = false;
     void Start() {
         started = true;
         gameManager = GameManager.Get();
-        headerText =  header.GetComponentInChildren<Text>();
-        readyButtonText = readyButton.GetComponentInChildren<Text>();
-        colorView = colorButton.GetComponentInChildren<Image>();
-        gameManager.onLobbyMessage += chat.AddMessage;
+        gameManager.lobbyManager = this;
         colorButton.onClick.AddListener(() => {
             // use callbacks so we can change local variables without need to add new listeners
             ChangeColorCallback();
@@ -59,7 +53,6 @@ public class LobbyManager : MonoBehaviour {
                                       new Quaternion(),
                                       (int)NetworkGroup.CharacterLobby) as GameObject;
         lobbyCharacter = obj.GetComponent<LobbyCharacter>();
-        lobbyCharacter.lobbyManager = this;
     }
     void OnDisable() {
         lobbyCharacter.Destroy();
@@ -79,7 +72,7 @@ public class LobbyManager : MonoBehaviour {
             readyButtonText.text = "Cancel";
         }
     }
-    void SetColor(Color color) {
-        colorView.color = color;
+    public void SetColor(Color color) {
+        colorImage.color = color;
     }
 }

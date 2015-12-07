@@ -86,7 +86,7 @@ GameObject:
   - 222: {fileID: 75941654}
   - 114: {fileID: 75941653}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Ready Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1832,6 +1832,7 @@ GameObject:
   - 114: {fileID: 993470585}
   - 114: {fileID: 993470584}
   - 222: {fileID: 993470583}
+  - 114: {fileID: 993470587}
   m_Layer: 5
   m_Name: Chat Scrool
   m_TagString: UI Chat Scrool
@@ -1927,6 +1928,20 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &993470587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11493274, guid: 07b936bcb0ed78943be4513b1ee7f454,
+    type: 2}
+  m_PrefabInternal: {fileID: 1532731628}
+  m_GameObject: {fileID: 993470581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57083a43c370d2c4c9fd910b267c9443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoScrool: 1
+  textPrefab: {fileID: 146464, guid: bd583c20893e8a749bf5ca1a960014a9, type: 2}
 --- !u!1 &1003896039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,7 +2735,7 @@ GameObject:
   - 222: {fileID: 1468161806}
   - 114: {fileID: 1468161805}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Color Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3530,7 +3545,7 @@ GameObject:
   - 222: {fileID: 1770646155}
   - 114: {fileID: 1770646154}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Header Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3812,13 +3827,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f54d274f6d59754992ace2b064a6059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: {fileID: 2010953177}
-  colorButton: {fileID: 1680160610}
+  headerText: {fileID: 1770646154}
   readyButton: {fileID: 2018458080}
-  scroolRect: {fileID: 993470586}
+  readyButtonText: {fileID: 75941653}
+  colorButton: {fileID: 1680160610}
+  colorImage: {fileID: 1468161805}
+  chat: {fileID: 993470587}
   chatInput: {fileID: 164242258}
   playerList: {fileID: 233462767}
-  textPrefab: {fileID: 11446464, guid: bd583c20893e8a749bf5ca1a960014a9, type: 2}
   lobbyCharacterPrefab: {fileID: 130472, guid: a6622cdfc56ed2d43ac7c0af3dbebea7, type: 2}
 --- !u!1 &1988766300
 GameObject:

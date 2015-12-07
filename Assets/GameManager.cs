@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
         return obj.GetComponent<GameManager>();
     }
 
+    public LobbyManager lobbyManager { get; set; }
+    public HUDManager hudManager { get; set; }
     public string playerName { get; set; }
     public bool lockCursor { get; set; }
 
@@ -41,20 +43,16 @@ public class GameManager : MonoBehaviour {
     }
 
     // This are here so we guarantee Server <> Client RPCs will find ech other
-
-    public delegate void OnTextMessage(string msg);
-    public OnTextMessage onLobbyMessage;
-    public OnTextMessage onChatMessage;
     [RPC]
     void LobbyMessage(string msg) {
-        if (onLobbyMessage != null) {
-            onLobbyMessage(msg);
+        if (lobbyManager != null) {
+            lobbyManager.chat.AddMessage(msg);
         }
     }
     [RPC]
     void ChatMessage(string msg) {
-        if (onChatMessage != null) {
-            onChatMessage(msg);
+        if (hudManager != null) {
+            hudManager.chat.AddMessage(msg);
         }
     }
     public void SendLobbyMessage(string msg) {

@@ -137,7 +137,7 @@ GameObject:
   - 222: {fileID: 22284434}
   - 114: {fileID: 11484370}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Header Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,7 @@ GameObject:
   - 222: {fileID: 22284444}
   - 114: {fileID: 11484398}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Color Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -745,7 +745,7 @@ GameObject:
   - 222: {fileID: 22284498}
   - 114: {fileID: 11484498}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Ready Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -997,9 +997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f54d274f6d59754992ace2b064a6059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: {fileID: 184420}
-  colorButton: {fileID: 11484382}
+  headerText: {fileID: 11484370}
   readyButton: {fileID: 11484352}
+  readyButtonText: {fileID: 11484498}
+  colorButton: {fileID: 11484382}
+  colorImage: {fileID: 11484398}
   chat: {fileID: 11493274}
   chatInput: {fileID: 11484496}
   playerList: {fileID: 184492}

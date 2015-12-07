@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ServerManager : MonoBehaviour {
 
@@ -12,6 +13,8 @@ public class ServerManager : MonoBehaviour {
         return obj.GetComponent<ServerManager>();
     }
 
+    public List<LobbyCharacter> lobbyCharacterList = new List<LobbyCharacter>();
+
     public GameObject lobbyCharacterPrefab;
     public GameObject characterPrefab;
 
@@ -22,7 +25,7 @@ public class ServerManager : MonoBehaviour {
 
     private readonly int countdownMax = 10;
     private int countDown = 10;
- 
+
     enum ServerState {
         Empty,
         WaintingReady,
@@ -75,29 +78,26 @@ public class ServerManager : MonoBehaviour {
     void Update() {
         switch (serverState) {
             case ServerState.Empty:
-                if (LobbyCharacter.lobbyCharacterSet.Count > 0) {
+                if (lobbyCharacterList.Count > 0) {
                     ChangeState(ServerState.WaintingReady);
                 }
                 break;
             case ServerState.WaintingReady:
-                if (LobbyCharacter.lobbyCharacterSet.Count == 0) {
+                if (lobbyCharacterList.Count == 0) {
                     ChangeState(ServerState.Empty);
                 }
                 else {
-                    foreach (var lobbyCharacter in LobbyCharacter.lobbyCharacterSet) {
-                        if (!lobbyCharacter.isReady) {
-                            break;
-                        }
+                    if (!lobbyCharacterList.Exists(character => !character.isReady)) {
                         ChangeState(ServerState.CountDown);
                     }
                 }
                 break;
             case ServerState.CountDown:
-               if (LobbyCharacter.lobbyCharacterSet.Count == 0) {
+                if (lobbyCharacterList.Count == 0) {
                     ChangeState(ServerState.Empty);
                 }
                 else {
-                    foreach (var lobbyCharacter in LobbyCharacter.lobbyCharacterSet) {
+                    foreach (var lobbyCharacter in lobbyCharacterList) {
                         if (!lobbyCharacter.isReady) {
                             ChangeState(ServerState.WaintingReady);
                         }
@@ -111,7 +111,7 @@ public class ServerManager : MonoBehaviour {
         }
     }
 
-   private void CountDown() {
+    private void CountDown() {
         if (serverState != ServerState.CountDown) {
             countDown = countdownMax;
             return;
@@ -121,8 +121,8 @@ public class ServerManager : MonoBehaviour {
             countDown = countdownMax;
             ChangeState(ServerState.InRound);
             return;
-        } else {
-
+        }
+        else {
             SendLobbyMessage("Server: Starting Game in " + countDown);
             countDown--;
             Invoke("CountDown", 1);
@@ -136,7 +136,7 @@ public class ServerManager : MonoBehaviour {
 
     void SendLobbyMessage(string msg) {
         Debug.Log("Lobby message: \"" + msg + "\"");
-        networkView.RPC("LobbyMessage", RPCMode.Others,"<color=red>" + msg + "</color>");
+        networkView.RPC("LobbyMessage", RPCMode.Others, "<color=red>" + msg + "</color>");
     }
     [RPC]
     void LobbyMessage(string msg) {

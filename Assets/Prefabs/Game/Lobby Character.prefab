@@ -40,6 +40,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc1150ac76c4b54bbd6bf3e42131129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lobbyCharacterViewPrefab: {fileID: 169774, guid: 69a1e18b6e9383747a9b9e8647180e4d,
+    type: 2}
 --- !u!148 &14830472
 NetworkView:
   m_ObjectHideFlags: 1

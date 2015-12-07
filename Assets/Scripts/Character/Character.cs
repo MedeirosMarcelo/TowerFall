@@ -19,7 +19,7 @@ public class Character : Reflectable {
     public GameObject head { get; private set; }
     public GameObject feet { get; private set; }
     public GameObject arrowSpawner { get; private set; }
-    public Animation animation { get; private set; }
+    public Animation modelAnimation { get; private set; }
     public GameObject shield { get; private set; }
     public GameObject mainStage { get; private set; }
 
@@ -82,7 +82,7 @@ public class Character : Reflectable {
         head = transform.FindChild("Head").gameObject;
         feet = transform.FindChild("Feet").gameObject;
         arrowSpawner = transform.FindChild("ArrowSpawner").gameObject;
-        animation = transform.FindChild("Model").GetComponent<Animation>();
+        modelAnimation = transform.FindChild("Model").GetComponent<Animation>();
         shield = transform.Find("Shield").gameObject;
         mainStage = Camera.main.GetComponent<Stage>().mainStage;
 
