@@ -9,6 +9,27 @@ public enum NetworkGroup {
 }
 
 public static class Extensions {
+    public static Color ToColor(this CharacterColor color) {
+        switch (color) {
+            default:
+            case CharacterColor.White:
+                return Color.white;
+            case CharacterColor.Black:
+                return Color.black;
+            case CharacterColor.Yellow:
+                return Color.yellow;
+            case CharacterColor.Blue:
+                return Color.blue;
+            case CharacterColor.Green:
+                return Color.green;
+            case CharacterColor.Red:
+                return Color.red;
+            case CharacterColor.Purple:
+                return new Color32(128, 0, 128, 255);
+            case CharacterColor.Pink:
+                return Color.magenta;
+        }
+    }
 
     public static bool IsConnected() {
         return (Network.peerType != NetworkPeerType.Disconnected);

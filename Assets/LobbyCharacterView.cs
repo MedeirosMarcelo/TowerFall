@@ -18,7 +18,7 @@ public class LobbyCharacterView : MonoBehaviour {
     }
     public void Set(LobbyCharacter lobbyCharacter) {
         playerName = lobbyCharacter.playerName;
-        color = lobbyCharacter.color;
+        color = lobbyCharacter.color.ToColor();
         isReady = lobbyCharacter.isReady;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ public class LobbyCharacter : MonoBehaviour {
     LobbyCharacterView lobbyCharacterView;
 
     private string _playerName = "";
-    private Color _color = new Color();
+    private CharacterColor _color = CharacterColor.White;
     private bool _isReady = false;
 
     public string playerName {
@@ -21,12 +22,12 @@ public class LobbyCharacter : MonoBehaviour {
             Debug.Log("Set playerName");
         }
     }
-    public Color color {
+    public CharacterColor color {
         get { return _color; }
         set {
             _color = value;
-            networkView.RPC("SendColor", RPCMode.Others, _color.r, _color.g, _color.b, _color.a);
-            Debug.Log("Set color");
+            networkView.RPC("SendColor", RPCMode.Others, (int)_color);
+            Debug.Log("Set color: " + _color);
         }
     }
     public bool isReady {
@@ -39,25 +40,24 @@ public class LobbyCharacter : MonoBehaviour {
     }
 
     ServerManager serverManager;
-    ClientManager gameManager;
+    ClientManager clientManager;
 
     void Start() {
         if (Network.isServer) {
             serverManager = ServerManager.Get();
             serverManager.lobbyCharacterList.Add(this);
-            _color = Color.green;
-            networkView.RPC("SendColor", networkView.owner, _color.r, _color.g, _color.b, _color.a);
+            ChangeColor();
         }
         else if (Network.isClient) {
-            gameManager = ClientManager.Get();
+            clientManager = ClientManager.Get();
             if (!networkView.isMine) {
                 var obj = Instantiate(lobbyCharacterViewPrefab) as GameObject;
-                obj.transform.SetParent(gameManager.lobbyManager.playerList.transform);
+                obj.transform.SetParent(clientManager.lobbyManager.playerList.transform);
                 lobbyCharacterView = obj.GetComponent<LobbyCharacterView>();
                 SyncAllData();
             }
             else {
-                _playerName = gameManager.playerName;
+                _playerName = clientManager.playerName;
             }
         }
     }
@@ -88,17 +88,18 @@ public class LobbyCharacter : MonoBehaviour {
         }
     }
     [RPC]
-    void SendColor(float r, float g, float b, float a) {
-        Debug.Log("Send color");
-        _color = new Color(r, g, b, a);
+    void SendColor(int color) {
+        _color = (CharacterColor)color;
+        Debug.Log("Got color " + _color);
         if (Network.isClient) {
             if (networkView.isMine) {
                 Debug.Log("Set lobbymanager color");
-                gameManager.lobbyManager.SetColor(_color);
+                clientManager.lobbyManager.SetColor(_color.ToColor());
+                clientManager.playerColor = _color;
             }
             else {
                 Debug.Log("Show color");
-                lobbyCharacterView.color = _color;
+                lobbyCharacterView.color = _color.ToColor();
             }
         }
     }
@@ -116,7 +117,7 @@ public class LobbyCharacter : MonoBehaviour {
         if (networkView.isMine) {
             Debug.Log("Sending OwnerData");
             networkView.RPC("SendPlayerName", RPCMode.Others, _playerName);
-            networkView.RPC("SendColor", RPCMode.Others, _color.r, _color.g, _color.b, _color.a);
+            networkView.RPC("SendColor", RPCMode.Others, (int)_color);
             networkView.RPC("SendIsReady", RPCMode.Others, _isReady);
             return;
         }
@@ -133,20 +134,36 @@ public class LobbyCharacter : MonoBehaviour {
             return;
         }
         if (Network.isServer) {
-            color = Color.blue;
-        }
+            var length = Enum.GetValues(typeof(CharacterColor)).Length;
+            var value = color;
+
+            for (int i = 1; i < length; i++) {
+                value++;
+
+                if ((int)value == length) {
+                    value = 0;
+                };
+ 
+                Debug.Log("Testing color: " + value);
+                if (!serverManager.lobbyCharacterList.Exists(character => character.color == value)) {
+                    color = value;
+                    break;
+                }
+           };
     }
-    [RPC]
-    public void Destroy() {
-        if (Network.isServer) {
-            Debug.Log("Destroy Character " + GetInstanceID());
-            Network.RemoveRPCs(networkView.owner, group);
-            Network.Destroy(gameObject);
-            return;
-        }
-        else if (Network.isClient && networkView.isMine) {
-            networkView.RPC("Destroy", RPCMode.Server);
-            Debug.Log("Destroy Character Lobby" + GetInstanceID());
-        }
+}
+
+[RPC]
+public void Destroy() {
+    if (Network.isServer) {
+        Debug.Log("Destroy Character " + GetInstanceID());
+        Network.RemoveRPCs(networkView.owner, group);
+        Network.Destroy(gameObject);
+        return;
     }
+    else if (Network.isClient && networkView.isMine) {
+        networkView.RPC("Destroy", RPCMode.Server);
+        Debug.Log("Destroy Character Lobby" + GetInstanceID());
+    }
+}
 }

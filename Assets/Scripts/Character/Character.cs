@@ -28,7 +28,7 @@ public class Character : Reflectable {
     public bool isNotMine { get { return !networkView.isMine; } }
 
     [Header("Colored Materials")]
-    public List<Material> colors = new List<Material>();
+    public List<Material> materials = new List<Material>();
 
     [Header("Children Objects")]
     public Camera charCamera;
@@ -38,6 +38,7 @@ public class Character : Reflectable {
     public GameObject feet;
     public GameObject arrowSpawner;
     public Animation modelAnimation;
+    public SkinnedMeshRenderer skinnedMesh;
     public GameObject shield;
 
     [Header("Arrow Prefabs")]
@@ -46,7 +47,12 @@ public class Character : Reflectable {
 
     [Header("Character config")]
     public int health = 1;
-    public CharacterColor color = CharacterColor.White;
+
+    private CharacterColor _color;
+    public CharacterColor color {
+        get { return _color; }
+        set { SetMaterial((int)value); }
+    }
 
     void Update() {
         if (isNotMine) {
@@ -86,6 +92,7 @@ public class Character : Reflectable {
         controller = new CharacterController(this);
         arrows = new CharacterArrows(this);
         fsm = new CharacterFsm(this);
+
     }
 
     public void TakeHit(DamageDealer damager) {
@@ -103,7 +110,6 @@ public class Character : Reflectable {
             Destroy();
         }
     }
-
 
     private int headMask;
     private float headMaxDistance = 0.2f;
@@ -188,6 +194,16 @@ public class Character : Reflectable {
             Debug.Log("REMOVE SHIELD");
             health = 1;
             shield.SetActive(false);
+        }
+    }
+    [RPC]
+    void SetMaterial(int color) {
+        _color = (CharacterColor)color;
+        Material[] aux = skinnedMesh.materials;
+        aux[1] = materials[color];
+        skinnedMesh.materials = aux;
+        if (networkView.isMine) {
+            networkView.RPC("SetMaterial", RPCMode.Others, (int)_color);
         }
     }
 }
