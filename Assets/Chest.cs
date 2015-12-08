@@ -8,12 +8,12 @@ public class Chest : MonoBehaviour {
     Animator animator;
     bool opened;
 
-    void Create() {
+    public void Create() {
         animator = GetComponent<Animator>();
         itemAnimator = transform.Find("Item Animator");
     }
 
-    void Create(GameObject[] newloot) {
+    public void Create(GameObject[] newloot) {
         animator = GetComponent<Animator>();
         itemAnimator = transform.Find("Item Animator");
         for (int i = 0; i < loot.Length; i++) {

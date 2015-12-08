@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e946bc647ab80c44bb441f54dddbeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lobbyCharacterList: []
   lobbyCharacterPrefab: {fileID: 130472, guid: a6622cdfc56ed2d43ac7c0af3dbebea7, type: 2}
   characterPrefab: {fileID: 193262, guid: 3a4b1c921a09dbc4bb3ce0219f35e07a, type: 2}
   arrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
@@ -47,6 +48,11 @@ MonoBehaviour:
   bombArrowPrefab: {fileID: 164590, guid: c8c36f8469f9b084bac83e3dd73db7e7, type: 2}
   bombArrowPickupPrefab: {fileID: 110278, guid: bd3ad79d4604f4a4fbc0afe45647ec62,
     type: 2}
+  chest: {fileID: 154308, guid: bb968546e061eaf4ea57c4062f1298fe, type: 2}
+  arrowIcon: {fileID: 178640, guid: 31a79813fdc6f4040a757a4851171a27, type: 2}
+  bombArrowIcon: {fileID: 154838, guid: 1fe1ffa71c150c34280ca3821df81b6f, type: 2}
+  shieldIcon: {fileID: 115014, guid: a272571b7d85e234a877d3dca49be5c9, type: 2}
+  spawnChest: {fileID: 0}
 --- !u!148 &14815124
 NetworkView:
   m_ObjectHideFlags: 1

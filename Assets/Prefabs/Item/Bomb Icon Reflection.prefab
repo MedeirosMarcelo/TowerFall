@@ -26,12 +26,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 454838}
   - 95: {fileID: 9554838}
-  - 65: {fileID: 6594412}
-  - 114: {fileID: 11494410}
-  - 114: {fileID: 11494412}
-  - 148: {fileID: 14894412}
   m_Layer: 0
-  m_Name: Bomb Icon
+  m_Name: Bomb Icon Reflection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,18 +143,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194412}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6594412
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154838}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.34496832, y: 2.20306158, z: 1.65211034}
-  m_Center: {x: -.000506654149, y: .284308076, z: -.297482431}
 --- !u!95 &9554838
 Animator:
   serializedVersion: 3
@@ -189,44 +173,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11494410
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fb953298d77a3c4a9118896ad475c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseReflections: 1
-  grabbable: 1
-  type: 2
---- !u!114 &11494412
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66bba7ffd8d23640b97c657f3215fa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reflectionPrefab: {fileID: 154838, guid: 4ad51c9e4dd23f841a3fe3c64f9a7cfa, type: 2}
---- !u!148 &14894412
-NetworkView:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154838}
-  m_Enabled: 1
-  m_StateSynchronization: 1
-  m_Observed: {fileID: 454838}
-  m_ViewID:
-    m_ID: 0
-    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

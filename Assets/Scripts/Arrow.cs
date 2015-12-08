@@ -120,7 +120,7 @@ public class Arrow : DamageDealer {
         Debug.Log("EXPLODE");
         if (networkView.isMine) {
             damageArea.SetActive(true);
-            damageArea.transform.SetParent(null);
+            damageArea.transform.SetParent(Camera.main.GetComponent<Stage>().mainStage.transform);
         }
     }
 }
