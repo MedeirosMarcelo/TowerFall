@@ -45,15 +45,6 @@ public class ClientManager : MonoBehaviour {
     }
 
     void Update() {
-
-        /* if cursor is not locked as desired we relock/unlock it here */
-        if (lockCursor && !Screen.lockCursor) {
-            Screen.lockCursor = true;
-        }
-        if (!lockCursor && Screen.lockCursor) {
-            Screen.lockCursor = false;
-        }
-
 #if UNITY_EDITOR
         if (UnityEditor.EditorApplication.currentScene == "Client") {
             if (Input.GetKeyDown(KeyCode.F12)) {

@@ -20,6 +20,7 @@ public class HUDManager : MonoBehaviour {
     }
 
     public void Update() {
+
         // Close chat on scape or open/close menu
         if (Input.GetButtonDown("Escape")) {
             if (chat.isOpen) {
@@ -35,6 +36,13 @@ public class HUDManager : MonoBehaviour {
         }
         if (Input.GetButtonUp("Chat") && !chat.isOpen & !isMenuOpen) {
             chat.isOpen = true;
+        }
+        /* if cursor is not locked as desired we relock/unlock it here */
+        if (lockCursor && !Screen.lockCursor) {
+            Screen.lockCursor = true;
+        }
+        if (!lockCursor && Screen.lockCursor) {
+            Screen.lockCursor = false;
         }
     }
     private void OpenMenu() {
