@@ -5,22 +5,22 @@ Unity3D Towerfall 3D prototype
 - Controller: OK
 - Flechas limitadas: OK
 - Pegar flechas: OK
-- Pegar flechas durante o dash
-- Morrer
+- Pegar flechas durante o dash : OK?
+- Morrer : OK
 - Colisao da camera: OK
 - Power Up
- - Spawn
- - Flechas bomba
- - Escudo
+ - Spawn : OK
+ - Flechas bomba : OK
+ - Escudo : OK
 - Pular na cabeca do adversario: OK
 - UI
- - flechas
- - Placar 
+ - flechas : OK
+ - Placar :NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 - Fluxo de jogo
- - Menus
- - Lobby
- - Start
- - End
+ - Menus : OK
+ - Lobby : OK
+ - Start : OK
+ - End : OK
 - Castle: OK
 - Player Model
  - Animations
@@ -36,10 +36,10 @@ Unity3D Towerfall 3D prototype
  - chat
 - loop 0.2: OK
 - relfections 0.2: OK
+- loop 0.9: OK: ugly as hell
 
  Known Issues:
  - Colisao com as paredes
- - Flecha atirando para tras (tiago.bonetti)
 
 
 ## Dodge Stalling
