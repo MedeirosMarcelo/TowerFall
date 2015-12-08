@@ -9,10 +9,12 @@ public class StageManager : MonoBehaviour {
 
     ClientManager clienManager;
 
-    void Start () {
-        clienManager = ClientManager.Get();
-        clienManager.stage = gameObject;
-        clienManager.spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+    void Start() {
+        if (Network.isClient) {
+            clienManager = ClientManager.Get();
+            clienManager.stage = gameObject;
+            clienManager.spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+        }
         bounds = GetBounds();
     }
 

@@ -23,6 +23,7 @@ public class ClientManager : MonoBehaviour {
     public GameObject[] spawnPoints { get; set; }
     public Character character { get; private set; }
     public string playerName { get; set; }
+    public CharacterColor playerColor { get; set; }
     public bool lockCursor { get; set; }
 
     public GameObject chest;
@@ -48,32 +49,38 @@ public class ClientManager : MonoBehaviour {
             Screen.lockCursor = false;
         }
 
-        #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.F12)) {
-            if (Network.isClient) {
-                Debug.Log("Disconnect");
-                Network.Destroy(character.gameObject);
-                Network.Disconnect();
-            }
-            else {
-                Debug.Log("Connect");
-                Network.Connect("127.0.0.1", 25001);
+#if UNITY_EDITOR
+        if (UnityEditor.EditorApplication.currentScene == "Client") {
+            if (Input.GetKeyDown(KeyCode.F12)) {
+                if (Network.isClient) {
+                    Debug.Log("Disconnect");
+                    Network.Destroy(character.gameObject);
+                    Network.Disconnect();
+                }
+                else {
+                    Debug.Log("Connect");
+                    Network.Connect("127.0.0.1", 25001);
+                }
             }
         }
-        #endif
+#endif
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
+    bool spawnOnConnected = false;
     public void OnConnectedToServer() {
-        SpawnPlayer();
+        if (UnityEditor.EditorApplication.currentScene == "Client") {
+            SpawnPlayer();
+        }
     }
-    #endif
+#endif
 
     public void SpawnPlayer() {
         var spawn = spawnPoints.PickRandom().transform;
         var obj = Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group) as GameObject;
         obj.transform.SetParent(transform);
         character = obj.GetComponent<Character>();
+        character.color = playerColor;
         SpawnItems();
     }
 
@@ -92,7 +99,6 @@ public class ClientManager : MonoBehaviour {
         Application.LoadLevel("Client");
         Invoke("SpawnPlayer", 1);
     }
-
     // This are here so we guarantee Server <> Client RPCs will find ech other
     [RPC]
     void LobbyMessage(string msg) {
