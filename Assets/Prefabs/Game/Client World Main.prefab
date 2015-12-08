@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 413752}
-  - 114: {fileID: 11413754}
   - 114: {fileID: 11413752}
   m_Layer: 0
   m_Name: Client World Main
@@ -43,21 +42,6 @@ MonoBehaviour:
   ReflectionsX: 1
   ReflectionsY: 1
   ReflectionsZ: 1
---- !u!114 &11413754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f8afa470fcf0e747a32ac10aefa02f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicArrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
-  arrowPickupPrefab: {fileID: 159234, guid: 8ff7750d1a9e5e24eb05ae1e4fabafc7, type: 2}
-  characterPrefab: {fileID: 193262, guid: 3a4b1c921a09dbc4bb3ce0219f35e07a, type: 2}
-  mainStage: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

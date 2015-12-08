@@ -13,6 +13,7 @@ GameObject:
   - 111: {fileID: 11115014}
   - 65: {fileID: 6515014}
   - 114: {fileID: 11435922}
+  - 148: {fileID: 14872594}
   m_Layer: 0
   m_Name: Shield Icon
   m_TagString: Untagged
@@ -98,6 +99,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reflectionPrefab: {fileID: 115014, guid: 2fce1e4f77b1a4a4aa1292a5bc0d2a2b, type: 2}
+--- !u!148 &14872594
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115014}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 415014}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -34,7 +34,7 @@ public class CharacterArrows {
         Vector3 arrowPosition = character.arrowSpawner.transform.position;
         Quaternion arrowRotation = character.arrowSpawner.transform.rotation;
         var obj = Network.Instantiate(GetArrowByType(arrowStack.Peek()), arrowPosition, arrowRotation, Arrow.group) as GameObject;
-        obj.transform.SetParent(character.mainStage.transform);
+        obj.transform.SetParent(character.stage.transform);
         AimArrow(obj.transform);
         var arrow = obj.GetComponent<Arrow>();
         arrow.type = arrowStack.Pop();

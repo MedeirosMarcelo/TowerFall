@@ -46,7 +46,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 459234}
-  - 114: {fileID: 11422956}
+  - 114: {fileID: 11461688}
   m_Layer: 0
   m_Name: Arrow Pickup
   m_TagString: Arrow
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: .449999988
---- !u!114 &11422956
+--- !u!114 &11461688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -169,12 +169,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 159234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d39921151efed654ea21b46ebb7470be, type: 3}
+  m_Script: {fileID: 11500000, guid: d66bba7ffd8d23640b97c657f3215fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original: {fileID: 0}
-  damageArea: {fileID: 0}
-  mirrorCharacterAnim: 0
+  reflectionPrefab: {fileID: 110408, guid: 3589e02a16273bc43a877e7ed229b5fb, type: 2}
 --- !u!135 &13522956
 SphereCollider:
   m_ObjectHideFlags: 1

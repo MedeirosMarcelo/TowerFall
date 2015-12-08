@@ -51,6 +51,7 @@ public class WorldMirror : MonoBehaviour {
     public GameObject InstantiateReflections(GameObject obj) {
         var loopController = obj.GetComponent<LoopController>();
         if (loopController != null) {
+            Debug.Log("Reflect: " + obj.name);
             var reflection = obj.GetComponent<LoopController>().reflectionPrefab;
             IList<GameObject> reflectionList = new List<GameObject>();
             foreach (GameObject world in WorldReflectionList) {

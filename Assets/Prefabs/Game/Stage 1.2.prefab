@@ -118,7 +118,7 @@ GameObject:
   - 4: {fileID: 437248}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,7 +426,7 @@ GameObject:
   - 4: {fileID: 454556}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -756,7 +756,7 @@ GameObject:
   - 4: {fileID: 454594}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -966,7 +966,7 @@ GameObject:
   - 4: {fileID: 454618}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1069,7 +1069,7 @@ GameObject:
   - 4: {fileID: 454630}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1084,7 +1084,7 @@ GameObject:
   - 4: {fileID: 454632}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1292,7 +1292,7 @@ GameObject:
   - 4: {fileID: 454656}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1361,7 +1361,7 @@ GameObject:
   - 4: {fileID: 454664}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2318,7 +2318,7 @@ GameObject:
   - 4: {fileID: 454772}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2459,7 +2459,7 @@ GameObject:
   - 4: {fileID: 454788}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2688,7 +2688,7 @@ GameObject:
   - 4: {fileID: 454866}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2739,7 +2739,7 @@ GameObject:
   - 4: {fileID: 454872}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2950,7 +2950,7 @@ GameObject:
   - 4: {fileID: 454896}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3001,7 +3001,7 @@ GameObject:
   - 4: {fileID: 454902}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ClientManager : MonoBehaviour {
 
@@ -16,21 +17,25 @@ public class ClientManager : MonoBehaviour {
     [Header("Prefabs")]
     public GameObject arrowPickupPrefab;
     public GameObject characterPrefab;
+    public GameObject chestPrefab;
+    public GameObject arrowIconPrefab;
+    public GameObject arrowIconReflecationPrefab;
+    public GameObject bombArrowIconPrefab;
+    public GameObject bombArrowRelfactionIconPrefab;
+    public GameObject shieldIconPrefab;
+    public GameObject shieldIconReflectionPrefab;
+
+    [HideInInspector]
+    public List<Character> characterList;
 
     public LobbyManager lobbyManager { get; set; }
     public ChatManager chatManager { get; set; }
-    public GameObject stage { get; set; }
-    public GameObject[] spawnPoints { get; set; }
+    public StageManager stage { get; set; }
     public Character character { get; private set; }
     public string playerName { get; set; }
     public CharacterColor playerColor { get; set; }
     public bool lockCursor { get; set; }
 
-    public GameObject chest;
-    public GameObject arrowIcon;
-    public GameObject bombArrowIcon;
-    public GameObject shieldIcon;
-    public GameObject spawnChest;
 
     void Awake() {
         if (gameManager != null) {
@@ -73,32 +78,29 @@ public class ClientManager : MonoBehaviour {
             SpawnPlayer();
         }
     }
+#else 
+    public void OnDisconnectedFromServer() {
+        Application.LoadLevel("Menu");
+    }
 #endif
 
     public void SpawnPlayer() {
-        var spawn = spawnPoints.PickRandom().transform;
+        var spawn = stage.characterSpawnList.PickRandom().transform;
         var obj = Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group) as GameObject;
-        obj.transform.SetParent(transform);
+        obj.transform.SetParent(stage.transform);
         character = obj.GetComponent<Character>();
         character.color = playerColor;
-        SpawnItems();
-    }
-
-
-    void SpawnItems() {
-        GameObject[] loot = new GameObject[2];
-        loot[0] = bombArrowIcon;
-        loot[1] = shieldIcon;
-        chest.GetComponent<Chest>().Create(loot);
-        GameObject newChest = (GameObject)Network.Instantiate(chest, spawnChest.transform.position, chest.transform.rotation, 0);
-        newChest.transform.SetParent(Camera.main.GetComponent<Stage>().mainStage.transform);
     }
 
     [RPC]
-    void StartRound() {
+    void LoadRound() {
         Application.LoadLevel("Client");
-        Invoke("SpawnPlayer", 1);
     }
+    [RPC]
+    void StartRound() {
+        SpawnPlayer();
+    }
+
     // This are here so we guarantee Server <> Client RPCs will find ech other
     [RPC]
     void LobbyMessage(string msg) {
