@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &3922047
 GameObject:
@@ -1380,7 +1381,7 @@ GameObject:
   - 4: {fileID: 169686451}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,7 +1481,7 @@ GameObject:
   - 4: {fileID: 196176143}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1857,62 +1858,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 97814102}
   m_GameObject: {fileID: 233729621}
   m_Mesh: {fileID: 4300004, guid: d6c9cb6b44f050948abeb4b84596aea7, type: 3}
---- !u!1001 &237274219
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 14858864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_ViewID.m_ID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 14858864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: m_ViewID.m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11478442, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-      propertyPath: spawnChest
-      value: 
-      objectReference: {fileID: 470166015}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-  m_RootGameObject: {fileID: 819796336}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &249076045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4080,7 +4025,7 @@ GameObject:
   - 4: {fileID: 470166016}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4629,7 +4574,7 @@ GameObject:
   - 4: {fileID: 594410034}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5632,7 +5577,7 @@ GameObject:
   - 4: {fileID: 773092347}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5659,7 +5604,7 @@ GameObject:
   - 4: {fileID: 781124534}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5893,7 +5838,7 @@ CanvasRenderer:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 158864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-  m_PrefabInternal: {fileID: 237274219}
+  m_PrefabInternal: {fileID: 1868020605}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 819796339}
@@ -5911,7 +5856,7 @@ NetworkView:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 14858864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d,
     type: 2}
-  m_PrefabInternal: {fileID: 237274219}
+  m_PrefabInternal: {fileID: 1868020605}
   m_GameObject: {fileID: 819796336}
   m_Enabled: 1
   m_StateSynchronization: 1
@@ -5924,7 +5869,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11478442, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d,
     type: 2}
-  m_PrefabInternal: {fileID: 237274219}
+  m_PrefabInternal: {fileID: 1868020605}
   m_GameObject: {fileID: 819796336}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -5937,12 +5882,11 @@ MonoBehaviour:
   arrowIcon: {fileID: 178640, guid: 31a79813fdc6f4040a757a4851171a27, type: 2}
   bombArrowIcon: {fileID: 154838, guid: 1fe1ffa71c150c34280ca3821df81b6f, type: 2}
   shieldIcon: {fileID: 115014, guid: a272571b7d85e234a877d3dca49be5c9, type: 2}
-  spawnChest: {fileID: 470166015}
 --- !u!4 &819796339
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
-  m_PrefabInternal: {fileID: 237274219}
+  m_PrefabInternal: {fileID: 1868020605}
   m_GameObject: {fileID: 819796336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -6243,7 +6187,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22447100, guid: f360192dc194ff344a83337aefe26d74, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f360192dc194ff344a83337aefe26d74, type: 2}
@@ -6397,7 +6341,7 @@ GameObject:
   - 4: {fileID: 893099494}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6561,7 +6505,7 @@ GameObject:
   - 4: {fileID: 922827446}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7133,8 +7077,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -7507,7 +7451,7 @@ GameObject:
   - 4: {fileID: 1076103795}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7993,8 +7937,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -8817,7 +8761,7 @@ GameObject:
   - 4: {fileID: 1365428666}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8917,7 +8861,7 @@ GameObject:
   - 4: {fileID: 1373988895}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8944,7 +8888,7 @@ GameObject:
   - 4: {fileID: 1383529990}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10349,7 +10293,7 @@ GameObject:
   - 4: {fileID: 1614014219}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11713,7 +11657,7 @@ GameObject:
   - 4: {fileID: 1801574615}
   m_Layer: 0
   m_Name: Chest Spawn
-  m_TagString: Untagged
+  m_TagString: ChestSpawn
   m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12293,6 +12237,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 97814102}
   m_GameObject: {fileID: 1846208669}
   m_Mesh: {fileID: 4300002, guid: 929db5b185996204e8027bba6e84fda2, type: 3}
+--- !u!1001 &1868020605
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 458864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 14858864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14858864, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1c5f4b8ed0f2fe942939fc3dbe3b729d, type: 2}
+  m_RootGameObject: {fileID: 819796336}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1872870550
 GameObject:
   m_ObjectHideFlags: 0

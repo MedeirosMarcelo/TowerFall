@@ -54,7 +54,7 @@ public class LobbyCharacter : MonoBehaviour {
                 var obj = Instantiate(lobbyCharacterViewPrefab) as GameObject;
                 obj.transform.SetParent(clientManager.lobbyManager.playerList.transform);
                 lobbyCharacterView = obj.GetComponent<LobbyCharacterView>();
-                SyncAllData();
+                networkView.RPC("SyncAllData", RPCMode.Others);
             }
             else {
                 _playerName = clientManager.playerName;
@@ -62,20 +62,18 @@ public class LobbyCharacter : MonoBehaviour {
         }
     }
     void OnDestroy() {
-        if (Network.isServer) {
+        if (serverManager) {
             serverManager.lobbyCharacterList.Remove(this);
         }
-        if (Network.isClient && !networkView.isMine) {
+        if (clientManager && !networkView.isMine) {
             Destroy(lobbyCharacterView.gameObject);
         }
-        Destroy();
     }
 
     void OnDisconnectedFromServer() {
         if (lobbyCharacterView != null) {
             Destroy(lobbyCharacterView.gameObject);
         }
-        Destroy(gameObject);
     }
 
     [RPC]
@@ -99,7 +97,9 @@ public class LobbyCharacter : MonoBehaviour {
             }
             else {
                 Debug.Log("Show color");
-                lobbyCharacterView.color = _color.ToColor();
+                if (lobbyCharacterView != null) {
+                    lobbyCharacterView.color = _color.ToColor();
+                }
             }
         }
     }
@@ -119,10 +119,6 @@ public class LobbyCharacter : MonoBehaviour {
             networkView.RPC("SendPlayerName", RPCMode.Others, _playerName);
             networkView.RPC("SendColor", RPCMode.Others, (int)_color);
             networkView.RPC("SendIsReady", RPCMode.Others, _isReady);
-            return;
-        }
-        else {
-            networkView.RPC("SyncAllData", RPCMode.Others);
         }
     }
 

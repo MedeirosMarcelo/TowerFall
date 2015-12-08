@@ -22,7 +22,7 @@ public class Character : Reflectable {
     public CharacterArrows arrows { get; private set; }
     public CharacterFsm fsm { get; private set; }
     // World
-    public GameObject mainStage { get { return clientManager.stage; } }
+    public StageManager stage { get { return clientManager.stage; } }
     // Network
     public bool isMine { get { return networkView.isMine; } }
     public bool isNotMine { get { return !networkView.isMine; } }
@@ -62,7 +62,7 @@ public class Character : Reflectable {
     }
 
     void FixedUpdate() {
-        if (Network.isServer && !waitingDestruction) {
+        if (Network.isServer && !destroyRequested) {
             DetectJumpKill();
             return;
         }
@@ -78,15 +78,21 @@ public class Character : Reflectable {
     }
 
     ClientManager clientManager;
+    ServerManager serverManager;
 
     void Start() {
-        clientManager = ClientManager.Get();
+        if (Network.isClient) {
+            clientManager = ClientManager.Get();
+            clientManager.characterList.Add(this);
+        }
+        else {
+            serverManager = ServerManager.Get();
+            serverManager.characterList.Add(this);
+        }
 
-        Debug.Log("Char Start");
         if (Network.isServer || (Network.isClient && isNotMine)) {
             charCamera.gameObject.SetActive(false);
         }
-
 
         input = new CharacterInput(this);
         controller = new CharacterController(this);
@@ -94,6 +100,18 @@ public class Character : Reflectable {
         fsm = new CharacterFsm(this);
 
     }
+
+    void OnDestroy() {
+        if (clientManager) {
+            Debug.Log("OnDestroy client");
+            clientManager.characterList.Remove(this);
+        }
+        else {
+            Debug.Log("OnDestroy server");
+            serverManager.characterList.Remove(this);
+        }
+    }
+
 
     public void TakeHit(DamageDealer damager) {
         Debug.Log("Take hit");
@@ -107,7 +125,7 @@ public class Character : Reflectable {
 
     void MonitorHealth() {
         if (health <= 0) {
-            Destroy();
+            RequestOwnerDestruction();
         }
     }
 
@@ -134,33 +152,41 @@ public class Character : Reflectable {
             var parent = hit.collider.transform.parent;
             if (parent.tag == "Player") {
                 Debug.Log("Jump kill!");
-                Destroy();
+                RequestOwnerDestruction();
                 parent.rigidbody.AddForce(Vector3.up * headKillForce, ForceMode.Impulse);
 
             }
         }
     }
+
     void OnDisconnectedFromServer() {
         Destroy(gameObject);
     }
 
-    private bool waitingDestruction = false;
+    public void ServerDestroy() {
+        Debug.Log("Server Destroy: " + GetInstanceID());
+        destroyRequested = true;
+        Network.RemoveRPCs(networkView.owner, group);
+        Network.Destroy(gameObject);
+        return;
+    }
+    bool destroyRequested = false;
+    void RequestOwnerDestruction() {
+        Debug.Log("Requested Owner Destroy: " + GetInstanceID());
+        destroyRequested = true;
+        Network.RemoveRPCs(networkView.owner, group);
+        networkView.RPC("OwnerDestroy", RPCMode.Others);
+        return;
+    }
     [RPC]
-    void Destroy() {
-        if (Network.isServer) {
-            waitingDestruction = true;
-            Debug.Log("Destroy Character " + GetInstanceID());
-            Network.RemoveRPCs(networkView.owner, group);
-            networkView.RPC("Destroy", RPCMode.Others);
-            gameObject.SetActive(false);
-            return;
-        }
+    void OwnerDestroy() {
         if (networkView.isMine) {
             Debug.Log("Destroy Character " + GetInstanceID());
             Network.Destroy(gameObject);
             return;
         }
     }
+
     [RPC]
     void TakeDamage(int damage) {
         Debug.Log(health + " " + damage);

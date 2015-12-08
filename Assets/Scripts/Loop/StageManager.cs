@@ -6,16 +6,26 @@ public class StageManager : MonoBehaviour {
 
     public bool DrawnBounds = true;
     public Bounds bounds { get; private set; }
+    public GameObject[] characterSpawnList { get; private set; }
+    public GameObject[] chestSpawnList { get; private set; }
 
-    ClientManager clienManager;
+    ClientManager clientManager;
+    ServerManager serverManager;
 
     void Start() {
         if (Network.isClient) {
-            clienManager = ClientManager.Get();
-            clienManager.stage = gameObject;
-            clienManager.spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+            clientManager = ClientManager.Get();
+            clientManager.stage = this;
+
+        }
+        else {
+            serverManager = ServerManager.Get();
+            serverManager.stage = this;
         }
         bounds = GetBounds();
+        characterSpawnList = GameObject.FindGameObjectsWithTag("Spawn");
+        chestSpawnList = GameObject.FindGameObjectsWithTag("ChestSpawn");
+
     }
 
     void OnDrawGizmos() {

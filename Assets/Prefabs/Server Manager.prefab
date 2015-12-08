@@ -48,11 +48,10 @@ MonoBehaviour:
   bombArrowPrefab: {fileID: 164590, guid: c8c36f8469f9b084bac83e3dd73db7e7, type: 2}
   bombArrowPickupPrefab: {fileID: 110278, guid: bd3ad79d4604f4a4fbc0afe45647ec62,
     type: 2}
-  chest: {fileID: 154308, guid: bb968546e061eaf4ea57c4062f1298fe, type: 2}
-  arrowIcon: {fileID: 178640, guid: 31a79813fdc6f4040a757a4851171a27, type: 2}
-  bombArrowIcon: {fileID: 154838, guid: 1fe1ffa71c150c34280ca3821df81b6f, type: 2}
-  shieldIcon: {fileID: 115014, guid: a272571b7d85e234a877d3dca49be5c9, type: 2}
-  spawnChest: {fileID: 0}
+  chestPrefab: {fileID: 154308, guid: bb968546e061eaf4ea57c4062f1298fe, type: 2}
+  arrowIconPrefab: {fileID: 178640, guid: 31a79813fdc6f4040a757a4851171a27, type: 2}
+  bombArrowIconPrefab: {fileID: 154838, guid: 1fe1ffa71c150c34280ca3821df81b6f, type: 2}
+  shieldIconPrefab: {fileID: 115014, guid: a272571b7d85e234a877d3dca49be5c9, type: 2}
 --- !u!148 &14815124
 NetworkView:
   m_ObjectHideFlags: 1
