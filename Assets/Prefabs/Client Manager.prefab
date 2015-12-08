@@ -42,6 +42,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPickupPrefab: {fileID: 159234, guid: 8ff7750d1a9e5e24eb05ae1e4fabafc7, type: 2}
   characterPrefab: {fileID: 193262, guid: 3a4b1c921a09dbc4bb3ce0219f35e07a, type: 2}
+  chest: {fileID: 154308, guid: bb968546e061eaf4ea57c4062f1298fe, type: 2}
+  arrowIcon: {fileID: 178640, guid: 31a79813fdc6f4040a757a4851171a27, type: 2}
+  bombArrowIcon: {fileID: 154838, guid: 1fe1ffa71c150c34280ca3821df81b6f, type: 2}
+  shieldIcon: {fileID: 115014, guid: a272571b7d85e234a877d3dca49be5c9, type: 2}
+  spawnChest: {fileID: 0}
 --- !u!148 &14858864
 NetworkView:
   m_ObjectHideFlags: 1

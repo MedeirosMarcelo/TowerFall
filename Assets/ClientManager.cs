@@ -25,6 +25,12 @@ public class ClientManager : MonoBehaviour {
     public string playerName { get; set; }
     public bool lockCursor { get; set; }
 
+    public GameObject chest;
+    public GameObject arrowIcon;
+    public GameObject bombArrowIcon;
+    public GameObject shieldIcon;
+    public GameObject spawnChest;
+
     void Awake() {
         if (gameManager != null) {
             Destroy(gameObject);
@@ -68,6 +74,17 @@ public class ClientManager : MonoBehaviour {
         var obj = Network.Instantiate(characterPrefab, spawn.position, spawn.rotation, Character.group) as GameObject;
         obj.transform.SetParent(transform);
         character = obj.GetComponent<Character>();
+        SpawnItems();
+    }
+
+
+    void SpawnItems() {
+        GameObject[] loot = new GameObject[2];
+        loot[0] = bombArrowIcon;
+        loot[1] = shieldIcon;
+        chest.GetComponent<Chest>().Create(loot);
+        GameObject newChest = (GameObject)Network.Instantiate(chest, spawnChest.transform.position, chest.transform.rotation, 0);
+        newChest.transform.SetParent(Camera.main.GetComponent<Stage>().mainStage.transform);
     }
 
     [RPC]

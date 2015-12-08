@@ -44,10 +44,10 @@ public class Arrow : DamageDealer {
     }
 
     void AllowHitOwner() { canHitOwner = true; }
-    
+
     [RPC]
     protected void Destroy() {
-        if(Network.isServer) {
+        if (Network.isServer) {
             Debug.Log("Destroy Arrow " + GetInstanceID());
             Network.RemoveRPCs(networkView.owner, group);
             if (type == ArrowType.Bomb) networkView.RPC("Explode", RPCMode.All);
@@ -72,7 +72,7 @@ public class Arrow : DamageDealer {
         if (Network.isClient) {
             return;
         }
-        if (col.gameObject.tag ==  "Walkable") {
+        if (col.gameObject.tag == "Walkable") {
             HitScenary();
         }
         else if (col.gameObject.tag == "Player") {
@@ -108,7 +108,6 @@ public class Arrow : DamageDealer {
     }
 
     public void PickUp(GameObject character) {
-        Debug.Log("Pickup");
         Character picker = gameObject.GetComponent<Character>();
         picker.networkView.RPC("StoreArrow", RPCMode.Others, (int)type);
         Destroy();
@@ -117,10 +116,7 @@ public class Arrow : DamageDealer {
     GameObject damageArea;
     [RPC]
     public void Explode() {
-        Debug.Log("EXPLODE");
-        if (networkView.isMine) {
-            damageArea.SetActive(true);
-            damageArea.transform.SetParent(Camera.main.GetComponent<Stage>().mainStage.transform);
-        }
+        damageArea.SetActive(true);
+        damageArea.transform.SetParent(Camera.main.GetComponent<Stage>().mainStage.transform);
     }
 }

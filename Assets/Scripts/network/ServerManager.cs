@@ -75,7 +75,6 @@ public class ServerManager : MonoBehaviour {
                 break;
             case ServerState.InRound:
                 StartRound();
-                SpawnItems();
                 break;
             default:
                 Debug.LogError("Wait what? " + serverState);
@@ -139,14 +138,6 @@ public class ServerManager : MonoBehaviour {
     [RPC]
     void StartRound() {
         networkView.RPC("StartRound", RPCMode.Others);
-    }
-
-    void SpawnItems() {
-        GameObject[] loot = new GameObject[2];
-        loot[0] = bombArrowIcon;
-        loot[1] = shieldIcon;
-        chest.GetComponent<Chest>().Create(loot);
-        Network.Instantiate(chest, spawnChest.transform.position, spawnChest.transform.rotation, 0);
     }
 
     void SendLobbyMessage(string msg) {

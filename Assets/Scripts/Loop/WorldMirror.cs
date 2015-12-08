@@ -75,9 +75,12 @@ public class WorldMirror : MonoBehaviour {
                 foreach (GameObject reflection in reflectionList) {
                     GameObject damageArea = reflection.GetComponent<ObjectReflection>().damageArea;
                     if (reflection.name == "Arrow Reflection(Clone)") {
+                        Debug.Log(obj.transform.localPosition);
+                        Debug.Log(obj.name);
                         damageArea.SetActive(true);
                         damageArea.transform.SetParent(damageArea.transform.parent.parent, true);
                         damageArea.transform.localPosition = obj.transform.localPosition;
+                        damageArea.transform.localPosition = new Vector3(damageArea.transform.localPosition.x, damageArea.transform.localPosition.y, damageArea.transform.localPosition.z - 45f);
                     }
                     Destroy(reflection.gameObject);
                 }
