@@ -2,6 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum CharacterColor {
+    White,
+    Black,
+    Yellow,
+    Blue,
+    Green,
+    Red,
+    Purple,
+    Pink
+}
+
 public class Character : Reflectable {
 
     public static readonly int group = (int)NetworkGroup.Character;
@@ -15,6 +26,9 @@ public class Character : Reflectable {
     // Network
     public bool isMine { get { return networkView.isMine; } }
     public bool isNotMine { get { return !networkView.isMine; } }
+
+    [Header("Colored Materials")]
+    public List<Material> colors = new List<Material>();
 
     [Header("Children Objects")]
     public Camera charCamera;
@@ -32,7 +46,7 @@ public class Character : Reflectable {
 
     [Header("Character config")]
     public int health = 1;
-    public Color color = Color.white;
+    public CharacterColor color = CharacterColor.White;
 
     void Update() {
         if (isNotMine) {
