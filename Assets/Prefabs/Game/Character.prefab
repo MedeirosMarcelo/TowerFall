@@ -1496,6 +1496,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseReflections: 0
+  colors:
+  - {fileID: 2100000, guid: bc3b182be6490b04f8ee265c6256a229, type: 2}
+  - {fileID: 2100000, guid: a9364302eeeaee44b945a74841242024, type: 2}
+  - {fileID: 2100000, guid: 019727dcd7998014c8f5afca3cb9fa44, type: 2}
+  - {fileID: 2100000, guid: 888ccaabbe95d3844844c2bd41199853, type: 2}
+  - {fileID: 2100000, guid: ed6f555c2d5001e45a6332d31f480234, type: 2}
+  - {fileID: 2100000, guid: ed910d475ff46a44385cec2a114e2c05, type: 2}
+  - {fileID: 2100000, guid: 38e72f7f4331ced44b785e3fd3e9fc57, type: 2}
+  - {fileID: 2100000, guid: f186a2fa1cf519e43b3a082b9c6021d0, type: 2}
   charCamera: {fileID: 2093260}
   groundCollider: {fileID: 11484514}
   handsCollider: {fileID: 11484512}
@@ -1507,7 +1516,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 164590, guid: a926df5ce1fd8894eaa32f431dcd097d, type: 2}
   bombArrowPrefab: {fileID: 164590, guid: c8c36f8469f9b084bac83e3dd73db7e7, type: 2}
   health: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: 0
 --- !u!114 &11444950
 MonoBehaviour:
   m_ObjectHideFlags: 1

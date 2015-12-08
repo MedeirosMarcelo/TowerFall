@@ -8,7 +8,7 @@ public class HUDArrowDisplay : MonoBehaviour {
     public IList<Image> slotList;
     public Sprite spriteBasicArrow;
     public Sprite spriteBombArrow;
-    
+
     int arrowCount;
     ClientManager gameManager;
 
@@ -18,11 +18,7 @@ public class HUDArrowDisplay : MonoBehaviour {
     }
 
     void Update() {
-        UpdateArrowPanel();
-    }
-
-    public void UpdateArrowPanel() {
-        if (Network.isClient) {
+        if (Network.isClient && gameManager.character != null) {
             if (arrowCount != gameManager.character.arrows.stack.Count) {
                 int i = 0;
                 foreach (ArrowType arrowType in gameManager.character.arrows.stack) {
